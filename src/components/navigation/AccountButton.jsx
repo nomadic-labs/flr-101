@@ -9,7 +9,8 @@ import {
   userLoggedOut,
   toggleRegistrationModal,
   deploy,
-  toggleEditing
+  toggleEditing,
+  deployWithStagingContent
 } from "../../redux/actions";
 
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
@@ -134,6 +135,18 @@ class AccountButton extends React.Component {
               </MenuItem>
             )}
 
+            {props.allowEditing && (
+              <MenuItem
+                onClick={() => {
+                  props.deployWithStagingContent();
+                  closeMenu();
+                }}
+                divider
+              >
+                Publish from staging
+              </MenuItem>
+            )}
+
             <MenuItem
               onClick={() => {
                 logout();
@@ -180,7 +193,10 @@ const mapDispatchToProps = dispatch => {
     },
     deploy: () => {
       dispatch(deploy());
-    }
+    },
+    deployWithStagingContent: () => {
+      dispatch(deployWithStagingContent());
+    },
   };
 };
 

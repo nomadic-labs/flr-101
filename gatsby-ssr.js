@@ -12,7 +12,6 @@ import wrapWithProvider from "./src/redux/wrapWithProvider";
 
 export const replaceRenderer = ({ bodyComponent, replaceBodyHTMLString, setHeadComponents }) => {
   const pageContext = getPageContext();
-  const store = createStore()
 
   const bodyHTML = renderToString(
     <JssProvider

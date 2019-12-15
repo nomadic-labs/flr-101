@@ -8,16 +8,6 @@ import {
   userLoggedOut,
 } from "../redux/actions";
 
-const uiConfig = {
-  signInOptions: [
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.EmailAuthProvider.PROVIDER_ID,
-  ],
-  credentialHelper: 'NONE',
-  callbacks: {
-      signInSuccess: () => navigateTo('/')
-    }
-};
 
 const styles = {
   container: {
@@ -60,6 +50,17 @@ class LoginPage extends React.Component {
 
 
   render () {
+    const uiConfig = {
+      signInOptions: [
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      ],
+      credentialHelper: 'NONE',
+      callbacks: {
+          signInSuccess: () => navigateTo('/')
+        }
+    };
+
     return (
       <div className="container full-screen" style={styles.container}>
           <h1>Sign up / Sign in</h1>
