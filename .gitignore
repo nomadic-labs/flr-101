@@ -15,6 +15,7 @@ app.yaml
 
 
 firebase-debug.log
+.firebase
 
 # static files
 # images
