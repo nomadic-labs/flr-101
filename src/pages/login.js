@@ -19,33 +19,36 @@ const styles = {
 }
 
 class LoginPage extends React.Component {
+  state = { firebaseAuth: null }
+
   componentDidMount() {
-    firebase.auth().onAuthStateChanged(user => {
-      console.log('logged in', user)
-      if (user) {
-        const ref = firebase
-          .app()
-          .database()
-          .ref(`users/${user.uid}`);
-        ref.once("value").then(snapshot => {
-          const userData = snapshot.val();
-          if (userData) {
-            this.props.userLoggedIn(userData);
-          } else {
-            const newUser = {
-              uid: user.uid,
-              displayName: user.displayName,
-              email: user.email,
-              photoURL: user.photoURL
-            };
-            ref.set(newUser);
-            this.props.userLoggedIn(newUser);
-          }
-        });
-      } else {
-        this.props.userLoggedOut();
-      }
-    });
+    this.setState({ firebaseAuth: firebase.auth() }, () => {
+      this.state.firebaseAuth.onAuthStateChanged(user => {
+        if (user) {
+          const ref = firebase
+            .app()
+            .database()
+            .ref(`users/${user.uid}`);
+          ref.once("value").then(snapshot => {
+            const userData = snapshot.val();
+            if (userData) {
+              this.props.userLoggedIn(userData);
+            } else {
+              const newUser = {
+                uid: user.uid,
+                displayName: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL
+              };
+              ref.set(newUser);
+              this.props.userLoggedIn(newUser);
+            }
+          });
+        } else {
+          this.props.userLoggedOut();
+        }
+      });
+    })
   }
 
 
@@ -64,7 +67,7 @@ class LoginPage extends React.Component {
     return (
       <div className="container full-screen" style={styles.container}>
           <h1>Sign up / Sign in</h1>
-          <FirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+          {this.state.firebaseAuth && <FirebaseAuth uiConfig={uiConfig} firebaseAuth={this.state.firebaseAuth} />}
       </div>
     )
   }
