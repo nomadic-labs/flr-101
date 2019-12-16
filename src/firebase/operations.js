@@ -27,6 +27,9 @@ export const uploadFile = file => {
 
 export const copyContentFromStaging = () => {
   return new Promise((resolve, reject) => {
+    if (!stagingFirebase) {
+      reject("The staging database is not available.")
+    }
     const stagingDB = stagingFirebase.database();
     const currentDB = firebase.database();
 

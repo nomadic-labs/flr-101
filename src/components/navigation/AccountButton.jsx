@@ -1,6 +1,6 @@
 import React from "react";
 import { push } from "gatsby";
-import firebase from "../../firebase/init";
+import firebase, { stagingFirebase } from "../../firebase/init";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button"
 
@@ -135,7 +135,7 @@ class AccountButton extends React.Component {
               </MenuItem>
             )}
 
-            {props.allowEditing && (
+            {props.allowEditing && stagingFirebase && (
               <MenuItem
                 onClick={() => {
                   props.deployWithStagingContent();
