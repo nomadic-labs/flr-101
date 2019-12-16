@@ -30,8 +30,8 @@ module.exports = {
     {
       resolve: "gatsby-source-firebase-nl",
       options: {
-        credential: firebaseConfig[process.env.GATSBY_FIREBASE_ENVIRONMENT].serviceAccountKey,
-        databaseURL: firebaseConfig[process.env.GATSBY_FIREBASE_ENVIRONMENT].databaseURL,
+        credential: firebaseConfig.serviceAccountKey,
+        databaseURL: firebaseConfig.databaseURL,
         types: [
           {
             type: "Pages",
