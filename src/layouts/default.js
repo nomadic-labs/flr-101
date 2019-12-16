@@ -12,6 +12,7 @@ import {
 } from 'react-easy-editables';
 
 import "../assets/sass/less-cms/base.scss";
+import "../assets/sass/custom.scss";
 
 import favicon from '../assets/images/icon.png'
 
@@ -38,12 +39,12 @@ const DefaultLayout = props => (
   <div style={styles.container}>
     <Helmet>
       <title>
-        React CMS Starter
+        Feminist Law Reform 101
       </title>
       <meta
         charSet="utf-8"
-        description="Simple and flexible CMS for static sites"
-        keywords="static site, CMS, React, Gatsby"
+        description="An open online course about feminist law reform from the National Association of Women and the Law"
+        keywords="law, law reform, feminist, feminism, NAWL, National Association of Women and the Law, FLR 101"
         viewport="width=device-width,initial-scale=1.0,maximum-scale=1"
       />
       <link rel="icon" href={favicon} type="image/x-icon" />
