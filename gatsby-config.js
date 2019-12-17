@@ -1,6 +1,6 @@
 
 let activeEnv =
-  process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || "development"
+  process.env.GATSBY_FIREBASE_ENVIRONMENT || process.env.NODE_ENV || "development"
 
 console.log(`Using environment config: '${activeEnv}'`)
 

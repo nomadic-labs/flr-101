@@ -2,7 +2,7 @@ import firebase from "firebase/app"
 import "firebase/auth"
 import "firebase/database"
 
-const activeEnv = process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || "development"
+const activeEnv = process.env.GATSBY_FIREBASE_ENVIRONMENT || process.env.NODE_ENV || "development"
 const config = require(`../../config/firebase-config.${activeEnv}.json`)
 const stagingConfig = require(`../../config/firebase-config.staging.json`)
 
