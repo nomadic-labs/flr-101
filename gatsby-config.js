@@ -1,26 +1,26 @@
 
 let activeEnv =
-  process.env.GATSBY_FIREBASE_ENVIRONMENT || process.env.NODE_ENV || "development"
+  process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || "development"
 
 console.log(`Using environment config: '${activeEnv}'`)
-
-const firebaseConfig = require(`./config/firebase-config.${activeEnv}.json`)
 
 require("dotenv").config({
   path: `.env.${activeEnv}`,
 })
 
+const firebaseConfig = require(`./config/firebase-config.${process.env.GATSBY_FIREBASE_ENVIRONMENT}.json`)
+
 module.exports = {
   siteMetadata: {
-    title: `Connecting the Dots`,
+    title: `Feminist Law Reform 101`,
   },
   pathPrefix: `/`,
   plugins: [
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: "React CMS starter",
-        short_name: "React CMS starter",
+        name: "Feminist Law Reform 101",
+        short_name: "Feminist Law Reform 101",
         start_url: "/",
         background_color: "#000",
         theme_color: "#FCB239", // yellow
