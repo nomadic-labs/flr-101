@@ -1,8 +1,10 @@
-const firebaseConfig = require("./config/firebase-config.json")
 
 let activeEnv =
   process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || "development"
+
 console.log(`Using environment config: '${activeEnv}'`)
+
+const firebaseConfig = require(`./config/firebase-config.${activeEnv}.json`)
 
 require("dotenv").config({
   path: `.env.${activeEnv}`,

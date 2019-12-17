@@ -1,5 +1,5 @@
 import React from "react";
-import { push } from "gatsby";
+import { navigate } from "gatsby";
 import firebase, { stagingFirebase } from "../../firebase/init";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button"
@@ -7,7 +7,6 @@ import Button from "@material-ui/core/Button"
 import {
   userLoggedIn,
   userLoggedOut,
-  toggleRegistrationModal,
   deploy,
   toggleEditing,
   deployWithStagingContent
@@ -59,21 +58,13 @@ class AccountButton extends React.Component {
       } else {
         this.props.userLoggedOut();
       }
-
-      if (this.props.showRegistrationModal) {
-        this.props.onToggleRegistrationModal();
-      }
     });
   }
 
   logout = e => {
     firebase.auth().signOut();
     this.props.userLoggedOut();
-    push("/");
-  };
-
-  login = e => {
-    this.props.onToggleRegistrationModal();
+    navigate("/");
   };
 
   openMenu = e => {
@@ -171,7 +162,6 @@ const mapStateToProps = state => {
   return {
     isLoggedIn: state.adminTools.isLoggedIn,
     user: state.adminTools.user,
-    showRegistrationModal: state.adminTools.showRegistrationModal,
     isEditingPage: state.adminTools.isEditingPage,
     allowEditing: allowEditing
   };
@@ -184,9 +174,6 @@ const mapDispatchToProps = dispatch => {
     },
     userLoggedOut: () => {
       dispatch(userLoggedOut());
-    },
-    onToggleRegistrationModal: () => {
-      dispatch(toggleRegistrationModal());
     },
     onToggleEditing: () => {
       dispatch(toggleEditing());

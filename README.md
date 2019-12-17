@@ -13,10 +13,6 @@
     	".read": true,
     	".write": "auth != null && root.child('users').child(auth.uid).child('isEditor').val() == true"
     },
-    "tracks": {
-    	".read": true,
-    	".write": "auth != null && root.child('users').child(auth.uid).child('isEditor').val() == true"
-    },
     "users": {
       "$user_id": {
         ".write": "$user_id === auth.uid",

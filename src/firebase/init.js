@@ -1,14 +1,22 @@
-import * as config from "../../config/firebase-config.json";
-import firebase from "firebase/app";
+import firebase from "firebase/app"
 import "firebase/auth"
 import "firebase/database"
 
-firebase.initializeApp(config.default);
+const activeEnv = process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || "development"
+const config = require(`../../config/firebase-config.${activeEnv}.json`)
+const stagingConfig = require(`../../config/firebase-config.staging.json`)
 
-let stagingFirebase;
+let defaultFirebase = null;
+let stagingFirebase = null;
 
-if (config.default["staging"]) {
-  stagingFirebase = firebase.initializeApp(config.default["staging"], "staging")
+console.log(`Using ${activeEnv} firebase configuration`)
+
+if (!defaultFirebase) {
+  defaultFirebase = firebase.initializeApp(config);
+}
+
+if (!stagingFirebase) {
+  stagingFirebase = firebase.initializeApp(stagingConfig, "staging")
 }
 
 export default firebase;

@@ -3,14 +3,12 @@ export const adminTools = (state={}, action) => {
   switch (action.type) {
     case 'USER_LOGGED_IN':
       return { ...state, isLoggedIn: true, user: action.user }
-    case 'LOCK_FAILURE':
+    case 'LOGIN_FAILURE':
       return { ...state, isLoggedIn: false, error: action.err }
     case 'USER_LOGGED_OUT':
       return { ...state, isLoggedIn: false, isEditingPage: false }
     case 'TOGGLE_EDITING':
       return { ...state, isEditingPage: !state.isEditingPage }
-    case 'TOGGLE_REGISTRATION_MODAL':
-      return { ...state, showRegistrationModal: !state.showRegistrationModal }
     default:
       return state
   }

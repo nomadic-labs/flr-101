@@ -7,8 +7,8 @@ import {
 } from "../redux/actions";
 
 import Layout from "../layouts/default.js";
-import { EditableText, EditableParagraph, EditableBackgroundImage } from "react-easy-editables";
-import { uploadImage } from "../firebase/operations"
+import { EditableText, EditableParagraph } from "react-easy-editables";
+
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -48,14 +48,8 @@ class HomePage extends React.Component {
 
     return (
       <Layout>
-
-        <section className="no-padding">
-          <EditableBackgroundImage content={content["landing-bg-image"]} handleSave={this.onSave("landing-bg-image")} uploadImage={uploadImage}>
-            <EditableText content={content["landing-title"]} handleSave={this.onSave("landing-title")} />
-          </EditableBackgroundImage>
-        </section>
-
-        <section id="about" className="wow fadeIn">
+        <section id="landing" className="wow fadeIn">
+          <EditableText content={content["landing-title"]} handleSave={this.onSave("landing-title")} />
           <EditableParagraph content={content["landing-description"]} handleSave={this.onSave("landing-description")} />
         </section>
 
