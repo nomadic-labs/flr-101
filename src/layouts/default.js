@@ -36,7 +36,7 @@ const mapStateToProps = state => {
 
 
 const DefaultLayout = props => (
-  <div style={styles.container}>
+  <div style={styles.container} className="nl-page">
     <Helmet>
       <title>
         Feminist Law Reform 101

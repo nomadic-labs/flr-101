@@ -2,11 +2,81 @@
 @import "responsive";
 @import "mixins";
 
-body {
+body .nl-page {
   font-family: $body-font;
-}
+  font-size: 14px;
+  color: $black;
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: $header-font;
-}
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $header-font;
+  }
 
+  h1 {
+    font-size: 5rem;
+  }
+
+  h2 {
+    font-size: 4rem;
+  }
+
+  h3 {
+    font-size: 3rem;
+  }
+
+
+  section {
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+  }
+
+  p {
+    font-family: $body-font;
+    font-size: 1.4rem;
+  }
+
+  .underline {
+    position: relative;
+    padding-bottom: 1rem;
+
+    &:after {
+      content: "";
+      width: 66%;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 6px;
+      background-color: $secondary-color;
+    }
+  }
+
+  .subheading {
+    background-color: $secondary-color;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  #landing {
+    text-align: center;
+    padding-top: 10%;
+    padding-bottom: 20%;
+
+    h1 {
+      color: $tertiary-color;
+      font-family: $body-font;
+      text-transform: lowercase;
+      font-size: 5rem;
+      line-height: 1.2;
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+
+    .landing-subtitle {
+      color: $tertiary-color;
+      font-family: $header-font;
+      text-transform: uppercase;
+
+    }
+
+  }
+
+}

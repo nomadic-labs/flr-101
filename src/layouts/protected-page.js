@@ -21,7 +21,7 @@ const ProtectedPage = props => {
   }
 
   return (
-    <section>
+    <section className="nl-page">
       <div className="container">
         <p>You are not authorized to view this page.</p>
         <p>(Are you logged in?)</p>
