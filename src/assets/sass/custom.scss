@@ -17,6 +17,8 @@ body .nl-page {
 
   h2 {
     font-size: 4rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
   }
 
   h3 {
@@ -25,13 +27,49 @@ body .nl-page {
 
 
   section {
-    padding-top: 2rem;
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
+
+    &.dynamic-section {
+      position: relative;
+      padding-bottom: 40px;
+    }
   }
 
   p {
     font-family: $body-font;
     font-size: 1.4rem;
+  }
+
+  a, button {
+    font-family: $header-font;
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
+
+  footer {
+    padding: 1rem;
+    border-top: 1px solid $black;
+
+    .footer-left {
+      border-right: 1px solid $black;
+    }
+
+    .footer-right {
+      button {
+        margin-left: 1rem;
+      }
+    }
+
+  }
+
+  .align-right {
+    text-align: right;
+  }
+
+  .vertical-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .underline {

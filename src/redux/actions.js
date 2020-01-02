@@ -1,8 +1,8 @@
 import axios from "axios";
-import slugify from "slugify";
 import firebase from "../firebase/init";
 import { copyContentFromStaging } from "../firebase/operations"
 import { NOTIFICATION_MESSAGES } from "../utils/constants";
+
 
 // AUTHENTICATION ------------------------
 
@@ -33,14 +33,224 @@ export function showNotificationByName(name) {
 
 // PAGE EDITING ------------------------
 
+
+export function updateSectionContent(sectionIndex, contentIndex, newContent) {
+  return {
+    type: "UPDATE_SECTION_CONTENT",
+    sectionIndex,
+    contentIndex,
+    newContent
+  };
+}
+
+export function addSection(sectionIndex, sectionType="default") {
+  return { type: "ADD_SECTION", sectionIndex, sectionType };
+}
+
+export function duplicateSection(sectionIndex) {
+  return { type: "DUPLICATE_SECTION", sectionIndex };
+}
+
+export function deleteSection(sectionIndex) {
+  return { type: "DELETE_SECTION", sectionIndex };
+}
+
+export function addContentItem(sectionIndex, contentType) {
+  return { type: "ADD_CONTENT_ITEM", sectionIndex, contentType };
+}
+
+export function updateContentItem(sectionIndex, contentIndex, content) {
+  return { type: "UPDATE_CONTENT_ITEM", sectionIndex, contentIndex , content};
+}
+
+export function deleteContentItem(sectionIndex, contentIndex) {
+  return { type: "DELETE_CONTENT_ITEM", sectionIndex, contentIndex };
+}
+
+export function addSidebarContent(sectionIndex, contentType) {
+  return { type: "ADD_SIDEBAR_CONTENT", sectionIndex, contentType };
+}
+
+export function updateSidebarContent(sectionIndex, content) {
+  return { type: "UPDATE_SIDEBAR_CONTENT", sectionIndex, content};
+}
+
+export function deleteSidebarContent(sectionIndex) {
+  return { type: "DELETE_SIDEBAR_CONTENT", sectionIndex };
+}
+
 export function toggleEditing() {
   return { type: "TOGGLE_EDITING" };
 }
 
-export function toggleNewPageModal() {
-  return { type: "TOGGLE_NEW_PAGE_MODAL" };
+export function toggleNewPageModal(create=false) {
+  return { type: "TOGGLE_NEW_PAGE_MODAL", create };
 }
 
+export function updatePageTitle(title) {
+  return { type: "UPDATE_PAGE_TITLE", title };
+}
+
+export function updatePageHeaderImage(content) {
+  return { type: "UPDATE_PAGE_HEADER_IMAGE", content };
+}
+
+export function updateFootnote(id, footnote) {
+  return { type: "UPDATE_FOOTNOTE", id, footnote }
+}
+
+export function setFootnotes(footnotes) {
+  return { type: "SET_FOOTNOTES", footnotes }
+}
+
+export function updatePageContentState(location, content) {
+  return { type: "UPDATE_PAGE_CONTENT", location, content };
+}
+
+export function setPageContentState(location, content) {
+  return { type: "SET_PAGE_CONTENT", location, content };
+}
+
+export function saveFootnote(footnoteId, footnote) {
+  return (dispatch, getState) => {
+    const db = firebase.database();
+    const pageId = getState().page.data.id;
+
+    db.ref(`pages/${pageId}/footnotes/${footnoteId}`).update(footnote, error => {
+      if (error) {
+        return dispatch(
+          showNotification(
+            `There was an error saving your changes: ${error}`,
+            "error"
+          )
+        );
+      }
+
+      dispatch(updateFootnote(footnoteId, footnote));
+      dispatch(
+        showNotification(
+          "Your changes have been saved.",
+          "success"
+        )
+      );
+    })
+  };
+}
+
+export function removeFootnote(footnoteId) {
+  return (dispatch, getState) => {
+    const db = firebase.database();
+    const state = getState();
+    const pageId = state.page.data.id;
+
+    db.ref(`pages/${pageId}/footnotes/`).update({[footnoteId]: null}, error => {
+      if (error) {
+        return dispatch(
+          showNotification(
+            `There was an error saving your changes: ${error}`,
+            "success"
+          )
+        );
+      }
+
+      let allFootnotes = { ...state.page.data.footnotes };
+      delete allFootnotes[footnoteId];
+
+      dispatch(setFootnotes(allFootnotes));
+      dispatch(
+        showNotification(
+          "Your changes have been saved. Publish your changes to make them public.",
+          "success"
+        )
+      );
+    })
+  };
+}
+
+export function updateDefinition(id, definition) {
+  return { type: "UPDATE_DEFINITION", id, definition }
+}
+
+export function setDefinitions(definitions) {
+  return { type: "SET_DEFINITIONS", definitions }
+}
+
+export function saveDefinition(definitionId, definition) {
+  return (dispatch, getState) => {
+    const db = firebase.database();
+    const pageId = getState().page.data.id;
+
+    db.ref(`pages/${pageId}/definitions/${definitionId}`).update(definition, error => {
+      if (error) {
+        return dispatch(
+          showNotification(
+            `There was an error saving your changes: ${error}`,
+            "error"
+          )
+        );
+      }
+
+      dispatch(updateDefinition(definitionId, definition));
+      dispatch(
+        showNotification(
+          "Your changes have been saved.",
+          "success"
+        )
+      );
+    })
+  };
+}
+
+export function removeDefinition(definitionId) {
+  return (dispatch, getState) => {
+    const db = firebase.database();
+    const state = getState();
+    const pageId = state.page.data.id;
+
+    db.ref(`pages/${pageId}/definitions/`).update({[definitionId]: null}, error => {
+      if (error) {
+        return dispatch(
+          showNotification(
+            `There was an error saving your changes: ${error}`,
+            "success"
+          )
+        );
+      }
+
+      let allDefinitions = { ...state.page.data.definitions };
+      delete allDefinitions[definitionId];
+
+      dispatch(setDefinitions(allDefinitions));
+      dispatch(
+        showNotification(
+          "Your changes have been saved. Publish your changes to make them public.",
+          "success"
+        )
+      );
+    })
+  };
+}
+
+export function createPage(pageData, pageId) {
+  return dispatch => {
+    const db = firebase.database();
+    db
+      .ref(`pages/${pageId}/`)
+      .update(pageData)
+      .then(snap => {
+        dispatch(toggleNewPageModal());
+        dispatch(
+          showNotification(
+            "Your page has been saved. Publish your changes to view and edit the page.",
+            "success"
+          )
+        );
+      });
+  };
+}
+
+
+// rename to updateContent
 export function updatePage(pageId, contentId, content) {
   return dispatch => {
     const db = firebase.database();
@@ -62,6 +272,181 @@ export function updatePage(pageId, contentId, content) {
           "success"
         )
       );
+    });
+  };
+}
+
+export function updateTitle(title) {
+  return (dispatch, getState) => {
+    const db = firebase.database();
+    const pageId = getState().page.data.id;
+
+    db.ref(`pages/${pageId}/`).update({ title }, error => {
+      if (error) {
+        return dispatch(
+          showNotification(
+            `There was an error saving your changes: ${error}`,
+            "success"
+          )
+        );
+      }
+
+      dispatch(updatePageTitle(title));
+      dispatch(
+        showNotification(
+          "Your changes have been saved. Publish your changes to make them public.",
+          "success"
+        )
+      );
+    });
+  };
+}
+
+export function updateHeaderImage(content) {
+  return (dispatch, getState) => {
+    const db = firebase.database();
+    const pageId = getState().page.data.id;
+
+    db.ref(`pages/${pageId}/`).update({ "header-image": content }, error => {
+      if (error) {
+        return dispatch(
+          showNotification(
+            `There was an error saving your changes: ${error}`,
+            "success"
+          )
+        );
+      }
+
+      dispatch(updatePageHeaderImage(content));
+      dispatch(
+        showNotification(
+          "Your changes have been saved. Publish your changes to make them public.",
+          "success"
+        )
+      );
+    });
+  };
+}
+
+export function updateFirebaseData(updates, callback=null) {
+  return (dispatch, getState) => {
+    const db = firebase.database();
+    console.log(updates)
+
+    db.ref().update(updates, error => {
+      if (error) {
+        console.log('FIREBASE ERROR', error)
+        return dispatch(
+          showNotification(
+            `There was an error saving your changes: ${error}`,
+            "success"
+          )
+        );
+      }
+
+      if (callback) {
+        callback()
+      }
+
+      dispatch(
+        showNotification(
+          "Your changes have been saved. Publish your changes to make them public.",
+          "success"
+        )
+      );
+    });
+  };
+}
+
+export function pushContentItem(location, content) {
+  return (dispatch, getState) => {
+    const db = firebase.database();
+    const pageId = getState().page.data.id;
+    const newKey = db.ref(`pages/${pageId}/content/${location}/`).push().key;
+    const newItem = { [newKey]: content }
+
+    db.ref(`pages/${pageId}/content/${location}/`).update(newItem, error => {
+      if (error) {
+        return dispatch(
+          showNotification(
+            `There was an error saving your changes: ${error}`,
+            "success"
+          )
+        );
+      }
+
+      dispatch(updatePageContentState(location, newItem));
+      dispatch(
+        showNotification(
+          "Your changes have been saved. Publish your changes to make them public.",
+          "success"
+        )
+      );
+    })
+  };
+}
+
+export function removeContentItem(location, itemId) {
+  return (dispatch, getState) => {
+    const db = firebase.database();
+    const state = getState();
+    const pageId = state.page.data.id;
+
+    db.ref(`pages/${pageId}/content/${location}/`).update({[itemId]: null}, error => {
+      if (error) {
+        return dispatch(
+          showNotification(
+            `There was an error saving your changes: ${error}`,
+            "success"
+          )
+        );
+      }
+
+      const newContent = { ...state.page.data.content[location] }
+      delete newContent[itemId]
+
+      dispatch(setPageContentState(location, newContent));
+      dispatch(
+        showNotification(
+          "Your changes have been saved. Publish your changes to make them public.",
+          "success"
+        )
+      );
+    })
+  };
+}
+
+export function savePageContent(innerFunction) {
+  return (dispatch, getState) => {
+    Promise.resolve(dispatch(innerFunction)).then(() => {
+      const content = getState().page.data.content;
+      const pageId = getState().page.data.id;
+
+      console.log("content", content)
+      console.log("pageId", pageId)
+
+      const db = firebase.database();
+
+      db.ref(`pages/${pageId}/content/`)
+        .update(content)
+        .then(res => {
+          console.log('res', res)
+          dispatch(
+            showNotification(
+              "Your changes have been saved. Publish your changes to make them public.",
+              "success"
+            )
+          );
+        })
+        .catch(error => {
+          console.log('error', error)
+          return dispatch(
+            showNotification(
+              `There was an error saving your changes: ${error}`,
+              "success"
+            )
+          );
+        })
     });
   };
 }
@@ -138,10 +523,37 @@ export function loadPageData(data) {
 }
 
 export function updatePageData(contentId, content) {
-  console.log("updating", contentId);
-  console.log("content", content);
   return { type: "UPDATE_PAGE_DATA", contentId, content };
 }
+
+export function updatePageField(field, value) {
+  return { type: "UPDATE_PAGE_FIELD", field, value };
+}
+
+export function setPages(pages) {
+  return { type: "SET_PAGES", pages }
+}
+
+export function fetchPages() {
+  return (dispatch, getState) => {
+    const db = firebase.database();
+
+    db.ref(`pages`)
+      .once('value')
+      .then(snap => {
+        const pages = Object.entries(snap.val()).reduce((obj, [id, page]) => {
+          obj[id] = {...page, id}
+          return obj
+        }, {})
+        dispatch(setPages(pages));
+      })
+      .catch(error => {
+        console.log("Error fetching pages", error)
+      })
+  };
+}
+
+
 
 // NAVIGATION ------------------------
 
@@ -153,102 +565,188 @@ export function closeMenu() {
   return { type: "CLOSE_MENU" };
 }
 
-// FORMS ------------------------
-
-export function submitProjectFormSuccess() {
-  return { type: "SUBMIT_PROJECT_FORM_SUCCESS" };
+export function toggleMenu() {
+  return { type: "TOGGLE_MENU" };
 }
 
-export function submitProjectFormError(error) {
-  return { type: "SUBMIT_PROJECT_FORM_ERROR" };
+
+// TOPICS ------------------------
+
+export function selectTopic(selected) {
+  return { type: "SELECT_TOPIC", selected };
 }
 
-export function updateForm(data) {
-  return { type: "UPDATE_PROJECT_FORM", data };
+export function unselectTopic(selected) {
+  return { type: "UNSELECT_TOPIC", selected };
 }
 
-export function submitProjectForm(formData, e) {
-  return dispatch => {
+export function addTopic(topic) {
+  return { type: "ADD_TOPIC", topic }
+}
+
+export function deleteTopic(topic) {
+  return { type: "DELETE_TOPIC", topic }
+}
+
+export function setTopics(topics) {
+  return { type: "SET_TOPICS", topics }
+}
+
+export function fetchTopics() {
+  return (dispatch, getState) => {
     const db = firebase.database();
-    const user = slugify(formData.name);
-    const date = new Date();
-    const dateString = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${date.getTime()}`;
-    const submissionId = `${user}-${dateString}`;
-    const status = "pending";
 
-    const data = {
-      ...formData,
-      "submitted-on": date.toString(),
-      status
-    };
+    db.ref(`topics`)
+      .once('value')
+      .then(snap => {
+        dispatch(setTopics(snap.val()));
+      })
+      .catch(error => {
+        console.log("Error fetching topics", error)
+      })
+  };
+}
 
-    db.ref(`projectSubmissions/${submissionId}`).update(data, error => {
+export function pushTopic(topic) {
+  return (dispatch, getState) => {
+    const db = firebase.database();
+
+    db.ref(`topics/${topic.id}`).update(topic, error => {
       if (error) {
-        console.log("Error submitting form", error);
-        dispatch(submitProjectFormError(error));
-
         return dispatch(
           showNotification(
-            `There was an error submitting your form: ${error}`,
+            `There was an error saving your changes: ${error}`,
+            "error"
+          )
+        );
+      }
+
+      dispatch(addTopic(topic));
+      dispatch(
+        showNotification(
+          "Your changes have been saved.",
+          "success"
+        )
+      );
+    })
+  };
+}
+
+export function removeTopic(topicId) {
+  return (dispatch, getState) => {
+    const db = firebase.database();
+    const state = getState();
+    const pageId = state.page.data.id;
+
+    db.ref(`topics/`).update({[topicId]: null}, error => {
+      if (error) {
+        return dispatch(
+          showNotification(
+            `There was an error saving your changes: ${error}`,
             "success"
           )
         );
       }
 
-      dispatch(submitProjectFormSuccess());
-      e.target.submit();
-    });
+      let allTopics = { ...state.topics.topics };
+      delete allTopics[topicId]
+
+      dispatch(setTopics(allTopics));
+      dispatch(
+        showNotification(
+          "Your changes have been saved. Publish your changes to make them public.",
+          "success"
+        )
+      );
+    })
   };
 }
 
-// PROJECTS ------------------------
 
-export function updateProjects(projects) {
-  return { type: "UPDATE_PROJECTS", projects };
+// CATEGORIES ------------------------
+
+export function selectCategory(selected) {
+  return { type: "SELECT_CATEGORY", selected };
 }
 
-export function updateProject(projectId, projectData) {
-  return { type: "UPDATE_PROJECT", projectId, projectData };
+export function unselectCategory(selected) {
+  return { type: "UNSELECT_CATEGORY", selected };
 }
 
-export function updateProjectStatus(projectId, status) {
-  return dispatch => {
+export function addCategory(category) {
+  return { type: "ADD_CATEGORY", category }
+}
+
+export function setCategories(categories) {
+  return { type: "SET_CATEGORIES", categories }
+}
+
+export function fetchCategories() {
+  return (dispatch, getState) => {
     const db = firebase.database();
 
-    db
-      .ref(`projectSubmissions/${projectId}/status`)
-      .set(status)
-      .then(err => {
-        if (err) {
-          return dispatch(
-            showNotification(
-              `There was an error updating this project: ${err}`,
-              "error"
-            )
-          );
-        }
+    db.ref(`categories`)
+      .once('value')
+      .then(snap => {
+        dispatch(setCategories(snap.val()));
+      })
+      .catch(error => {
+        console.log("Error fetching categories", error)
+      })
+  };
+}
 
-        dispatch(updateProject(projectId, { status }));
-        dispatch(
+export function pushCategory(category) {
+  return (dispatch, getState) => {
+    const db = firebase.database();
+
+    db.ref(`categories/${category.id}`).update(category, error => {
+      if (error) {
+        return dispatch(
           showNotification(
-            `This project has been marked as ${status}. Don't forget to publish your changes!`,
+            `There was an error saving your changes: ${error}`,
+            "error"
+          )
+        );
+      }
+
+      dispatch(addCategory(category));
+      dispatch(
+        showNotification(
+          "Your changes have been saved.",
+          "success"
+        )
+      );
+    })
+  };
+}
+
+export function removeCategory(categoryId) {
+  return (dispatch, getState) => {
+    const db = firebase.database();
+    const state = getState();
+    const pageId = state.page.data.id;
+
+    db.ref(`categories/`).update({[categoryId]: null}, error => {
+      if (error) {
+        return dispatch(
+          showNotification(
+            `There was an error saving your changes: ${error}`,
             "success"
           )
         );
-      });
-  };
-}
+      }
 
-export function getProjects() {
-  return dispatch => {
-    const db = firebase.database();
+      let allCategories = { ...state.categories.categories };
+      delete allCategories[categoryId]
 
-    db
-      .ref(`projectSubmissions`)
-      .once("value")
-      .then(snapshot => {
-        const projects = snapshot.val();
-        dispatch(updateProjects(projects));
-      });
+      dispatch(setCategories(allCategories));
+      dispatch(
+        showNotification(
+          "Your changes have been saved. Publish your changes to make them public.",
+          "success"
+        )
+      );
+    })
   };
 }

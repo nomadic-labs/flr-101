@@ -5,6 +5,8 @@ import withRoot from '../utils/withRoot';
 
 import Notification from "../components/notifications/Notification";
 import AccountButton from "../components/navigation/AccountButton"
+import Footer from "../components/navigation/Footer"
+import CreatePageModal from "../components/editing/CreatePageModal";
 
 import {
   EditablesContext,
@@ -55,7 +57,9 @@ const DefaultLayout = props => (
     <EditablesContext.Provider value={ { theme: theme, showEditingControls: props.isEditingPage } }>
       <div className="page-wrapper">
         <Fragment>{props.children}</Fragment>
+        <Footer />
       </div>
+      <CreatePageModal />
     </EditablesContext.Provider>
   </div>
 );

@@ -19,6 +19,8 @@ export const uploadImage = image => {
         case firebase.storage.TaskState.RUNNING: // or 'running'
           console.log('Upload is running');
           break;
+        default:
+          break;
       }
     }, function(error) {
       console.log(error)
@@ -52,6 +54,8 @@ export const uploadFile = file => {
           break;
         case firebase.storage.TaskState.RUNNING: // or 'running'
           console.log('Upload is running');
+          break;
+        default:
           break;
       }
     }, function(error) {

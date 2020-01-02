@@ -101,6 +101,7 @@ export const query = graphql`
       id
       content
       title
+      description
       slug
     }
   }

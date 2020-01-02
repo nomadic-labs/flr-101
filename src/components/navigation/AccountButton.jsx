@@ -1,15 +1,15 @@
 import React from "react";
-import { navigate } from "gatsby";
-import firebase, { stagingFirebase } from "../../firebase/init";
+import { push, Link } from "gatsby";
+import firebase from "../../firebase/init";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button"
 
 import {
   userLoggedIn,
   userLoggedOut,
+  toggleNewPageModal,
   deploy,
-  toggleEditing,
-  deployWithStagingContent
+  toggleEditing
 } from "../../redux/actions";
 
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
@@ -21,6 +21,7 @@ const styles = {
     position: "fixed",
     left: "10px",
     bottom: "10px",
+    zIndex: "1000",
   },
   iconLabel: {
     display: "flex",
@@ -58,13 +59,21 @@ class AccountButton extends React.Component {
       } else {
         this.props.userLoggedOut();
       }
+
+      if (this.props.showRegistrationModal) {
+        this.props.onToggleRegistrationModal();
+      }
     });
   }
 
   logout = e => {
     firebase.auth().signOut();
     this.props.userLoggedOut();
-    navigate("/");
+    push("/");
+  };
+
+  login = e => {
+    this.props.onToggleRegistrationModal();
   };
 
   openMenu = e => {
@@ -83,7 +92,7 @@ class AccountButton extends React.Component {
       const accountName = props.user.displayName
         ? props.user.displayName
         : "Account";
-      const toggleText = props.isEditingPage ? "Done editing" : "Start editing";
+      const toggleText = props.isEditingPage ? "Done editing" : "Edit page";
       return (
         <div style={styles.container}>
           <Button
@@ -117,24 +126,46 @@ class AccountButton extends React.Component {
             {props.allowEditing && (
               <MenuItem
                 onClick={() => {
-                  props.deploy();
+                  props.onToggleNewPageModal();
                   closeMenu();
                 }}
-                divider
               >
-                Publish changes
+                Page configuration
               </MenuItem>
             )}
 
-            {props.allowEditing && stagingFirebase && (
+            {props.allowEditing && (
               <MenuItem
                 onClick={() => {
-                  props.deployWithStagingContent();
+                  props.onToggleNewPageModal(true);
                   closeMenu();
                 }}
-                divider
               >
-                Publish from staging
+                Add new page
+              </MenuItem>
+            )}
+
+            {props.allowEditing && (
+              <MenuItem
+                onClick={() => {
+                  closeMenu();
+                }}
+                component={Link}
+                to={'/admin'}
+              >
+                Website configuration
+              </MenuItem>
+            )}
+
+            {props.allowEditing && (
+              <MenuItem
+                divider
+                onClick={() => {
+                  props.deploy();
+                  closeMenu();
+                }}
+              >
+                Publish changes
               </MenuItem>
             )}
 
@@ -162,6 +193,7 @@ const mapStateToProps = state => {
   return {
     isLoggedIn: state.adminTools.isLoggedIn,
     user: state.adminTools.user,
+    showRegistrationModal: state.adminTools.showRegistrationModal,
     isEditingPage: state.adminTools.isEditingPage,
     allowEditing: allowEditing
   };
@@ -175,15 +207,15 @@ const mapDispatchToProps = dispatch => {
     userLoggedOut: () => {
       dispatch(userLoggedOut());
     },
+    onToggleNewPageModal: (create) => {
+      dispatch(toggleNewPageModal(create));
+    },
     onToggleEditing: () => {
       dispatch(toggleEditing());
     },
     deploy: () => {
       dispatch(deploy());
-    },
-    deployWithStagingContent: () => {
-      dispatch(deployWithStagingContent());
-    },
+    }
   };
 };
 
