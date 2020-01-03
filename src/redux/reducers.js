@@ -1,4 +1,4 @@
-import { CONTENT_MAP } from "../utils/constants.js"
+import { CONTENT_MAP, SECTION_MAP } from "../utils/constants.js"
 
 
 export const adminTools = (state={}, action) => {
@@ -108,7 +108,7 @@ export const page = (state={}, action) => {
 
     case 'ADD_SECTION':
       newSectionArr = [...state.data.content.sections];
-      newSection = { content: [], type: action.sectionType };
+      newSection = SECTION_MAP[action.sectionType];
       newSectionArr.splice((action.sectionIndex + 1), 0, newSection);
       return {
         ...state,

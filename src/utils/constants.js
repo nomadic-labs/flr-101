@@ -19,11 +19,25 @@ export const PERMANENT_PAGES = [
 
 export const CONTENT_MAP = {
   header: { type: "header", content: { text: "Header" } },
+  subHeading: { type: "subHeading", content: { text: "Sub-heading" } },
   paragraph: { type: "paragraph", content: { text: "Paragraph" } },
   image: { type: "image" },
   imageCarousel: { type: "imageCarousel", content: {} },
+  readings: { type: "readings", content: {} },
   embeddedIframe: { type: "embeddedIframe" },
   timeline: { type: "timeline", content: { alignment: "left" } },
   button: { type: "button", content: { anchor: "Button", link: "/" } },
   link: { type: "link", content: { anchor: "Link text", link: "/" } },
+}
+
+export const SECTION_MAP = {
+  default: { content: [] },
+  read: {
+    type: "read",
+    content: [
+      { type: "subHeading", content: { text: "Read" }},
+      { type: "paragraph", content: { text: "Resources on why a course in feminist law reform" }},
+      { type: "readings", content: {} }
+    ]
+  },
 }

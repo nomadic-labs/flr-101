@@ -15,9 +15,11 @@ import {
 } from "../../redux/actions";
 
 import Header from "../common/Header";
+import SubHeading from "../common/SubHeading";
 import Paragraph from "../common/Paragraph";
 import Image from "../common/Image";
 import ImageCarousel from "../common/ImageCarousel";
+import Readings from "../common/Readings";
 import EmbeddedIframe from "../common/EmbeddedIframe";
 import Button from "../common/Button";
 import Link from "../common/Link";
@@ -25,9 +27,11 @@ import SectionEditingActions from "./SectionEditingActions"
 
 const componentMap = {
   header: Header,
+  subHeading: SubHeading,
   paragraph: Paragraph,
   image: Image,
   imageCarousel: ImageCarousel,
+  readings: Readings,
   embeddedIframe: EmbeddedIframe,
   button: Button,
   link: Link,
