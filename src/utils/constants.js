@@ -36,7 +36,7 @@ export const SECTION_MAP = {
     type: "read",
     content: [
       { type: "subHeading", content: { text: "Read" }},
-      { type: "paragraph", content: { text: "Resources on why a course in feminist law reform" }},
+      { type: "paragraph", content: { text: "<p>Section introduction</p>" }},
       { type: "readings", content: {} }
     ]
   },

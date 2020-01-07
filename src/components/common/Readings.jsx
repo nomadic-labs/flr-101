@@ -20,21 +20,16 @@ class Readings extends React.Component {
     let newContent = { ...this.props.content }
     delete newContent[itemId];
 
-    if (Object.keys(newContent).length === 0) {
-      this.props.onDelete()
-    } else {
-      this.props.onSave(newContent)
-    }
+    this.props.onSave(newContent)
   }
 
   onAddItem = () => {
     let newContent = { ...this.props.content }
     const newItemKey = `reading-${Date.now()}`
     newContent[newItemKey] = {
-      "reading-item-details": { "text": "Author, date" },
-      "reading-item-title": { "text": "Publication title" },
+      "reading-item-details": { "text": "Author" },
+      "reading-item-title": { "text": "Title" },
       "reading-item-description": { "text": "Summary" },
-      "reading-item-link": { "anchor": "link text", "link": "/" }
     }
 
     this.props.onSave(newContent)
