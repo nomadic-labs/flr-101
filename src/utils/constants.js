@@ -40,4 +40,11 @@ export const SECTION_MAP = {
       { type: "readings", content: {} }
     ]
   },
+  engage: {
+    type: "engage",
+    content: [
+      { type: "subHeading", content: { text: "Engage & Discuss" }},
+      { type: "questions", content: {} }
+    ]
+  },
 }

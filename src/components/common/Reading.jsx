@@ -15,7 +15,7 @@ import {
 
 import { uploadImage, uploadFile } from "../../firebase/operations"
 
-class PublicationEditor extends React.Component {
+class ReadingEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = { content: this.props.content };
@@ -81,7 +81,7 @@ class PublicationEditor extends React.Component {
   }
 }
 
-const Publication = props => {
+const Reading = props => {
 
   const content = props.content || {};
 
@@ -91,7 +91,7 @@ const Publication = props => {
 
   return (
     <Editable
-      Editor={PublicationEditor}
+      Editor={ReadingEditor}
       handleSave={handleSave}
       content={content}
       {...props}
@@ -136,7 +136,7 @@ const Publication = props => {
   );
 };
 
-Publication.defaultProps = {
+Reading.defaultProps = {
   content: {
     "reading-item-details": { "text": "Author" },
     "reading-item-title": { "text": "Title" },
@@ -146,4 +146,4 @@ Publication.defaultProps = {
   onSave: () => { console.log('implement a function to save changes') }
 }
 
-export default Publication;
+export default Reading;

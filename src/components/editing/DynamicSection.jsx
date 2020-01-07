@@ -20,6 +20,7 @@ import Paragraph from "../common/Paragraph";
 import Image from "../common/Image";
 import ImageCarousel from "../common/ImageCarousel";
 import Readings from "../common/Readings";
+import Questions from "../common/Questions";
 import EmbeddedIframe from "../common/EmbeddedIframe";
 import Button from "../common/Button";
 import Link from "../common/Link";
@@ -31,10 +32,11 @@ const componentMap = {
   paragraph: Paragraph,
   image: Image,
   imageCarousel: ImageCarousel,
-  readings: Readings,
   embeddedIframe: EmbeddedIframe,
   button: Button,
   link: Link,
+  readings: Readings,
+  questions: Questions,
 }
 
 const mapDispatchToProps = dispatch => {

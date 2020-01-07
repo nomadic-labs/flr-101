@@ -147,4 +147,17 @@ body .nl-page {
     }
   }
 
+  .question-item {
+    background-color: $tertiary-color;
+    padding: 2rem;
+
+    .question-body, p {
+      font-family: $header-font;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
 }

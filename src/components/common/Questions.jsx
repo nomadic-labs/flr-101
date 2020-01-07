@@ -1,11 +1,12 @@
 import React from "react";
+import Slider from "react-slick";
 import Button from "@material-ui/core/Button"
 import Grid from "@material-ui/core/Grid"
 
-import Reading from "./Reading"
+import Question from "./Question"
 
 
-class Readings extends React.Component {
+class Questions extends React.Component {
   onSaveItem = itemId => itemContent => {
     const newContent = {
       ...this.props.content,
@@ -24,11 +25,9 @@ class Readings extends React.Component {
 
   onAddItem = () => {
     let newContent = { ...this.props.content }
-    const newItemKey = `reading-${Date.now()}`
+    const newItemKey = `question-${Date.now()}`
     newContent[newItemKey] = {
-      "reading-item-details": { "text": "Author" },
-      "reading-item-title": { "text": "Title" },
-      "reading-item-description": { "text": "Summary" },
+      "question-item-text": { "text": "Discussion question" },
     }
 
     this.props.onSave(newContent)
@@ -43,9 +42,9 @@ class Readings extends React.Component {
         {itemsKeys.map((key,index) => {
           const content = this.props.content[key];
           return(
-            <Grid item xs={12} sm={6} md={4}>
-              <Reading
-                key={`readings-item-${key}`}
+            <Grid item xs={12}>
+              <Question
+                key={`question-item-${key}`}
                 index={index}
                 content={content}
                 onSave={this.onSaveItem(key)}
@@ -68,5 +67,5 @@ class Readings extends React.Component {
   }
 }
 
-export default Readings
+export default Questions
 
