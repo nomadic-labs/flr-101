@@ -133,7 +133,7 @@ class SectionEditingActions extends React.Component {
                 Listen Section
               </MenuItem>
 
-              <MenuItem onClick={() => this.props.onAddSection("additionalResources")}>
+              <MenuItem onClick={() => this.props.onAddSection("resources")}>
                 Additional Resources Section
               </MenuItem>
             </Menu>

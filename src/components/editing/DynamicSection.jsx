@@ -22,6 +22,7 @@ import ImageCarousel from "../common/ImageCarousel";
 import Readings from "../common/Readings";
 import Questions from "../common/Questions";
 import Podcasts from "../common/Podcasts";
+import Resources from "../common/Resources";
 import EmbeddedIframe from "../common/EmbeddedIframe";
 import Button from "../common/Button";
 import Link from "../common/Link";
@@ -39,6 +40,7 @@ const componentMap = {
   readings: Readings,
   questions: Questions,
   podcasts: Podcasts,
+  resources: Resources,
 }
 
 const mapDispatchToProps = dispatch => {
