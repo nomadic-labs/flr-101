@@ -26,6 +26,7 @@ import Resources from "../common/Resources";
 import EmbeddedIframe from "../common/EmbeddedIframe";
 import Button from "../common/Button";
 import Link from "../common/Link";
+import Quote from "../common/Quote";
 import SectionEditingActions from "./SectionEditingActions"
 
 const componentMap = {
@@ -37,6 +38,7 @@ const componentMap = {
   embeddedIframe: EmbeddedIframe,
   button: Button,
   link: Link,
+  quote: Quote,
   readings: Readings,
   questions: Questions,
   podcasts: Podcasts,

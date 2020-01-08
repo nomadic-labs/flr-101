@@ -28,6 +28,15 @@ export const CONTENT_MAP = {
   timeline: { type: "timeline", content: { alignment: "left" } },
   button: { type: "button", content: { anchor: "Button", link: "/" } },
   link: { type: "link", content: { anchor: "Link text", link: "/" } },
+  quote: {
+    type: "quote",
+    content: {
+      image: { imageSrc: "" },
+      "quote-text": { text: "Quote text" },
+      author: { text: "Author" },
+      position: { text: "Position or organization" }
+    }
+  }
 }
 
 export const SECTION_MAP = {

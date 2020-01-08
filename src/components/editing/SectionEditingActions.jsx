@@ -101,6 +101,10 @@ class SectionEditingActions extends React.Component {
                 Paragraph
               </MenuItem>
 
+              <MenuItem onClick={() => this.props.onAddContentItem("quote")}>
+                Quote
+              </MenuItem>
+
               <MenuItem onClick={() => this.props.onAddContentItem("button")}>
                 Button
               </MenuItem>

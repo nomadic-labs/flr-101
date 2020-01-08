@@ -9,6 +9,8 @@ body .nl-page {
 
   h1, h2, h3, h4, h5, h6 {
     font-family: $header-font;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
   }
 
   h1 {
@@ -74,6 +76,14 @@ body .nl-page {
 
   .bold {
     font-weight: 700;
+  }
+
+  .d-flex {
+    display: flex;
+  }
+
+  .justify-center {
+    justify-content: center;
   }
 
   .underline {
@@ -180,12 +190,10 @@ body .nl-page {
   }
 
   .podcast-item {
-    display: flex;
-
     .media {
       background-color: $grey;
-      flex: 0 0 33%;
       position: relative;
+      height: 100%;
 
       .play-button {
         position: absolute;
@@ -198,7 +206,6 @@ body .nl-page {
     }
 
     .card-body {
-      flex-grow: 1;
 
       h4 {
         font-size: 2rem;
@@ -266,4 +273,47 @@ body .nl-page {
     }
   }
 
+  .quote {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+
+    .headshot {
+
+      img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+        height: 200px;
+        width: 200px;
+        border-radius: 200px;
+        background-color: $grey;
+        /*overflow: hidden;*/
+      }
+    }
+
+    .box {
+      background-color: $tertiary-color;
+      padding: 2rem;
+
+      p {
+        margin-top: 0.5rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .quote-text {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .author {
+        font-size: 1rem;
+        font-family: $header-font;
+      }
+
+      .position {
+        text-transform: uppercase;
+        font-size: 0.8rem;
+      }
+    }
+  }
 }
