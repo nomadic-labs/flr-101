@@ -72,6 +72,10 @@ body .nl-page {
     align-items: center;
   }
 
+  .bold {
+    font-weight: 700;
+  }
+
   .underline {
     position: relative;
     padding-bottom: 1rem;
@@ -79,6 +83,21 @@ body .nl-page {
     &:after {
       content: "";
       width: 66%;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 6px;
+      background-color: $secondary-color;
+    }
+  }
+
+  .underline-sm {
+    position: relative;
+    padding-bottom: 1rem;
+
+    &:after {
+      content: "";
+      width: 33%;
       position: absolute;
       left: 0;
       bottom: 0;
@@ -157,6 +176,62 @@ body .nl-page {
       font-weight: 700;
       margin-top: 0;
       margin-bottom: 0;
+    }
+  }
+
+  .podcast-item {
+    display: flex;
+
+    .media {
+      background-color: $grey;
+      flex: 0 0 33%;
+      position: relative;
+
+      .play-button {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        background-color: $secondary-color;
+        border-radius: 0;
+        padding: 1rem 2rem;
+      }
+    }
+
+    .card-body {
+      flex-grow: 1;
+
+      h4 {
+        font-size: 2rem;
+        font-weight: 400;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .author {
+        color: $charcoal;
+        font-size: 1rem;
+        font-family: $header-font;
+        font-weight: 700;
+      }
+
+      .description, .description p {
+        font-size: 1rem;
+      }
+
+      .details {
+        display: flex;
+        font-size: 1rem;
+        font-family: $header-font;
+        color: $charcoal;
+
+        > div {
+          flex: 0 0 50%;
+
+          > span {
+            margin-right: 0.5rem;
+          }
+        }
+      }
     }
   }
 

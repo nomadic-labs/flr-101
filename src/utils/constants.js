@@ -47,4 +47,11 @@ export const SECTION_MAP = {
       { type: "questions", content: {} }
     ]
   },
+  listen: {
+    type: "listen",
+    content: [
+      { type: "subHeading", content: { text: "Listen" }},
+      { type: "podcasts", content: {} }
+    ]
+  },
 }

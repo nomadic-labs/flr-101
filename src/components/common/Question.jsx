@@ -58,7 +58,7 @@ const Question = props => {
     >
       <div className={`question-item ${props.classes}`}>
         <div className="question-body">
-          <div className={"underline"} dangerouslySetInnerHTML={ {__html: content["question-item-text"]["text"]} } />
+          <div className={"underline-sm"} dangerouslySetInnerHTML={ {__html: content["question-item-text"]["text"]} } />
         </div>
       </div>
     </Editable>
