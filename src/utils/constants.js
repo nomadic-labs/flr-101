@@ -70,4 +70,12 @@ export const SECTION_MAP = {
       { type: "resources", content: {} }
     ]
   },
+  watch: {
+    type: "watch",
+    content: [
+      { type: "subHeading", content: { text: "Watch" }},
+      { type: "paragraph", content: { text: "<p>Section introduction</p>" }},
+      { type: "videos", content: {} }
+    ]
+  },
 }

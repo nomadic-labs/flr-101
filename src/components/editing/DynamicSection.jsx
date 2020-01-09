@@ -27,7 +27,8 @@ import EmbeddedIframe from "../common/EmbeddedIframe";
 import Button from "../common/Button";
 import Link from "../common/Link";
 import Quote from "../common/Quote";
-import SectionEditingActions from "./SectionEditingActions"
+import YoutubeVideoPlaylist from "../common/YoutubeVideoPlaylist";
+import SectionEditingActions from "./SectionEditingActions";
 
 const componentMap = {
   header: Header,
@@ -43,6 +44,7 @@ const componentMap = {
   questions: Questions,
   podcasts: Podcasts,
   resources: Resources,
+  videos: YoutubeVideoPlaylist,
 }
 
 const mapDispatchToProps = dispatch => {
