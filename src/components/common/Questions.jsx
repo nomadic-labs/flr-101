@@ -42,9 +42,8 @@ class Questions extends React.Component {
         {itemsKeys.map((key,index) => {
           const content = this.props.content[key];
           return(
-            <Grid item xs={12}>
+            <Grid item xs={12} key={`question-item-${key}`}>
               <Question
-                key={`question-item-${key}`}
                 index={index}
                 content={content}
                 onSave={this.onSaveItem(key)}

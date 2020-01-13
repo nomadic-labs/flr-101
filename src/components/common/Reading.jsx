@@ -36,7 +36,7 @@ class ReadingEditor extends React.Component {
     const { content } = this.state;
 
     return(
-      <Card className={`reading-item ${this.props.classes}`} variant="outlined" square="true">
+      <Card className={`reading-item ${this.props.classes}`} variant="outlined" square={true}>
         <CardContent className="card-body">
           <div className="card-title">
             <h4 className="text-primary">
@@ -96,7 +96,7 @@ const Reading = props => {
       content={content}
       {...props}
     >
-      <Card className={`reading-item ${props.classes}`} variant="outlined" square="true">
+      <Card className={`reading-item ${props.classes}`} variant="outlined" square={true}>
         <CardContent className="card-body">
           <div className="card-title">
             <h4 className="text-primary">

@@ -317,11 +317,38 @@ body .nl-page {
     }
   }
 
+  .video-slide {
+    padding: 0.5rem;
+  }
+
+  .slick-prev, .slick-next {
+    height: 100%;
+    width: 50px;
+
+    &:before {
+      color: $black;
+      opacity: 1;
+    }
+  }
+
+  .slick-next {
+    right: 0;
+    text-align: right;
+    background-image: linear-gradient(to right, transparent, white);
+  }
+
+  .slick-prev {
+    left: 0;
+    text-align: left;
+    background-image: linear-gradient(to left, transparent, white);
+    z-index: 1;
+  }
+
   .video-thumbmail {
     position: relative;
 
     img {
-      border: 2px solid $black;
+      border: 1px solid $black;
       width: 100%;
       display: block;
     }
@@ -365,7 +392,7 @@ body .nl-page {
   padding-bottom: 56.25%;
   height: 0;
   overflow: hidden;
-  width: 600px;
+  width: 100%;
   max-width: 100%;
 
   iframe {

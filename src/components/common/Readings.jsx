@@ -43,9 +43,8 @@ class Readings extends React.Component {
         {itemsKeys.map((key,index) => {
           const content = this.props.content[key];
           return(
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={12} sm={6} md={4} key={`readings-item-${key}`}>
               <Reading
-                key={`readings-item-${key}`}
                 index={index}
                 content={content}
                 onSave={this.onSaveItem(key)}

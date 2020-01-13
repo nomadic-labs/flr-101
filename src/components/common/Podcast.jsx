@@ -38,7 +38,7 @@ class PodcastEditor extends React.Component {
     const { content } = this.state;
 
     return(
-      <Card className={`podcast-item ${this.props.classes}`} variant="outlined" square="true">
+      <Card className={`podcast-item ${this.props.classes}`} variant="outlined" square={true}>
         <CardContent className="card-body">
           <div className="image">
             <ImageUploadEditor
@@ -115,7 +115,7 @@ const Podcast = props => {
       content={content}
       {...props}
     >
-      <Card className={`podcast-item ${props.classes}`} variant="outlined" square="true">
+      <Card className={`podcast-item ${props.classes}`} variant="outlined" square={true}>
         <Grid container>
           <Grid item xs={12} sm={4}>
             <div className="media">

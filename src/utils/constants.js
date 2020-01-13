@@ -28,6 +28,7 @@ export const CONTENT_MAP = {
   timeline: { type: "timeline", content: { alignment: "left" } },
   button: { type: "button", content: { anchor: "Button", link: "/" } },
   link: { type: "link", content: { anchor: "Link text", link: "/" } },
+  videos: { type: "videos", content: { playlistId: { text: ""} }},
   quote: {
     type: "quote",
     content: {
@@ -75,7 +76,7 @@ export const SECTION_MAP = {
     content: [
       { type: "subHeading", content: { text: "Watch" }},
       { type: "paragraph", content: { text: "<p>Section introduction</p>" }},
-      { type: "videos", content: {} }
+      { type: "videos", content: { playlistId: { text: "" }}}
     ]
   },
 }
