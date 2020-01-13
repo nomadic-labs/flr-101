@@ -73,7 +73,7 @@ class PodcastEditor extends React.Component {
 
           <div className="author">
             <PlainTextEditor
-              type="date"
+              EditorProps={{id: "podcast-item-published-date", type: "date"}}
               content={content["podcast-item-published-date"]}
               handleEditorChange={this.handleEditorChange("podcast-item-published-date")}
             />

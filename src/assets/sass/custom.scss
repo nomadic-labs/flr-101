@@ -385,6 +385,27 @@ body .nl-page {
       }
     }
   }
+
+  .playlist-editor {
+    padding-top: 1rem;
+  }
+
+  .video-description {
+    .video-title {
+      font-weight: 400;
+      font-size: 2rem;
+    }
+
+    .transcript {
+      font-size: 1rem;
+      max-height: 15rem;
+      overflow: auto;
+
+      p {
+        font-size: 1rem;
+      }
+    }
+  }
 }
 
 .embed-container {

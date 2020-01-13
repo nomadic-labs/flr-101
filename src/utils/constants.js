@@ -76,7 +76,7 @@ export const SECTION_MAP = {
     content: [
       { type: "subHeading", content: { text: "Watch" }},
       { type: "paragraph", content: { text: "<p>Section introduction</p>" }},
-      { type: "videos", content: { playlistId: { text: "" }}}
+      { type: "videos", content: { playlist: { text: "https://www.youtube.com/playlist?list=PLdoZWhB3tGKokaXE3fw7Qe_i9kCWGOYzW" }}}
     ]
   },
 }

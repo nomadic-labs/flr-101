@@ -10,6 +10,7 @@ import LeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import Slider from "react-slick"
 import {
   PlainTextEditor,
+  RichTextEditor,
   Editable
 } from 'react-easy-editables';
 
@@ -46,7 +47,7 @@ const settings = {
 };
 
 
-const EmbeddedVideo = ({ video, onClickVideo, nowPlaying }) => {
+const VideoThumbnail = ({ video, onClickVideo, nowPlaying }) => {
   return (
     <div className="video-slide">
       <div className="pos-relative video-thumbmail">
@@ -56,9 +57,18 @@ const EmbeddedVideo = ({ video, onClickVideo, nowPlaying }) => {
         <img className="img-fluid" src={video.snippet.thumbnails.medium.url} alt={`Video thumbnail for "${video.snippet.title}"`} />
       </div>
       <h5 className="">
-        {nowPlaying && <AltPlayIcon size="small" />}
+        {nowPlaying && <span style={{ color: "#E57A68" }}>{`▶ `}</span>}
         {video.snippet.title}
       </h5>
+    </div>
+  )
+}
+
+const VideoDescription = ({ video, videoTitle, transcript={} }) => {
+  return(
+    <div className="video-description">
+      <h4 className="video-title underline">{videoTitle}</h4>
+      <div className="transcript" dangerouslySetInnerHTML={ {__html: transcript["text"]} } />
     </div>
   )
 }
@@ -66,7 +76,12 @@ const EmbeddedVideo = ({ video, onClickVideo, nowPlaying }) => {
 class YoutubeVideoPlaylistEditor extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { content: this.props.content };
+    this.state = {
+      content: this.props.content,
+      videos: [],
+      videoId: null,
+      videoTitle: "",
+    };
   }
 
   handleEditorChange = field => item => {
@@ -80,17 +95,84 @@ class YoutubeVideoPlaylistEditor extends React.Component {
     });
   }
 
+  componentDidMount() {
+    this.populateVideos()
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.content !== this.state.content) {
+      this.populateVideos()
+    }
+  }
+
+  populateVideos = () => {
+    const content = this.state.content || {};
+    const playlistUrl = content["playlist"] ? content["playlist"]["text"] : "https://www.youtube.com/playlist?list=";
+    const playlistId = playlistUrl.split("https://www.youtube.com/playlist?list=")[1]
+    const url = `${YOUTUBE_API_ENDPOINT}?key=${process.env.GATSBY_YOUTUBE_API_KEY}&part=snippet&playlistId=${playlistId}&maxResults=50`;
+    const method = "GET";
+
+    axios({
+      url,
+      method
+    })
+    .then(res => {
+      this.setState({ videos: res.data.items })
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
+
   render() {
-    const { content } = this.state;
+    const { content, videos, videoId, videoTitle } = this.state;
+    console.log("state", this.state)
 
     return(
-      <div className={`playlist-editor ${this.props.classes}`}>
-        <PlainTextEditor
-          className="playlist-id"
-          content={content["playlistId"]}
-          handleEditorChange={this.handleEditorChange("playlistId")}
-        />
-      </div>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <div className={`playlist-editor ${this.props.classes}`}>
+            <label htmlFor="playlist-field">YouTube playlist URL:</label>
+            <PlainTextEditor
+              EditorProps={{id: "playlist-field"}}
+              content={content["playlist"]}
+              handleEditorChange={this.handleEditorChange("playlist")}
+            />
+          </div>
+        </Grid>
+        <Grid item xs={12}>
+          <Slider { ...settings }>
+            {
+              videos.map(video => {
+                return (
+                  <VideoThumbnail
+                    video={video}
+                    key={video.id}
+                    nowPlaying={video.snippet.resourceId.videoId === videoId}
+                    onClickVideo={() => this.setState({ videoId: video.snippet.resourceId.videoId, videoTitle: video.snippet.title }) }
+                  />
+                )
+              })
+            }
+          </Slider>
+        </Grid>
+        {
+          this.state.videoId &&
+          <Grid item xs={12}>
+            <div className="video-description">
+              <h4 className="video-title underline">{videoTitle}</h4>
+              <div className={`playlist-editor ${this.props.classes}`}>
+                <label htmlFor="transcript-field">Video transcript:</label>
+                <RichTextEditor
+                  EditorProps={{id: "transcript-field"}}
+                  content={content[`transcript-${this.state.videoId}`]}
+                  handleEditorChange={this.handleEditorChange(`transcript-${this.state.videoId}`)}
+                />
+              </div>
+            </div>
+          </Grid>
+        }
+      </Grid>
     )
   }
 }
@@ -116,7 +198,8 @@ class YoutubeVideoPlaylist extends Component {
 
   populateVideos = () => {
     const content = this.props.content || {};
-    const playlistId = content["playlistId"] ? content["playlistId"]["text"] : "";
+    const playlistUrl = content["playlist"] ? content["playlist"]["text"] : "https://www.youtube.com/playlist?list=";
+    const playlistId = playlistUrl.split("https://www.youtube.com/playlist?list=")[1]
     const url = `${YOUTUBE_API_ENDPOINT}?key=${process.env.GATSBY_YOUTUBE_API_KEY}&part=snippet&playlistId=${playlistId}&maxResults=50`;
     const method = "GET";
 
@@ -139,10 +222,9 @@ class YoutubeVideoPlaylist extends Component {
   render() {
     const { videos, videoId, videoTitle } = this.state;
     const content = this.props.content || {};
-    const playlistId = content["playlistId"] ? content["playlistId"]["text"] : "";
+    const playlistUrl = content["playlist"] ? content["playlist"]["text"] : "https://www.youtube.com/playlist?list=";
+    const playlistId = playlistUrl.split("https://www.youtube.com/playlist?list=")[1]
     const embedSrc = videoId ? `https://www.youtube.com/embed/${videoId}` : `https://www.youtube.com/embed/videoseries?list=${playlistId}`
-    console.log('content', content)
-    console.log('this.props', this.props)
 
     return (
       <Editable
@@ -162,7 +244,7 @@ class YoutubeVideoPlaylist extends Component {
               {
                 videos.map(video => {
                   return (
-                    <EmbeddedVideo
+                    <VideoThumbnail
                       video={video}
                       key={video.id}
                       nowPlaying={video.snippet.resourceId.videoId === videoId}
@@ -172,6 +254,9 @@ class YoutubeVideoPlaylist extends Component {
                 })
               }
             </Slider>
+          </Grid>
+          <Grid item xs={12}>
+            <VideoDescription videoTitle={videoTitle} videoId={videoId} transcript={content[`transcript-${videoId}`]} />
           </Grid>
         </Grid>
       </Editable>
