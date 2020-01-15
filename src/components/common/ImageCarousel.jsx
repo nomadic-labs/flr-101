@@ -11,6 +11,7 @@ const PrevArrow = props => {
     <button
       className={className}
       onClick={onClick}
+      style={style}
     >
       <i className="fas fa-angle-left"></i>
     </button>
@@ -23,6 +24,7 @@ const NextArrow = props => {
     <button
       className={className}
       onClick={onClick}
+      style={style}
     >
       <i className="fas fa-angle-right"></i>
     </button>

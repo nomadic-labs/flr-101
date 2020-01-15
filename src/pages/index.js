@@ -2,10 +2,6 @@ import React from "react";
 import { graphql } from "gatsby";
 import { connect } from "react-redux";
 import Container from '@material-ui/core/Container';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import { filter } from "lodash"
-import { Link } from "gatsby"
 
 import {
   updatePage,
@@ -13,6 +9,7 @@ import {
 } from "../redux/actions";
 
 import Layout from "../layouts/default.js";
+import CourseModules from "../components/common/CourseModules"
 import { EditableText, EditableParagraph, EditableBackgroundImage } from "react-easy-editables";
 import { uploadImage } from "../firebase/operations"
 
@@ -52,9 +49,6 @@ class HomePage extends React.Component {
 
   render() {
     const content = this.props.pageData ? this.props.pageData.content : {};
-    const pages = this.props.data.allPages.edges.map(e => e.node)
-    const currentLang = this.props.pageData ? this.props.pageData.lang : "en";
-    const modulePages = filter(pages, page => (page.category === "modules" && page.lang === currentLang))
 
     return (
       <Layout>
@@ -92,17 +86,7 @@ class HomePage extends React.Component {
             <h2 className="underline">
               <EditableText content={content["modules-title"]} handleSave={this.onSave("modules-title")} />
             </h2>
-            {
-              modulePages.map(page => {
-                return (
-                  <Card variant="outlined" square={true} key={page.slug} className="my-20">
-                    <CardContent className="card-body">
-                      <Link to={page.slug}>{page.title}</Link>
-                    </CardContent>
-                  </Card>
-                )
-              })
-            }
+            <CourseModules pageData={this.props.pageData} />
           </Container>
         </section>
 

@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -14,7 +13,7 @@ import {
   Editable
 } from 'react-easy-editables';
 
-import { uploadImage, uploadFile } from "../../firebase/operations"
+import { uploadImage } from "../../firebase/operations"
 
 class ResourceEditor extends React.Component {
   constructor(props) {
@@ -37,7 +36,7 @@ class ResourceEditor extends React.Component {
     const { content } = this.state;
 
     return(
-      <Card className={`resource-item ${this.props.classes}`} variant="outlined" square="true">
+      <Card className={`resource-item ${this.props.classes}`} variant="outlined" square={true}>
         <CardContent className="card-body">
           <div className="">
             <ImageUploadEditor
@@ -98,7 +97,7 @@ const Resource = props => {
       content={content}
       {...props}
     >
-      <Card className={`resource-item ${props.classes}`} variant="outlined" square="true">
+      <Card className={`resource-item ${props.classes}`} variant="outlined" square={true}>
         {
           content["resource-item-image"] &&
           <CardMedia

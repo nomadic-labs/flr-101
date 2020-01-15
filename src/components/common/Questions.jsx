@@ -1,5 +1,4 @@
 import React from "react";
-import Slider from "react-slick";
 import Button from "@material-ui/core/Button"
 import Grid from "@material-ui/core/Grid"
 
@@ -64,6 +63,12 @@ class Questions extends React.Component {
       </div>
     );
   }
+}
+
+Questions.defaultProps = {
+  content: {},
+  classes: "",
+  onSave: () => { console.log('Implement a function to save changes') }
 }
 
 export default Questions

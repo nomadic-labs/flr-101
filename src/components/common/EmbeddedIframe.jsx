@@ -1,6 +1,7 @@
+/* eslint-disable */
+
 import React from "react";
 import { EditableEmbeddedIframe } from "react-easy-editables";
-import Container from "./Container"
 
 class EmbeddedIframe extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class EmbeddedIframe extends React.Component {
   render() {
     return (
       <div
+        role="iframe-container"
         onClick={this.enableScroll}
         onMouseLeave={this.disableScroll}
         className={`iframe-container my-4 ${this.props.classes || ''} ${this.state.scrollEnabled ? "clicked" : ""}`}

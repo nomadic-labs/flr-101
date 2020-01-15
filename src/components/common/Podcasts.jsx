@@ -29,7 +29,7 @@ class Podcasts extends React.Component {
       "podcast-item-author": { "text": "Author" },
       "podcast-item-title": { "text": "Title" },
       "podcast-item-description": { "text": "<p>Episode summary</p>" },
-      "podcast-item-published-date": { "text": "dd/mm/yyyy" },
+      "podcast-item-published-date": { "text": "yyyy-mm-dd" },
       "podcast-item-length": { "text": "15 minutes" },
       "podcast-item-link": { "link": "/" },
       "podcast-item-image": { "imageSrc": "", "caption": "" },
@@ -69,6 +69,12 @@ class Podcasts extends React.Component {
       </div>
     );
   }
+}
+
+Podcasts.defaultProps = {
+  content: {},
+  classes: "",
+  onSave: () => { console.log('Implement a function to save changes') }
 }
 
 export default Podcasts

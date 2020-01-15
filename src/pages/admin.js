@@ -1,14 +1,9 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import { connect } from "react-redux";
-import { map, find, filter } from 'lodash'
+import { find, filter } from 'lodash'
 import slugify from "slugify";
 import Container from "@material-ui/core/Container"
-import Grid from '@material-ui/core/Grid';
-import Chip from '@material-ui/core/Chip';
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowUp from '@material-ui/icons/KeyboardArrowUp';
@@ -31,7 +26,6 @@ import {
   fetchTopics,
   fetchCategories,
   fetchPages,
-  updatePageData,
   updateFirebaseData,
   deploy,
 } from "../redux/actions";

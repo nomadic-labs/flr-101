@@ -636,7 +636,6 @@ export function removeTopic(topicId) {
   return (dispatch, getState) => {
     const db = firebase.database();
     const state = getState();
-    const pageId = state.page.data.id;
 
     db.ref(`topics/`).update({[topicId]: null}, error => {
       if (error) {
@@ -725,7 +724,6 @@ export function removeCategory(categoryId) {
   return (dispatch, getState) => {
     const db = firebase.database();
     const state = getState();
-    const pageId = state.page.data.id;
 
     db.ref(`categories/`).update({[categoryId]: null}, error => {
       if (error) {

@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Dialog from '@material-ui/core/Dialog';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import PlayIcon from "@material-ui/icons/PlayCircleFilled";
-import AltPlayIcon from "@material-ui/icons/PlayArrow";
-import RightIcon from "@material-ui/icons/KeyboardArrowRight";
-import LeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import Slider from "react-slick"
 import {
   PlainTextEditor,

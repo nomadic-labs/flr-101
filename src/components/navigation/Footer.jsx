@@ -58,7 +58,7 @@ class Footer extends React.Component {
                   {
                     modulePages.map(page => {
                       return(
-                        <MenuItem component={Link} to={page.slug}>
+                        <MenuItem key={page.slug} component={Link} to={page.slug}>
                           {page.title}
                         </MenuItem>
                       )
@@ -74,10 +74,12 @@ class Footer extends React.Component {
                   Object.keys(translations).map(key => {
                     if (translations[key]) {
                       return(
-                        <Button key={key} component={Link} to={translations[key].slug}>
+                        <Button key={key} component={"a"} href={translations[key].slug}>
                           {key.toUpperCase()}
                         </Button>
                       )
+                    } else {
+                      return null
                     }
                   })
                 }

@@ -1,10 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
 import {
-  RichTextEditor,
   PlainTextEditor,
   ImageUploadEditor,
   Editable
@@ -91,7 +88,7 @@ const Quote = props => {
         <Grid container spacing={2}>
           <Grid item xs={12} sm={4} className="d-flex justify-center">
             <div className="headshot">
-              <img src={content["image"]["imageSrc"]} className="rounded" />
+              <img src={content["image"]["imageSrc"]} className="rounded" alt={content["image"]["caption"]} />
             </div>
           </Grid>
           <Grid item xs={12} sm={8}>

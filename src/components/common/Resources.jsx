@@ -68,5 +68,11 @@ class Resources extends React.Component {
   }
 }
 
+Resources.defaultProps = {
+  content: {},
+  classes: "",
+  onSave: () => { console.log('Implement a function to save changes') }
+}
+
 export default Resources
 

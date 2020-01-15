@@ -53,7 +53,7 @@ class HomePage extends React.Component {
   render() {
     const content = this.props.pageData ? this.props.pageData.content : {};
     const pages = this.props.data.allPages.edges.map(e => e.node)
-    const currentLang = this.props.pageData ? this.props.pageData.lang : "en";
+    const currentLang = this.props.data.pages.lang
     const modulePages = filter(pages, page => (page.category === "modules" && page.lang === currentLang))
 
 
@@ -94,7 +94,7 @@ class HomePage extends React.Component {
               <EditableText content={content["modules-title"]} handleSave={this.onSave("modules-title")} />
             </h2>
             {
-              modulePages.map(page => {
+              modulePages.map((page, index) => {
                 return (
                   <Card variant="outlined" square={true} key={page.slug} className="my-20">
                     <CardContent className="card-body">

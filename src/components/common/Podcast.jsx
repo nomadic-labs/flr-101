@@ -1,7 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
@@ -15,7 +13,7 @@ import {
   Editable
 } from 'react-easy-editables';
 
-import { uploadImage, uploadFile } from "../../firebase/operations"
+import { uploadImage } from "../../firebase/operations"
 
 class PodcastEditor extends React.Component {
   constructor(props) {
@@ -24,6 +22,8 @@ class PodcastEditor extends React.Component {
   }
 
   handleEditorChange = field => item => {
+    console.log("field", field)
+    console.log("item", item)
     this.setState({
       content: {
         ...this.state.content,
@@ -64,12 +64,12 @@ class PodcastEditor extends React.Component {
             />
           </div>
 
-          <p className="card-text" style={{ color: "#000000"}}>
+          <div className="card-text" style={{ color: "#000000"}}>
             <RichTextEditor
               content={content["podcast-item-description"]}
               handleEditorChange={this.handleEditorChange("podcast-item-description")}
             />
-          </p>
+          </div>
 
           <div className="author">
             <PlainTextEditor
@@ -108,6 +108,8 @@ const Podcast = props => {
     props.onSave(newContent)
   }
 
+  console.log("podcast content", content)
+
   return (
     <Editable
       Editor={PodcastEditor}
@@ -120,6 +122,7 @@ const Podcast = props => {
           <Grid item xs={12} sm={4}>
             <div className="media">
               <CardMedia
+                style={{ height: "100%", width: "100%" }}
                 image={content["podcast-item-image"]["imageSrc"]}
                 title={content["podcast-item-image"]["caption"]}
               />
@@ -159,7 +162,7 @@ Podcast.defaultProps = {
     "podcast-item-author": { "text": "Author" },
     "podcast-item-title": { "text": "Title" },
     "podcast-item-description": { "text": "<p>Episode summary</p>" },
-    "podcast-item-published-date": { "text": "dd/mm/yyyy" },
+    "podcast-item-published-date": { "text": "yyyy-mm-dd" },
     "podcast-item-length": { "text": "Length" },
     "podcast-item-link": { "link": "/" },
     "podcast-item-image": { "imageSrc": "", "caption": "" },

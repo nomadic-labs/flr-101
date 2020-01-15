@@ -67,5 +67,11 @@ class Readings extends React.Component {
   }
 }
 
+Readings.defaultProps = {
+  content: {},
+  classes: "",
+  onSave: () => { console.log('Implement a function to save changes') }
+}
+
 export default Readings
 
