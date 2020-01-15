@@ -26,7 +26,6 @@ import { PAGE_TYPES, LANGUAGE_OPTIONS } from "../../utils/constants";
 import defaultContentJSON from "../../fixtures/pageContent.json";
 
 const mapStateToProps = state => {
-  console.log('options', state.adminTools)
   return {
     showNewPageModal: state.adminTools.showNewPageModal,
     options: state.adminTools.options || {},
@@ -70,6 +69,7 @@ class CreatePageModal extends React.Component {
         ...this.props.page,
         description: this.props.page.description || "",
         lang: this.props.page.lang || LANGUAGE_OPTIONS[0].value,
+        category: "modules",
       }
     };
     this.updatePage = (field, value) => {
@@ -85,6 +85,7 @@ class CreatePageModal extends React.Component {
       this.setState({ page: this.props.options.new ? emptyPage : {
         ...this.props.page,
         lang: this.props.page.lang || LANGUAGE_OPTIONS[0].value,
+        category: "modules",
       } })
     }
 
@@ -108,7 +109,7 @@ class CreatePageModal extends React.Component {
       remove: /[$*_+~.,()'"!\-:@%^&?=]/g
     })
 
-    const lastPage = find(this.props.pages, (page => !page.next));
+    const lastPage = find(this.props.pages, (page => page.category === this.state.page.category && page.lang === this.state.page.lang && !page.next));
 
     let pageData = {
       title: this.state.page.title,

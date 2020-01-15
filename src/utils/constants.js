@@ -14,7 +14,8 @@ export const PAGE_TYPES = [
 ];
 
 export const PERMANENT_PAGES = [
-  "home",
+  "nawl",
+  "anfd"
 ]
 
 export const CONTENT_MAP = {

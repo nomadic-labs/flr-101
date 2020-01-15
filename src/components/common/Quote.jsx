@@ -20,6 +20,8 @@ class QuoteEditor extends React.Component {
   }
 
   handleEditorChange = field => item => {
+    console.log("field", field)
+    console.log("item", item)
     this.setState({
       content: {
         ...this.state.content,

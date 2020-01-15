@@ -372,7 +372,7 @@ class AdminPage extends React.Component {
           </Container>
 
           <Container>
-            <div className="my-5">
+            <div className="my-40">
               <Button onClick={this.props.deploy} variant="contained" color="primary">Publish changes</Button>
             </div>
           </Container>
