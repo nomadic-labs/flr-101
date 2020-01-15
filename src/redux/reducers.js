@@ -12,7 +12,7 @@ export const adminTools = (state={}, action) => {
     case 'TOGGLE_EDITING':
       return { ...state, isEditingPage: !state.isEditingPage }
     case 'TOGGLE_NEW_PAGE_MODAL':
-      return { ...state, showNewPageModal: !state.showNewPageModal, newPage: action.create }
+      return { ...state, showNewPageModal: !state.showNewPageModal, options: action.options }
     default:
       return state
   }

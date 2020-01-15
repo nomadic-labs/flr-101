@@ -26,9 +26,10 @@ import { PAGE_TYPES, LANGUAGE_OPTIONS } from "../../utils/constants";
 import defaultContentJSON from "../../fixtures/pageContent.json";
 
 const mapStateToProps = state => {
+  console.log('options', state.adminTools)
   return {
     showNewPageModal: state.adminTools.showNewPageModal,
-    newPage: state.adminTools.newPage,
+    options: state.adminTools.options || {},
     page: state.page.data,
     categories: state.categories.categories,
     topics: state.topics.topics,
@@ -80,8 +81,8 @@ class CreatePageModal extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.newPage !== this.props.newPage) {
-      this.setState({ page: this.props.newPage ? emptyPage : {
+    if (prevProps.options !== this.props.options) {
+      this.setState({ page: this.props.options.new ? emptyPage : {
         ...this.props.page,
         lang: this.props.page.lang || LANGUAGE_OPTIONS[0].value,
       } })
@@ -113,22 +114,49 @@ class CreatePageModal extends React.Component {
       title: this.state.page.title,
       description: this.state.page.description,
       lang: this.state.page.lang,
+      category: "modules",
     };
 
-    if (this.props.newPage) {
+    const pageId = (this.props.options.new || this.props.options.duplicate) ? slugifiedTitle : this.props.page.id;
+
+    if (this.props.options.new) {
       pageData.content = defaultContentJSON;
       pageData.slug = `${this.state.page.lang}/${slugifiedTitle}`;
       pageData.template = this.state.page.type.template;
       pageData.prev = lastPage ? lastPage.id : null;
     }
 
-    const pageId = this.props.newPage ? slugifiedTitle : this.props.page.id;
+    if (this.props.options.duplicate) {
+      pageData.content = this.state.page.content;
+      pageData.slug = `${this.state.page.lang}/${slugifiedTitle}`;
+      pageData.template = emptyPage.type.template;
+      pageData.prev = lastPage ? lastPage.id : null;
+      pageData.translations = {
+        ...this.props.page.translations,
+        [this.props.page.lang]: {
+          id: this.props.page.id,
+          slug: this.props.page.slug
+        }
+      }
+    }
 
     this.props.createPage(pageData, pageId);
 
     if (lastPage) {
       this.props.updateFirebaseData({
         [`pages/${lastPage.id}/next`]: pageId,
+      })
+    }
+
+    if (this.props.options.duplicate) {
+      this.props.updateFirebaseData({
+        [`pages/${this.props.page.id}/translations`]: {
+          ...this.props.page.translations,
+          [pageData.lang]: {
+            slug: pageData.slug,
+            id: pageId
+          }
+        },
       })
     }
   }
@@ -191,7 +219,7 @@ class CreatePageModal extends React.Component {
             Close
           </Button>
           <Button color="secondary" onClick={this.onSubmit}>
-            { this.props.newPage ? "Create page" : "Save" }
+            { (this.props.options.new || this.props.options.duplicate) ? "Create page" : "Save" }
           </Button>
         </DialogActions>
       </Dialog>

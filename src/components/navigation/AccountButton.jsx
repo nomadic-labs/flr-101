@@ -137,11 +137,22 @@ class AccountButton extends React.Component {
             {props.allowEditing && (
               <MenuItem
                 onClick={() => {
-                  props.onToggleNewPageModal(true);
+                  props.onToggleNewPageModal({ new: true });
                   closeMenu();
                 }}
               >
                 Add new page
+              </MenuItem>
+            )}
+
+            {props.allowEditing && props.allowDuplicate && (
+              <MenuItem
+                onClick={() => {
+                  props.onToggleNewPageModal({ duplicate: true });
+                  closeMenu();
+                }}
+              >
+                Duplicate page
               </MenuItem>
             )}
 
@@ -189,13 +200,15 @@ class AccountButton extends React.Component {
 
 const mapStateToProps = state => {
   const allowEditing = state.adminTools.user && state.adminTools.user.isEditor;
+  const allowDuplicate = state.page.data && state.page.data.template;
 
   return {
     isLoggedIn: state.adminTools.isLoggedIn,
     user: state.adminTools.user,
     showRegistrationModal: state.adminTools.showRegistrationModal,
     isEditingPage: state.adminTools.isEditingPage,
-    allowEditing: allowEditing
+    allowEditing: allowEditing,
+    allowDuplicate: allowDuplicate,
   };
 };
 
@@ -207,8 +220,8 @@ const mapDispatchToProps = dispatch => {
     userLoggedOut: () => {
       dispatch(userLoggedOut());
     },
-    onToggleNewPageModal: (create) => {
-      dispatch(toggleNewPageModal(create));
+    onToggleNewPageModal: (options={}) => {
+      dispatch(toggleNewPageModal(options));
     },
     onToggleEditing: () => {
       dispatch(toggleEditing());

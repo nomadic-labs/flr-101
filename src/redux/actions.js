@@ -83,8 +83,8 @@ export function toggleEditing() {
   return { type: "TOGGLE_EDITING" };
 }
 
-export function toggleNewPageModal(create=false) {
-  return { type: "TOGGLE_NEW_PAGE_MODAL", create };
+export function toggleNewPageModal(options) {
+  return { type: "TOGGLE_NEW_PAGE_MODAL", options };
 }
 
 export function updatePageTitle(title) {

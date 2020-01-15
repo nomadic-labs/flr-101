@@ -97,7 +97,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
 
 export const query = graphql`
   query {
-    pages(id: { eq: "nawl" }) {
+    pages(id: { eq: "anfd" }) {
       id
       content
       title

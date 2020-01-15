@@ -19,7 +19,7 @@ import DeleteForever from '@material-ui/icons/DeleteForever';
 import Layout from '../layouts/default';
 import ProtectedPage from "../layouts/protected-page"
 
-import { PERMANENT_PAGES } from "../utils/constants"
+import { PERMANENT_PAGES, LANGUAGE_OPTIONS } from "../utils/constants"
 
 import {
   pushTopic,
@@ -128,8 +128,8 @@ class AdminPage extends React.Component {
     this.setState({ categoryLabel: "" })
   }
 
-  filterPagesByCategory = (pages, category) => {
-    return filter(pages, page => page.category === category.id);
+  filterPagesByLanguage = (pages, lang) => {
+    return filter(pages, page => (page.category && (page.lang === lang.value)));
   }
 
   nextCategory = category => {
@@ -305,24 +305,25 @@ class AdminPage extends React.Component {
   }
 
   render() {
-    const pagesByCategory = [];
-    const orderedCategories = this.orderedCategories(find(this.props.categories, cat => !cat.prev));
+    const pagesByLanguage = [];
     const uncategorizedPages = filter(this.props.pages, page => !Boolean(page.category))
 
-    orderedCategories.forEach(category => {
-      const categoryPages = this.filterPagesByCategory(this.props.pages, category)
-      const pages = this.orderedPages(categoryPages.find(page => !page.prev))
+    LANGUAGE_OPTIONS.forEach(lang => {
+      const langPages = this.filterPagesByLanguage(this.props.pages, lang)
+      const pages = this.orderedPages(langPages.find(page => !page.prev))
 
       if (pages.length > 0) {
-        pagesByCategory.push({ ...category, pages })
+        pagesByLanguage.push({ ...lang, pages })
       }
     })
 
+    console.log("pagesByLanguage", pagesByLanguage)
+
     return(
-      <Layout>
+      <Layout className="admin-page">
         <ProtectedPage>
           <Container>
-            <h1 className="text-center mb-40">
+            <h1 className="text-center">
               Website Configuration
             </h1>
           </Container>
@@ -331,12 +332,12 @@ class AdminPage extends React.Component {
             <h2>Page Order</h2>
             <div className="my-4">
               {
-                pagesByCategory.map(category => {
+                pagesByLanguage.map(lang => {
                   return(
-                    <div key={category.id}>
-                      <h4 className="mt-3">{category.label}</h4>
+                    <div key={lang.value}>
+                      <h3 className="mt-3">{lang.label}</h3>
                       {
-                        category.pages.map(page => {
+                        lang.pages.map(page => {
                           return(
                             <div className="ranked-item" key={page.id}>
                               <IconButton size="small" color="primary" onClick={this.movePageBack(page)} disabled={!page.prev}><ArrowUp /></IconButton>

@@ -70,35 +70,33 @@ class CourseModulePage extends React.Component {
     const sections = content.sections && content.sections.length > 0 ? content.sections : [{ content: [] }];
 
     return (
-      <div>
-        <Layout location={this.props.location}>
-          <Helmet>
-            <title>{pageData.title}</title>
-            <meta description={pageData.description} />
-          </Helmet>
+      <Layout location={this.props.location}>
+        <Helmet>
+          <title>{pageData.title}</title>
+          <meta description={pageData.description} />
+        </Helmet>
 
-          <Container maxWidth="md">
-            <h2 className="underline">{pageData.title}</h2>
-          </Container>
+        <Container maxWidth="md">
+          <h2 className="underline">{pageData.title}</h2>
+        </Container>
 
-          {
-            sections.map((section, index) => {
-              if (!section || !section.content) {
-                return null
-              }
+        {
+          sections.map((section, index) => {
+            if (!section || !section.content) {
+              return null
+            }
 
-              return(
-                <DynamicSection
-                  content={ section.content }
-                  sectionIndex={index}
-                  key={index}
-                  type={ section.type }
-                />
-              )
-            })
-          }
-        </Layout>
-      </div>
+            return(
+              <DynamicSection
+                content={ section.content }
+                sectionIndex={index}
+                key={index}
+                type={ section.type }
+              />
+            )
+          })
+        }
+      </Layout>
     );
   }
 }
@@ -115,6 +113,16 @@ export const query = graphql`
       slug
       lang
       template
+      translations {
+        en {
+          slug
+          id
+        }
+        fr {
+          slug
+          id
+        }
+      }
     }
   }
 `;

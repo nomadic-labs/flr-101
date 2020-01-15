@@ -52,11 +52,10 @@ body .nl-page {
     padding: 1rem;
     border-top: 1px solid $black;
 
-    .footer-left {
-      border-right: 1px solid $black;
-    }
+
 
     .footer-right {
+      border-left: 1px solid $black;
       button {
         margin-left: 1rem;
       }
@@ -404,6 +403,20 @@ body .nl-page {
       p {
         font-size: 1rem;
       }
+    }
+  }
+
+  &.admin-page {
+    h1 {
+      font-size: 4rem;
+    }
+
+    h2 {
+      font-size: 3rem;
+    }
+
+    h3 {
+      font-size: 2rem;
     }
   }
 }
