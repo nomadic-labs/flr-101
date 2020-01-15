@@ -48,6 +48,14 @@ body .nl-page {
     font-size: 1.2rem;
   }
 
+  a {
+    color: $black;
+
+    &:active, &:focus {
+      color: $black;
+    }
+  }
+
   footer {
     padding: 1rem;
     border-top: 1px solid $black;

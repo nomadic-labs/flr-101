@@ -54,12 +54,12 @@ class ReadingEditor extends React.Component {
             />
           </div>
 
-          <p className="card-text" style={{ color: "#000000"}}>
+          <div className="card-text" style={{ color: "#000000"}}>
             <RichTextEditor
               content={content["reading-item-description"]}
               handleEditorChange={this.handleEditorChange("reading-item-description")}
             />
-          </p>
+          </div>
 
           <div className="link" style={{ marginBottom: "1rem" }}>
             <LinkEditor
@@ -72,7 +72,7 @@ class ReadingEditor extends React.Component {
             <FileUploadEditor
               content={content["reading-item-file"]}
               handleEditorChange={this.handleEditorChange("reading-item-file")}
-              uploadImage={uploadFile}
+              uploadFile={uploadFile}
             />
           </div>
         </CardContent>
@@ -108,10 +108,7 @@ const Reading = props => {
             {content["reading-item-details"]["text"]}
           </div>
 
-          <p className="card-text" style={{ color: "#000000"}}>
-            {content["reading-item-description"]["text"]}
-          </p>
-
+          <div className="description" dangerouslySetInnerHTML={ {__html: content["reading-item-description"]["text"]} } />
 
           {
             Boolean(content["reading-item-link"]) &&
