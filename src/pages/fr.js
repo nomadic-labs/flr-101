@@ -53,7 +53,8 @@ class HomePage extends React.Component {
   render() {
     const content = this.props.pageData ? this.props.pageData.content : {};
     const pages = this.props.data.allPages.edges.map(e => e.node)
-    const modulePages = filter(pages, page => (page.category === "modules" && page.lang === this.props.pageData.lang))
+    const currentLang = this.props.pageData ? this.props.pageData.lang : "en";
+    const modulePages = filter(pages, page => (page.category === "modules" && page.lang === currentLang))
 
 
     return (
