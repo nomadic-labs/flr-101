@@ -125,21 +125,23 @@ body .nl-page {
     text-align: center;
     padding-top: 10%;
     padding-bottom: 20%;
+    margin-bottom: 3rem;
 
     h1 {
       color: $tertiary-color;
-      font-family: $body-font;
+      font-family: $title-font;
       text-transform: lowercase;
-      font-size: 5rem;
+      font-size: calc(40px + 6vw);
       line-height: 1.2;
       margin-top: 0;
       margin-bottom: 1rem;
+      font-weight: normal;
     }
 
     .landing-subtitle {
       color: $tertiary-color;
-      font-family: $header-font;
-      text-transform: uppercase;
+      font-family: $body-font;
+      font-size: calc(20px + 1vw);
     }
   }
 

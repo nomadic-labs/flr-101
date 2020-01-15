@@ -43,7 +43,7 @@ class HomePage extends React.Component {
   }
 
   onSave = id => content => {
-    this.props.onUpdatePageData("home", id, content);
+    this.props.onUpdatePageData("anfd", id, content);
   };
 
   render() {
@@ -55,7 +55,7 @@ class HomePage extends React.Component {
           <section id="landing" className="wow fadeIn">
             <Container maxWidth="sm">
               <h1><EditableText content={content["landing-title"]} handleSave={this.onSave("landing-title")} /></h1>
-              <EditableText content={content["landing-subtitle"]} handleSave={this.onSave("landing-subtitle")} classes="landing-subtitle" />
+              <p className="landing-subtitle"><EditableText content={content["landing-subtitle"]} handleSave={this.onSave("landing-subtitle")} /></p>
             </Container>
           </section>
         </EditableBackgroundImage>
