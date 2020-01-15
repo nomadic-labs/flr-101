@@ -317,8 +317,6 @@ class AdminPage extends React.Component {
       }
     })
 
-    console.log("pagesByLanguage", pagesByLanguage)
-
     return(
       <Layout className="admin-page">
         <ProtectedPage>
@@ -330,7 +328,7 @@ class AdminPage extends React.Component {
 
           <Container>
             <h2>Page Order</h2>
-            <div className="my-4">
+            <div className="my-40">
               {
                 pagesByLanguage.map(lang => {
                   return(
@@ -357,7 +355,7 @@ class AdminPage extends React.Component {
 
           <Container>
             <h2>Uncategorized Pages</h2>
-            <div className="my-4">
+            <div className="my-40">
               {
                 uncategorizedPages.map(page => {
                   return(

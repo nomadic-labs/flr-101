@@ -2,6 +2,10 @@ import React from "react";
 import { graphql } from "gatsby";
 import { connect } from "react-redux";
 import Container from '@material-ui/core/Container';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import { filter } from "lodash"
+import { Link } from "gatsby"
 
 import {
   updatePage,
@@ -48,6 +52,8 @@ class HomePage extends React.Component {
 
   render() {
     const content = this.props.pageData ? this.props.pageData.content : {};
+    const pages = this.props.data.allPages.edges.map(e => e.node)
+    const modulePages = filter(pages, page => (page.category === "modules" && page.lang === this.props.pageData.lang))
 
     return (
       <Layout>
@@ -85,6 +91,17 @@ class HomePage extends React.Component {
             <h2 className="underline">
               <EditableText content={content["modules-title"]} handleSave={this.onSave("modules-title")} />
             </h2>
+            {
+              modulePages.map(page => {
+                return (
+                  <Card variant="outlined" square={true} key={page.slug} className="my-20">
+                    <CardContent className="card-body">
+                      <Link to={page.slug}>{page.title}</Link>
+                    </CardContent>
+                  </Card>
+                )
+              })
+            }
           </Container>
         </section>
 
@@ -103,6 +120,7 @@ export const query = graphql`
       title
       description
       slug
+      lang
       translations {
         en {
           slug
@@ -111,6 +129,17 @@ export const query = graphql`
         fr {
           slug
           id
+        }
+      }
+    }
+    allPages {
+      edges {
+        node {
+          id
+          title
+          slug
+          lang
+          category
         }
       }
     }
