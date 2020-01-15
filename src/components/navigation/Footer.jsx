@@ -27,7 +27,8 @@ class Footer extends React.Component {
     const { anchorEl } = this.state;
     const translations = props.pageData ? props.pageData.translations || {} : {}
     const pages = props.data.allPages.edges.map(e => e.node)
-    const modulePages = filter(pages, page => (page.category === "modules" && page.lang === props.pageData.lang))
+    const currentLang = props.pageData ? props.pageData.lang : "en";
+    const modulePages = filter(pages, page => (page.category === "modules" && page.lang === currentLang))
 
     return (
       <footer>
