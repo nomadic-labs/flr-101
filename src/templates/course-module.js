@@ -77,7 +77,10 @@ class CourseModulePage extends React.Component {
         </Helmet>
 
         <Container maxWidth="md">
-          <h2 className="underline">{pageData.title}</h2>
+          <header className="module-header">
+            {pageData.order && <p className="text-muted">{`Module ${pageData.order}`}</p>}
+            <h2 className="underline">{pageData.title}</h2>
+          </header>
         </Container>
 
         {
@@ -113,6 +116,9 @@ export const query = graphql`
       slug
       lang
       template
+      prev
+      next
+      order
       translations {
         en {
           slug

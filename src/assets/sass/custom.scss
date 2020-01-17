@@ -37,7 +37,7 @@ body .nl-page {
     }
   }
 
-  p {
+  .paragraph, p {
     font-family: $body-font;
     font-size: 1.4rem;
   }
@@ -56,11 +56,34 @@ body .nl-page {
     }
   }
 
+  .logo {
+    width: 160px;
+    height: auto;
+    display: flex;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .navbar {
+    border-bottom: 1px solid $black;
+    padding: 0.5em;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+  }
+
   footer {
     padding: 1rem;
     border-top: 1px solid $black;
-
-
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: white;
 
     .footer-right {
       border-left: 1px solid $black;
@@ -69,6 +92,19 @@ body .nl-page {
       }
     }
 
+    .logo {
+      width: 130px;
+    }
+
+    button, a {
+      font-size: 1rem;
+    }
+  }
+
+
+  .page-wrapper {
+    padding-bottom: 78px; /*footer height*/
+    padding-top: 66px; /*header height*/
   }
 
   .align-right {
@@ -83,6 +119,10 @@ body .nl-page {
 
   .bold {
     font-weight: 700;
+  }
+
+  .text-muted {
+    color: $charcoal;
   }
 
   .d-flex {
@@ -123,6 +163,15 @@ body .nl-page {
     }
   }
 
+  .module-header {
+    margin-top: 3rem;
+
+    p {
+      font-family: $header-font;
+      margin-bottom: 0;
+    }
+  }
+
   .subheading {
     background-color: $secondary-color;
     padding-left: 1rem;
@@ -139,10 +188,16 @@ body .nl-page {
     margin-bottom: 20px;
   }
 
+  .flr-btn {
+    background-color: $secondary-color;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
   #landing {
     text-align: center;
-    padding-top: 10%;
-    padding-bottom: 20%;
+    padding-top: 6%;
+    padding-bottom: 17%;
     margin-bottom: 3rem;
 
     h1 {
@@ -439,7 +494,77 @@ body .nl-page {
       font-size: 2rem;
     }
   }
+
+  .course-module {
+    h3 {
+      font-size: 2.5rem;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: $charcoal;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+      font-family: $header-font;
+    }
+
+    .card-actions {
+      position: relative;
+      padding-top: 57px;
+    }
+
+    .flr-btn {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      background-color: $secondary-color;
+      border-radius: 0;
+      padding: 1rem 2rem;
+    }
+  }
+
 }
+
+.table-of-contents {
+  .MuiMenu-paper {
+    border-radius: 0;
+    border: 1px solid $black;
+    max-width: 400px;
+  }
+
+  .MuiMenu-list {
+    background-color: $tertiary-color;
+    padding: 1rem;
+  }
+
+  .navigation-module {
+    font-family: $header-font;
+    border-bottom: 4px solid $secondary-color;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+
+    .title {
+      font-weight: 700;
+    }
+
+    a {
+      color: $black;
+      text-decoration: none;
+
+      &:hover, &:active, &:focus {
+        text-decoration: underline;
+        color: $black;
+      }
+    }
+  }
+}
+
 
 .embed-container {
   position: relative;

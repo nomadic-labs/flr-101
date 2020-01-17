@@ -126,7 +126,7 @@ class AccountButton extends React.Component {
             {props.allowEditing && (
               <MenuItem
                 onClick={() => {
-                  props.onToggleNewPageModal();
+                  props.onToggleNewPageModal({ edit: true });
                   closeMenu();
                 }}
               >

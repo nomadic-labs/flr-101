@@ -6,7 +6,7 @@ export const NOTIFICATION_MESSAGES = {
 
 export const LANGUAGE_OPTIONS = [
   { label: "English", value: "en" },
-  { label: "French", value: "fr" },
+  { label: "Français", value: "fr" },
 ];
 
 export const PAGE_TYPES = [

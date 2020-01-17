@@ -69,7 +69,6 @@ class CreatePageModal extends React.Component {
         ...this.props.page,
         description: this.props.page.description || "",
         lang: this.props.page.lang || LANGUAGE_OPTIONS[0].value,
-        category: "modules",
       }
     };
     this.updatePage = (field, value) => {
@@ -83,9 +82,7 @@ class CreatePageModal extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.options !== this.props.options) {
       this.setState({ page: this.props.options.new ? emptyPage : {
-        ...this.props.page,
-        lang: this.props.page.lang || LANGUAGE_OPTIONS[0].value,
-        category: "modules",
+        ...this.props.page
       } })
     }
 
@@ -115,22 +112,22 @@ class CreatePageModal extends React.Component {
       title: this.state.page.title,
       description: this.state.page.description,
       lang: this.state.page.lang,
-      category: "modules",
     };
 
     const pageId = (this.props.options.new || this.props.options.duplicate) ? slugifiedTitle : this.props.page.id;
 
     if (this.props.options.new) {
       pageData.content = defaultContentJSON;
-      pageData.slug = `${this.state.page.lang}/${slugifiedTitle}`;
+      pageData.slug = `/${this.state.page.lang}/${slugifiedTitle}`;
       pageData.template = this.state.page.type.template;
       pageData.prev = lastPage ? lastPage.id : null;
     }
 
     if (this.props.options.duplicate) {
       pageData.content = this.state.page.content;
-      pageData.slug = `${this.state.page.lang}/${slugifiedTitle}`;
+      pageData.slug = `/${this.state.page.lang}/${slugifiedTitle}`;
       pageData.template = emptyPage.type.template;
+      pageData.category = emptyPage.category;
       pageData.prev = lastPage ? lastPage.id : null;
       pageData.translations = {
         ...this.props.page.translations,
@@ -141,9 +138,11 @@ class CreatePageModal extends React.Component {
       }
     }
 
+    console.log("Create page", pageData)
+
     this.props.createPage(pageData, pageId);
 
-    if (lastPage) {
+    if (lastPage && this.state.page.category === "modules") {
       this.props.updateFirebaseData({
         [`pages/${lastPage.id}/next`]: pageId,
       })

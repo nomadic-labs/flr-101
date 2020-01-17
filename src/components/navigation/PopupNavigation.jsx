@@ -2,10 +2,10 @@ import React from "react";
 import { StaticQuery, graphql } from "gatsby"
 import { filter } from 'lodash'
 
-import CourseModule from "./CourseModule"
+import NavigationModule from "./NavigationModule"
 
 
-class CourseModules extends React.Component {
+class Navigation extends React.Component {
   nextPage = page => {
     return this.props.pages[page.next];
   }
@@ -37,12 +37,18 @@ class CourseModules extends React.Component {
     const currentLang = props.pageData ? props.pageData.lang : "en";
     const modulePages = filter(props.pages, page => (page.category === "modules" && page.lang === currentLang))
     const orderedPages = this.orderedPages(modulePages.find(page => !page.prev))
+    const homePage = currentLang === "en" ? props.pages["nawl"] : props.pages["anfd"]
 
     return (
-      <div>
+      <div className="">
+        <div className="navigation-module">
+          <div className="title">
+            <a href={homePage.slug}>{ currentLang === "en" ? "Home" : "Acceuil" }</a>
+          </div>
+        </div>
         {
           orderedPages.map((page, index) => {
-            return <CourseModule page={page} order={index + 1} key={page.id} />
+            return <NavigationModule page={page} order={index + 1} key={page.id} />
           })
         }
       </div>
@@ -50,7 +56,7 @@ class CourseModules extends React.Component {
   }
 }
 
-const CourseModulesContainer = props => (
+const PopupNavigation = props => (
   <StaticQuery
     query={graphql`
       query {
@@ -76,10 +82,10 @@ const CourseModulesContainer = props => (
         return obj
       }, {})
       return(
-        <CourseModules data={data} pages={pages} {...props} />
+        <Navigation data={data} pages={pages} {...props} />
       )
     }}
   />
 )
 
-export default CourseModulesContainer;
+export default PopupNavigation;
