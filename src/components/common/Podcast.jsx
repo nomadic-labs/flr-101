@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
 
 import {
   PlainTextEditor,
@@ -22,8 +22,6 @@ class PodcastEditor extends React.Component {
   }
 
   handleEditorChange = field => item => {
-    console.log("field", field)
-    console.log("item", item)
     this.setState({
       content: {
         ...this.state.content,
@@ -101,14 +99,16 @@ class PodcastEditor extends React.Component {
 }
 
 const Podcast = props => {
-
+  const [limitHeight, setLimitHeight] = useState(true);
   const content = props.content || {};
 
   const handleSave = newContent => {
     props.onSave(newContent)
   }
 
-  console.log("podcast content", content)
+  const toggleLimitHeight = () => {
+    setLimitHeight(!limitHeight)
+  }
 
   return (
     <Editable
@@ -118,20 +118,19 @@ const Podcast = props => {
       {...props}
     >
       <Card className={`podcast-item ${props.classes}`} variant="outlined" square={true}>
-        <Grid container>
-          <Grid item xs={12} sm={4}>
-            <div className="media">
+        <div className="d-flex">
+          <Hidden smDown>
+            <div className="media play-button">
               <CardMedia
                 style={{ height: "100%", width: "100%" }}
                 image={content["podcast-item-image"]["imageSrc"]}
                 title={content["podcast-item-image"]["caption"]}
               />
-              <Button component={"a"} href={content["podcast-item-link"]["link"]} className="play-button">Play</Button>
+              <Button component={"a"} href={content["podcast-item-link"]["link"]} className="flr-btn">Play</Button>
             </div>
-          </Grid>
-
-          <Grid item xs={12} sm={8}>
-            <CardContent className="card-body">
+          </Hidden>
+          <CardContent className="card-body">
+            <div className={`podcast-info ${limitHeight ? "limit-height" : ""}`}>
               <div className="card-title">
                 <h4 className="underline">
                   { content["podcast-item-title"]["text"] }
@@ -142,16 +141,22 @@ const Podcast = props => {
                 {content["podcast-item-author"]["text"]}
               </div>
 
-              <div className="description" dangerouslySetInnerHTML={ {__html: content["podcast-item-description"]["text"]} }>
+              <div className={`description`} dangerouslySetInnerHTML={ {__html: content["podcast-item-description"]["text"]} }>
               </div>
+            </div>
+            <button onClick={toggleLimitHeight} className="toggle-description-btn">{limitHeight ? "Show more" : "Show less"}</button>
 
-              <div className="details">
-                <div><span className="bold">Published:</span>{content["podcast-item-published-date"]["text"]}</div>
-                <div><span className="bold">Length:</span>{content["podcast-item-length"]["text"]}</div>
-              </div>
-            </CardContent>
-          </Grid>
-        </Grid>
+            <div className="details">
+              <div><span className="bold">Published:</span>{content["podcast-item-published-date"]["text"]}</div>
+              <div><span className="bold">Length:</span>{content["podcast-item-length"]["text"]}</div>
+            </div>
+          </CardContent>
+        </div>
+        <Hidden mdUp>
+          <div className="play-button mobile d-flex">
+            <Button component={"a"} href={content["podcast-item-link"]["link"]} className="flr-btn">Play</Button>
+          </div>
+        </Hidden>
       </Card>
     </Editable>
   );

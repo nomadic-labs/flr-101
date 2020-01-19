@@ -1,0 +1,24 @@
+/* RESPONSIVE FOR TABLETS */
+
+@media (max-width: 992px) {
+  body .nl-page {
+    footer {
+      padding: 0.25rem;
+      border-top: 1px solid $black;
+      width: 100%;
+      background: white;
+
+      button, a {
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+/* RESPONSIVE FOR MOBILE */
+
+@media (max-width: 768px) {
+  body .nl-page {
+
+  }
+}

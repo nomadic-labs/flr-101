@@ -43,6 +43,12 @@ export const CONTENT_MAP = {
 
 export const SECTION_MAP = {
   default: { content: [] },
+  highlight: {
+    type: "highlight",
+    content: [
+      { type: "paragraph", content: { text: "<p>Section text</p>" }},
+    ]
+  },
   read: {
     type: "read",
     content: [

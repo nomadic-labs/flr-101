@@ -1,5 +1,4 @@
 @import "variables";
-@import "responsive";
 @import "mixins";
 
 body .nl-page {
@@ -14,38 +13,51 @@ body .nl-page {
   }
 
   h1 {
-    font-size: 5rem;
+    font-size: calc(40px + 3vw);
   }
 
   h2 {
-    font-size: 4rem;
+    font-size: calc(30px + 2vw);
     margin-top: 1rem;
     margin-bottom: 2rem;
   }
 
   h3 {
-    font-size: 3rem;
+    font-size: calc(24px + 1.6vw);
   }
 
 
   section {
+    padding-top: 2rem;
     padding-bottom: 2rem;
 
     &.dynamic-section {
       position: relative;
       padding-bottom: 40px;
     }
+
+    &.highlight {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      background-color: $tertiary-color;
+      font-weight: 700;
+      font-size: calc(18px + 1vw);
+
+      p {
+        font-size: calc(18px + 1vw);
+      }
+    }
   }
 
   .paragraph, p {
     font-family: $body-font;
-    font-size: 1.4rem;
+    font-size: calc(18px + 0.5vw);
   }
 
   a, button {
     font-family: $header-font;
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: calc(16px + 0.4vw);
   }
 
   a {
@@ -85,8 +97,13 @@ body .nl-page {
     width: 100%;
     background: white;
 
-    .footer-right {
+    .footer-center {
       border-left: 1px solid $black;
+      border-right: 1px solid $black;
+
+    }
+
+    .footer-right {
       button {
         margin-left: 1rem;
       }
@@ -98,6 +115,16 @@ body .nl-page {
 
     button, a {
       font-size: 1rem;
+      color: $black;
+    }
+
+    .MuiBottomNavigationAction-root {
+      line-height: 1;
+      display: block !important;
+    }
+
+    .MuiBottomNavigationAction-label {
+      font-size: 0.8rem;
     }
   }
 
@@ -256,7 +283,7 @@ body .nl-page {
 
     .question-body, p {
       font-family: $header-font;
-      font-size: 2rem;
+      font-size: calc(18px + 1vw);
       font-weight: 700;
       margin-top: 0;
       margin-bottom: 0;
@@ -264,12 +291,17 @@ body .nl-page {
   }
 
   .podcast-item {
+
     .media {
       background-color: $grey;
-      position: relative;
-      height: 100%;
+      height: 250px;
+      width: 250px;
+      flex: 1 0 auto;
+    }
 
-      .play-button {
+    .play-button {
+      position: relative;
+      .flr-btn {
         position: absolute;
         right: 0;
         bottom: 0;
@@ -277,36 +309,75 @@ body .nl-page {
         border-radius: 0;
         padding: 1rem 2rem;
       }
+
+      &.mobile {
+        justify-content: flex-end;
+        .flr-btn {
+          position: relative;
+
+          padding: 0.5rem 1rem;
+          margin-top: 0.5rem;
+        }
+      }
     }
 
     .card-body {
+      &.MuiCardContent-root:last-child {
+        padding-bottom: 16px;
+      }
+
+      .limit-height {
+        max-height: 160px;
+        overflow: scroll;
+        margin-bottom: 0.5rem;
+      }
 
       h4 {
-        font-size: 2rem;
+        font-size: calc(16px + 0.5vw);
         font-weight: 400;
-        margin-top: 1rem;
+        margin-top: 0;
         margin-bottom: 1rem;
       }
 
       .author {
         color: $charcoal;
-        font-size: 1rem;
+        font-size: 0.9rem;
         font-family: $header-font;
         font-weight: 700;
       }
 
       .description, .description p {
-        font-size: 1rem;
+        font-size: 0.9rem;
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+      }
+
+      .description {
+        margin-top: 0.5rem;
+        margin-bottom : 0.5rem;
+      }
+
+      .toggle-description-btn {
+        background: none;
+        border: none;
+        padding: 0;
+        color: $charcoal;
+        font-size: 0.9rem;
+        font-family: $header-font;
+        font-weight: 400;
+        margin-bottom: 0.5rem;
+        cursor: pointer;
       }
 
       .details {
         display: flex;
-        font-size: 1rem;
+        flex-wrap: wrap;
+        font-size: 0.9rem;
         font-family: $header-font;
         color: $charcoal;
 
         > div {
-          flex: 0 0 50%;
+          flex: 1 0 50%;
 
           > span {
             margin-right: 0.5rem;
@@ -375,7 +446,7 @@ body .nl-page {
       }
 
       .quote-text {
-        font-size: 2rem;
+        font-size: calc(18px + 1vw);
         margin-bottom: 2rem;
       }
 
@@ -582,3 +653,6 @@ body .nl-page {
     height: 100%;
   }
 }
+
+
+@import "responsive";

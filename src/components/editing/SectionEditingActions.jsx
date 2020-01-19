@@ -121,6 +121,10 @@ class SectionEditingActions extends React.Component {
                 Empty Section
               </MenuItem>
 
+              <MenuItem onClick={() => this.props.onAddSection("highlight")}>
+                Highlight Section
+              </MenuItem>
+
               <MenuItem onClick={() => this.props.onAddSection("watch")}>
                 Watch Section
               </MenuItem>

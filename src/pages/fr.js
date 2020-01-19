@@ -81,6 +81,12 @@ class HomePage extends React.Component {
           </Container>
         </section>
 
+        <section id="acknowledgements" className="wow fadeIn highlight">
+          <Container maxWidth="md">
+            <EditableParagraph content={content["acknowledgements"]} handleSave={this.onSave("acknowledgements")} />
+          </Container>
+        </section>
+
         <section id="course-modules" className="wow fadeIn">
           <Container maxWidth="md">
             <h2 className="underline">

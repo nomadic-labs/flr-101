@@ -109,10 +109,8 @@ const DynamicSection = ({ content, type, sectionIndex, pageData, isEditingPage, 
     savePageContent(() => deleteContentItem(sectionIndex, contentIndex))
   }
 
-  const classes = type === "contrast" ? "contrast-section" : "basic-section";
-
   return(
-    <section className={`dynamic-section pos-relative ${classes}`}>
+    <section className={`dynamic-section pos-relative ${type}`}>
       <Container maxWidth="md">
       {
         content.map((component, index ) => {
