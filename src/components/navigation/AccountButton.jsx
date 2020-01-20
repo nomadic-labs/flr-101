@@ -156,6 +156,17 @@ class AccountButton extends React.Component {
               </MenuItem>
             )}
 
+            {props.allowEditing && props.allowDuplicate && (
+              <MenuItem
+                onClick={() => {
+                  props.onToggleNewPageModal({ translation: true });
+                  closeMenu();
+                }}
+              >
+                Translate page
+              </MenuItem>
+            )}
+
             {props.allowEditing && (
               <MenuItem
                 onClick={() => {

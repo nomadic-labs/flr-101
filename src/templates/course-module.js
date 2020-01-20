@@ -119,6 +119,7 @@ export const query = graphql`
       prev
       next
       order
+      category
       translations {
         en {
           slug

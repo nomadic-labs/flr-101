@@ -60,7 +60,7 @@ class Footer extends React.Component {
         <Hidden smDown>
           <Container maxWidth="lg">
             <Grid container>
-              <Grid item xs={6} md={5} className="footer-left">
+              <Grid item xs={6} md={5} className="footer-section footer-left">
                 <Button
                   onClick={openMenu}
                   aria-owns={anchorEl ? "toc" : null}
@@ -69,14 +69,14 @@ class Footer extends React.Component {
                   <KeyboardArrowUp style={{ marginRight: '0.5rem'}}/>Table of Contents
                 </Button>
               </Grid>
-              <Grid item xs={6} md={2} className="footer-center">
+              <Grid item xs={6} md={2} className="footer-section footer-center">
                 <Grid container justify="center" alignItems="center">
                   <Button className="logo" component="a" href="https://nawl.ca/">
                     <img src={logo} alt="NAWL | ANFD" />
                   </Button>
                 </Grid>
               </Grid>
-              <Grid item xs={12} md={5} className="align-right footer-right">
+              <Grid item xs={12} md={5} className="footer-section align-right footer-right">
                 <Button>Share</Button>
                 <Button>Download syllabus</Button>
                 {
@@ -114,7 +114,6 @@ class Footer extends React.Component {
               Object.keys(translations).map(key => {
                 if (translations[key]) {
                   const language = LANGUAGE_OPTIONS.find(o => o.value === key) || {}
-                  console.log("translations[key]", translations[key])
                   return(
                     <BottomNavigationAction key={key} component={Link} linkButton={true} to={translations[key].slug} label={language.label} icon={<LanguageIcon />} />
                   )

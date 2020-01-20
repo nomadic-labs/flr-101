@@ -231,7 +231,7 @@ export function removeDefinition(definitionId) {
   };
 }
 
-export function createPage(pageData, pageId) {
+export function savePage(pageData, pageId) {
   return dispatch => {
     const db = firebase.database();
     db

@@ -97,13 +97,19 @@ body .nl-page {
     width: 100%;
     background: white;
 
+    .footer-section {
+      display: flex;
+      align-items: center;
+    }
+
     .footer-center {
       border-left: 1px solid $black;
       border-right: 1px solid $black;
-
+      justify-content: center;
     }
 
     .footer-right {
+      justify-content: flex-end;
       button {
         margin-left: 1rem;
       }
@@ -333,7 +339,7 @@ body .nl-page {
       }
 
       h4 {
-        font-size: calc(16px + 0.5vw);
+        font-size: calc(16px + 0.4vw);
         font-weight: 400;
         margin-top: 0;
         margin-bottom: 1rem;
