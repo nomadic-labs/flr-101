@@ -146,6 +146,18 @@ class AdminPage extends React.Component {
       dataToUpdate[`pages/${nextPage.id}/head`] = true
     }
 
+    if (page.translations) {
+      Object.keys(page.translations).forEach(lang => {
+        if (page.translations[lang]) {
+          const translatedPageId = page.translations[lang].id
+          console.log("translatedPageId", translatedPageId)
+          console.log("page.lang", page.lang)
+          dataToUpdate[`pages/${translatedPageId}/translations/${page.lang}`] = null
+        }
+      })
+    }
+    console.log("dataToUpdate", dataToUpdate)
+
     this.props.updateFirebaseData(dataToUpdate, this.props.fetchPages)
   }
 

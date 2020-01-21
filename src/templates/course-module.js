@@ -14,6 +14,7 @@ import {
 
 import Layout from "../layouts/default.js";
 import DynamicSection from "../components/editing/DynamicSection";
+import CourseModule from "../components/common/CourseModule";
 
 
 const mapDispatchToProps = dispatch => {
@@ -37,6 +38,7 @@ const mapStateToProps = state => {
   return {
     pageData: state.page.data,
     orderedPages: state.pages.orderedPages,
+    pages: state.pages.pages,
   };
 };
 
@@ -68,7 +70,8 @@ class CourseModulePage extends React.Component {
     const pageData = this.props.pageData ? this.props.pageData : this.props.data.pages;
     const content = this.props.pageData ? this.props.pageData.content : JSON.parse(this.props.data.pages.content);
     const sections = content.sections && content.sections.length > 0 ? content.sections : [{ content: [] }];
-    const moduleOrder = findIndex(this.props.orderedPages, p => p.id === pageData.id) + 1
+    const moduleOrder = findIndex(this.props.orderedPages, p => p.id === pageData.id) + 1;
+    const nextModule = this.props.pages[pageData.next];
 
     return (
       <Layout location={this.props.location}>
@@ -99,6 +102,18 @@ class CourseModulePage extends React.Component {
               />
             )
           })
+        }
+
+        {
+          nextModule &&
+          <section>
+          <Container maxWidth="md">
+            <header className="module-header">
+              <h2 className="underline">{`Next Module`}</h2>
+            </header>
+            <CourseModule page={nextModule} order={moduleOrder + 1} />
+          </Container>
+          </section>
         }
       </Layout>
     );
