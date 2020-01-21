@@ -27,14 +27,15 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    pageData: state.page.data
+    pageData: state.page.data,
+    isLoggedIn: state.adminTools.isLoggedIn,
   };
 };
 
 class HomePage extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
     const initialPageData = {
       ...this.props.data.pages,
       content: JSON.parse(this.props.data.pages.content)
@@ -48,7 +49,7 @@ class HomePage extends React.Component {
   };
 
   render() {
-    const content = this.props.pageData ? this.props.pageData.content : {};
+    const content = this.props.pageData ? this.props.pageData.content : JSON.parse(this.props.data.pages.content);
 
     return (
       <Layout>
@@ -56,7 +57,7 @@ class HomePage extends React.Component {
           <section id="landing" className="wow fadeIn">
             <Container maxWidth="sm">
               <h1><EditableText content={content["landing-title"]} handleSave={this.onSave("landing-title")} /></h1>
-              <p className="landing-subtitle"><EditableText content={content["landing-subtitle"]} handleSave={this.onSave("landing-subtitle")} /></p>
+              <div className="landing-subtitle"><EditableText content={content["landing-subtitle"]} handleSave={this.onSave("landing-subtitle")} /></div>
             </Container>
           </section>
         </EditableBackgroundImage>
@@ -92,7 +93,7 @@ class HomePage extends React.Component {
             <h2 className="underline">
               <EditableText content={content["modules-title"]} handleSave={this.onSave("modules-title")} />
             </h2>
-            <CourseModules pageData={this.props.pageData} />
+            <CourseModules />
           </Container>
         </section>
 
@@ -120,17 +121,6 @@ export const query = graphql`
         fr {
           slug
           id
-        }
-      }
-    }
-    allPages {
-      edges {
-        node {
-          id
-          title
-          slug
-          lang
-          category
         }
       }
     }

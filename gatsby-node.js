@@ -17,9 +17,8 @@ exports.createPages = ({ graphql, actions }) => {
                 content
                 category
                 lang
-                prev
                 next
-                order
+                head
                 translations {
                   en {
                     slug

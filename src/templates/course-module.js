@@ -2,6 +2,7 @@ import React from "react";
 import { graphql } from "gatsby";
 import Helmet from "react-helmet";
 import Container from "@material-ui/core/Container"
+import { findIndex } from "lodash"
 
 import { connect } from "react-redux";
 import {
@@ -12,7 +13,6 @@ import {
 } from "../redux/actions";
 
 import Layout from "../layouts/default.js";
-// import PageHeader from "../components/common/PageHeader";
 import DynamicSection from "../components/editing/DynamicSection";
 
 
@@ -35,22 +35,22 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    pageData: state.page.data
+    pageData: state.page.data,
+    orderedPages: state.pages.orderedPages,
   };
 };
 
 
 class CourseModulePage extends React.Component {
-  static propTypes = {};
-
   constructor(props) {
-    super(props);
+    super(props)
     const initialPageData = {
       ...this.props.data.pages,
       content: JSON.parse(this.props.data.pages.content)
     };
+
     this.props.onLoadPageData(initialPageData);
-  };
+  }
 
   onSave = id => content => {
     this.props.onUpdatePageData(this.props.data.pages.id, id, content);
@@ -68,6 +68,7 @@ class CourseModulePage extends React.Component {
     const pageData = this.props.pageData ? this.props.pageData : this.props.data.pages;
     const content = this.props.pageData ? this.props.pageData.content : JSON.parse(this.props.data.pages.content);
     const sections = content.sections && content.sections.length > 0 ? content.sections : [{ content: [] }];
+    const moduleOrder = findIndex(this.props.orderedPages, p => p.id === pageData.id) + 1
 
     return (
       <Layout location={this.props.location}>
@@ -78,7 +79,7 @@ class CourseModulePage extends React.Component {
 
         <Container maxWidth="md">
           <header className="module-header">
-            {pageData.order && <p className="text-muted">{`Module ${pageData.order}`}</p>}
+            <p className="text-muted">{`Module ${moduleOrder}`}</p>
             <h2 className="underline">{pageData.title}</h2>
           </header>
         </Container>
@@ -116,9 +117,7 @@ export const query = graphql`
       slug
       lang
       template
-      prev
       next
-      order
       category
       translations {
         en {

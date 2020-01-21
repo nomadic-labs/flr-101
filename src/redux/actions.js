@@ -534,6 +534,10 @@ export function setPages(pages) {
   return { type: "SET_PAGES", pages }
 }
 
+export function setOrderedPages(orderedPages) {
+  return { type: "SET_ORDERED_PAGES", orderedPages }
+}
+
 export function fetchPages() {
   return (dispatch, getState) => {
     const db = firebase.database();
@@ -567,6 +571,10 @@ export function closeMenu() {
 
 export function toggleMenu() {
   return { type: "TOGGLE_MENU" };
+}
+
+export function setCurrentLang(currentLang) {
+  return { type: "SET_CURRENT_LANG", currentLang }
 }
 
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { StaticQuery, graphql, Link } from "gatsby"
+import { Link } from "gatsby"
 import Hidden from '@material-ui/core/Hidden';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -35,7 +35,6 @@ class Footer extends React.Component {
     const { props, openMenu, closeMenu } = this;
     const { anchorEl } = this.state;
     const translations = props.pageData ? props.pageData.translations || {} : {}
-
     return (
       <footer>
         <Menu
@@ -55,7 +54,7 @@ class Footer extends React.Component {
             horizontal: 'left',
           }}
         >
-          <PopupNavigation pageData={props.pageData}/>
+          <PopupNavigation />
         </Menu>
         <Hidden smDown>
           <Container maxWidth="lg">
@@ -129,29 +128,4 @@ class Footer extends React.Component {
   }
 }
 
-const FooterContainer = props => (
-  <StaticQuery
-    query={graphql`
-      query {
-        allPages {
-          edges {
-            node {
-              id
-              title
-              slug
-              lang
-              category
-            }
-          }
-        }
-      }
-    `}
-    render={data => {
-      return(
-        <Footer data={data} {...props} />
-      )
-    }}
-  />
-)
-
-export default FooterContainer;
+export default Footer;

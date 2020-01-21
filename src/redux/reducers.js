@@ -37,7 +37,7 @@ export const notifications = (state={}, action) => {
   }
 }
 
-export const navigation = (state={}, action) => {
+export const navigation = (state={ currentLang: "en" }, action) => {
   switch (action.type) {
     case 'OPEN_MENU':
       return {
@@ -53,6 +53,12 @@ export const navigation = (state={}, action) => {
       return {
         ...state,
         showMenu: !state.showMenu
+      }
+
+    case 'SET_CURRENT_LANG':
+      return {
+        ...state,
+        currentLang: action.currentLang
       }
     default:
       return state
@@ -418,6 +424,11 @@ export const pages = (state={ pages: {}}, action) => {
       return {
         ...state,
         pages: action.pages
+      }
+    case 'SET_ORDERED_PAGES':
+      return {
+        ...state,
+        orderedPages: action.orderedPages
       }
     default:
       return state

@@ -118,12 +118,15 @@ class CreatePageModal extends React.Component {
       ...this.state.page,
       id: pageId,
       slug: `/${this.state.page.lang}/${pageId}`,
-      prev: prevPage ? prevPage.id : null,
     };
+
+    if (!prevPage) {
+      pageData.head = true
+    }
 
     this.props.savePage(pageData, pageId);
 
-    if (prevPage && this.state.page.category === "modules") {
+    if (prevPage) {
       this.props.updateFirebaseData({
         [`pages/${prevPage.id}/next`]: pageId,
       })
@@ -146,7 +149,6 @@ class CreatePageModal extends React.Component {
       ...this.state.page,
       id: pageId,
       slug: `/${this.state.page.lang}/${pageId}`,
-      prev: prevPage ? prevPage.id : null,
       translations: {
         ...this.props.page.translations,
         [this.props.page.lang]: {
@@ -158,7 +160,7 @@ class CreatePageModal extends React.Component {
 
     this.props.savePage(pageData, pageId);
 
-    if (prevPage && this.state.page.category === "modules") {
+    if (prevPage) {
       this.props.updateFirebaseData({
         [`pages/${prevPage.id}/next`]: pageId,
       })
