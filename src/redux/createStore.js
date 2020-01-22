@@ -6,7 +6,8 @@ import thunk from 'redux-thunk';
 const initialState = {
   adminTools: { isLoggedIn: false, isEditingPage: false },
   navigation: { currentLang: "en" },
-  pages: { pages: {}, orderedPages: [] }
+  pages: { pages: {}, orderedPages: [] },
+  translations: {}
 }
 
 const createStore = () => reduxCreateStore(appReducers, initialState, applyMiddleware(thunk))

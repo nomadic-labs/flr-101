@@ -15,6 +15,7 @@ import {
 import Layout from "../layouts/default.js";
 import DynamicSection from "../components/editing/DynamicSection";
 import CourseModule from "../components/common/CourseModule";
+import T from "../components/common/Translation"
 
 
 const mapDispatchToProps = dispatch => {
@@ -39,6 +40,7 @@ const mapStateToProps = state => {
     pageData: state.page.data,
     orderedPages: state.pages.orderedPages,
     pages: state.pages.pages,
+    currentLang: state.navigation.currentLang,
   };
 };
 
@@ -109,7 +111,7 @@ class CourseModulePage extends React.Component {
           <section>
           <Container maxWidth="md">
             <header className="module-header">
-              <h2 className="underline">{`Next Module`}</h2>
+              <h2 className="underline"><T id="next_module" /></h2>
             </header>
             <CourseModule page={nextModule} order={moduleOrder + 1} />
           </Container>

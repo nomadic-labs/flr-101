@@ -15,7 +15,7 @@ import {
   EditablesContext
 } from 'react-easy-editables';
 
-import { setOrderedPages, setCurrentLang, setPages } from "../redux/actions"
+import { setOrderedPages, setCurrentLang, setPages, setTranslations } from "../redux/actions"
 
 import "../assets/sass/less-cms/base.scss";
 import "../assets/sass/custom.scss";
@@ -90,11 +90,15 @@ const mapStateToProps = state => {
     pages: state.pages.pages,
     orderedPages: state.pages.orderedPages,
     currentLang: state.navigation.currentLang,
+    translations: state.translations,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    setTranslations: translations => {
+      dispatch(setTranslations(translations));
+    },
     setPages: pages => {
       dispatch(setPages(pages));
     },
@@ -117,6 +121,7 @@ class DefaultLayout extends React.Component {
     this.props.setOrderedPages(orderedPages)
     this.props.setCurrentLang(currentLang)
     this.props.setPages(this.props.allPages)
+    this.props.setTranslations(this.props.allTranslations)
   }
 
   nextPage = page => {
@@ -190,6 +195,13 @@ const LayoutContainer = props => (
             }
           }
         }
+        allTranslations {
+          nodes {
+            id
+            en
+            fr
+          }
+        }
       }
     `}
     render={data => {
@@ -199,8 +211,14 @@ const LayoutContainer = props => (
         return obj
       }, {})
 
+      const translationsArr = data.allTranslations.nodes
+      const translations = translationsArr.reduce((obj, node) => {
+        obj[node.id] = node
+        return obj
+      }, {})
+
       return(
-        <DefaultLayout data={data} allPages={pages} {...props} />
+        <DefaultLayout data={data} allPages={pages} allTranslations={translations} {...props} />
       )
     }}
   />

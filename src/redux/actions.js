@@ -756,3 +756,7 @@ export function removeCategory(categoryId) {
     })
   };
 }
+
+export function setTranslations(strings) {
+  return { type: "SET_TRANSLATIONS", strings }
+}

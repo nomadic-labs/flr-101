@@ -435,6 +435,17 @@ export const pages = (state={ pages: {}}, action) => {
   }
 }
 
+export const translations = (state={}, action) => {
+  switch (action.type) {
+    case 'SET_TRANSLATIONS':
+      return {
+        ...action.strings
+      }
+    default:
+      return state
+  }
+}
+
 
 export const appReducers = (state = {}, action) => {
   return {
@@ -446,6 +457,7 @@ export const appReducers = (state = {}, action) => {
     topics: topics(state.topics, action),
     categories: categories(state.categories, action),
     pages: pages(state.pages, action),
+    translations: translations(state.translations, action),
   }
 }
 

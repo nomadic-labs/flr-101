@@ -14,6 +14,8 @@ import ShareIcon from '@material-ui/icons/Share';
 import DownloadIcon from '@material-ui/icons/GetApp';
 
 import PopupNavigation from "./PopupNavigation"
+import T from "../common/Translation"
+
 import logo from "../../assets/images/nawl-logo.svg"
 
 import { LANGUAGE_OPTIONS } from "../../utils/constants"
@@ -35,6 +37,7 @@ class Footer extends React.Component {
     const { props, openMenu, closeMenu } = this;
     const { anchorEl } = this.state;
     const translations = props.pageData ? props.pageData.translations || {} : {}
+
     return (
       <footer>
         <Menu
@@ -65,7 +68,8 @@ class Footer extends React.Component {
                   aria-owns={anchorEl ? "toc" : null}
                   aria-haspopup="true"
                 >
-                  <KeyboardArrowUp style={{ marginRight: '0.5rem'}}/>Table of Contents
+                  <KeyboardArrowUp style={{ marginRight: '0.5rem'}}/>
+                  <T id="table_of_contents" />
                 </Button>
               </Grid>
               <Grid item xs={6} md={2} className="footer-section footer-center">
@@ -76,8 +80,8 @@ class Footer extends React.Component {
                 </Grid>
               </Grid>
               <Grid item xs={12} md={5} className="footer-section align-right footer-right">
-                <Button>Share</Button>
-                <Button>Download syllabus</Button>
+                <Button><T id="share" /></Button>
+                <Button><T id="download_syllabus" /></Button>
                 {
                   Object.keys(translations).map(key => {
                     if (translations[key]) {
@@ -101,14 +105,14 @@ class Footer extends React.Component {
             showLabels
           >
             <BottomNavigationAction
-              label="Contents"
+              label={<T id="table_of_contents" />}
               icon={<MenuIcon />}
               onClick={openMenu}
               aria-owns={anchorEl ? "toc" : null}
               aria-haspopup="true"
             />
-            <BottomNavigationAction label="Share" icon={<ShareIcon />} />
-            <BottomNavigationAction label="Download" icon={<DownloadIcon />} />
+            <BottomNavigationAction label={<T id="share" />} icon={<ShareIcon />} />
+            <BottomNavigationAction label={<T id="download_syllabus" />} icon={<DownloadIcon />} />
             {
               Object.keys(translations).map(key => {
                 if (translations[key]) {

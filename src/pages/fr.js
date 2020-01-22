@@ -20,7 +20,7 @@ const mapDispatchToProps = dispatch => {
     },
     onLoadPageData: data => {
       dispatch(loadPageData(data));
-    },
+    }
   };
 };
 
@@ -50,7 +50,7 @@ class HomePage extends React.Component {
     const content = this.props.pageData ? this.props.pageData.content : JSON.parse(this.props.data.pages.content);
 
     return (
-      <Layout>
+      <Layout t={this.props.data.translations}>
         <div className="bg-image">
           <section id="landing" className="wow fadeIn">
             <Container maxWidth="sm">
@@ -91,7 +91,7 @@ class HomePage extends React.Component {
             <h2 className="underline">
               <EditableText content={content["modules-title"]} handleSave={this.onSave("modules-title")} />
             </h2>
-            <CourseModules />
+            <CourseModules t={this.props.data.translations} />
           </Container>
         </section>
 

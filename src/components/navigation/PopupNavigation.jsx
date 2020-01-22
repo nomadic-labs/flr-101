@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import NavigationModule from "./NavigationModule"
+import T from "../common/Translation"
 
 const mapStateToProps = state => {
   return {
@@ -20,7 +21,7 @@ const PopupNavigation = props => {
     <div className="">
       <div className="navigation-module">
         <div className="title">
-          <a href={homePage.slug}>{ props.currentLang === "en" ? "Home" : "Acceuil" }</a>
+          <a href={homePage.slug}><T id="home" /></a>
         </div>
       </div>
       {
