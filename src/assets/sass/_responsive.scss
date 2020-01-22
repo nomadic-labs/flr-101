@@ -22,3 +22,12 @@
 
   }
 }
+
+
+@media (orientation:portrait) {
+  body .nl-page {
+    .bg-image {
+      background-image: url("../images/header-vertical.jpg");
+    }
+  }
+}

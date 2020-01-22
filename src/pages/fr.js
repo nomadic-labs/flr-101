@@ -10,8 +10,7 @@ import {
 
 import Layout from "../layouts/default.js";
 import CourseModules from "../components/common/CourseModules"
-import { EditableText, EditableParagraph, EditableBackgroundImage } from "react-easy-editables";
-import { uploadImage } from "../firebase/operations"
+import { EditableText, EditableParagraph } from "react-easy-editables";
 
 
 const mapDispatchToProps = dispatch => {
@@ -52,14 +51,14 @@ class HomePage extends React.Component {
 
     return (
       <Layout>
-        <EditableBackgroundImage content={content["landing-bg-image"]} handleSave={this.onSave("landing-bg-image")} uploadImage={uploadImage} classes="landing-bg-image" EditorProps={{ image: { accept: "image/*" }}}>
+        <div className="bg-image">
           <section id="landing" className="wow fadeIn">
             <Container maxWidth="sm">
               <h1><EditableText content={content["landing-title"]} handleSave={this.onSave("landing-title")} /></h1>
               <div className="landing-subtitle"><EditableText content={content["landing-subtitle"]} handleSave={this.onSave("landing-subtitle")} /></div>
             </Container>
           </section>
-        </EditableBackgroundImage>
+        </div>
 
         <section id="about" className="wow fadeIn">
           <Container maxWidth="md">

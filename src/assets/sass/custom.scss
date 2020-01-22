@@ -227,11 +227,20 @@ body .nl-page {
     box-shadow: none;
   }
 
+  .bg-image {
+    background-image: url("../images/header-horizontal.jpg");
+    height: inherit;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
   #landing {
     text-align: center;
     padding-top: 6%;
     padding-bottom: 17%;
     margin-bottom: 3rem;
+    height: 90vh;
 
     h1 {
       color: $tertiary-color;
