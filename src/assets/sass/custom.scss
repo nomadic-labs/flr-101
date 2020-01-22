@@ -42,16 +42,19 @@ body .nl-page {
       background-color: $tertiary-color;
       font-weight: 700;
       font-size: calc(18px + 1vw);
-
-      p {
-        font-size: calc(18px + 1vw);
-      }
     }
   }
 
   .paragraph, p {
     font-family: $body-font;
     font-size: calc(18px + 0.5vw);
+
+    a {
+      color: inherit;
+      font-size: inherit;
+      font-family: inherit;
+      font-weight: inherit;
+    }
   }
 
   a, button {

@@ -91,6 +91,7 @@ class CreatePageModal extends React.Component {
           ...this.props.page,
           title: `${this.props.page.title} (copy)`,
           translations: null,
+          next: null,
         }
         this.setState({ page: newPage })
       }

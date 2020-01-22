@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -13,6 +12,8 @@ import {
   LinkEditor,
   Editable
 } from 'react-easy-editables';
+
+import T from "./Translation";
 
 import { uploadImage } from "../../firebase/operations"
 
@@ -127,7 +128,7 @@ const Podcast = props => {
                 image={content["podcast-item-image"]["imageSrc"]}
                 title={content["podcast-item-image"]["caption"]}
               />
-              <Button component={"a"} href={content["podcast-item-link"]["link"]} className="flr-btn">Play</Button>
+              <Button component={"a"} href={content["podcast-item-link"]["link"]} className="flr-btn"><T id="play" /></Button>
             </div>
           </Hidden>
           <CardContent className="card-body">
@@ -145,17 +146,17 @@ const Podcast = props => {
               <div className={`description`} dangerouslySetInnerHTML={ {__html: content["podcast-item-description"]["text"]} }>
               </div>
             </div>
-            <button onClick={toggleLimitHeight} className="toggle-description-btn">{limitHeight ? "Show more" : "Show less"}</button>
+            <button onClick={toggleLimitHeight} className="toggle-description-btn">{limitHeight ? <T id="show_more" /> : <T id="show_less" />}</button>
 
             <div className="details">
-              <div><span className="bold">Published:</span>{content["podcast-item-published-date"]["text"]}</div>
-              <div><span className="bold">Length:</span>{content["podcast-item-length"]["text"]}</div>
+              <div><span className="bold"><T id="published" />:</span>{content["podcast-item-published-date"]["text"]}</div>
+              <div><span className="bold"><T id="length" />:</span>{content["podcast-item-length"]["text"]}</div>
             </div>
           </CardContent>
         </div>
         <Hidden mdUp>
           <div className="play-button mobile d-flex">
-            <Button component={"a"} href={content["podcast-item-link"]["link"]} className="flr-btn">Play</Button>
+            <Button component={"a"} href={content["podcast-item-link"]["link"]} className="flr-btn"><T id="play" /></Button>
           </div>
         </Hidden>
       </Card>

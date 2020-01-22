@@ -9,6 +9,8 @@ export const LANGUAGE_OPTIONS = [
   { label: "Français", value: "fr" },
 ];
 
+export const DEFAULT_LANGUAGE = "en"
+
 export const PAGE_TYPES = [
   { label: "Course Module", value: { type: "course_module", template: "course-module.js" } },
 ];
@@ -46,6 +48,7 @@ export const SECTION_MAP = {
   highlight: {
     type: "highlight",
     content: [
+      { type: "header", content: { text: "Header text" }},
       { type: "paragraph", content: { text: "<p>Section text</p>" }},
     ]
   },
