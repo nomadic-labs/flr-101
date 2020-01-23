@@ -23,7 +23,7 @@ body .nl-page {
   }
 
   h3 {
-    font-size: calc(24px + 1.6vw);
+    font-size: calc(20px + 1vw);
   }
 
 
@@ -47,7 +47,7 @@ body .nl-page {
 
   .paragraph, p {
     font-family: $body-font;
-    font-size: calc(18px + 0.5vw);
+    font-size: calc(16px + 0.3vw);
 
     a {
       color: inherit;
@@ -60,7 +60,7 @@ body .nl-page {
   a, button {
     font-family: $header-font;
     font-weight: 700;
-    font-size: calc(16px + 0.4vw);
+    font-size: calc(14px + 0.4vw);
   }
 
   a {
@@ -72,12 +72,12 @@ body .nl-page {
   }
 
   .logo {
-    width: 160px;
+    width: 120px;
     height: auto;
     display: flex;
 
     img {
-      width: 100%;
+      width: 120px;
     }
   }
 
@@ -93,7 +93,7 @@ body .nl-page {
   }
 
   footer {
-    padding: 1rem;
+    padding: 0.5rem;
     border-top: 1px solid $black;
     position: fixed;
     bottom: 0;
@@ -139,8 +139,8 @@ body .nl-page {
 
 
   .page-wrapper {
-    padding-bottom: 78px; /*footer height*/
-    padding-top: 66px; /*header height*/
+    padding-bottom: 60px; /*footer height*/
+    padding-top: 55px; /*header height*/
   }
 
   .align-right {
@@ -233,17 +233,17 @@ body .nl-page {
   .bg-image {
     background-image: url("../images/header-horizontal.jpg");
     height: inherit;
-    background-position: center;
+    background-position: bottom;
     background-repeat: no-repeat;
     background-size: cover;
   }
 
   #landing {
     text-align: center;
-    padding-top: 6%;
-    padding-bottom: 17%;
+    padding-top: 5%;
+    padding-bottom: 16%;
     margin-bottom: 3rem;
-    height: 90vh;
+    height: calc(100vh - 60px - 55px);
 
     h1 {
       color: $tertiary-color;
@@ -301,7 +301,7 @@ body .nl-page {
 
     .question-body, p {
       font-family: $header-font;
-      font-size: calc(18px + 1vw);
+      font-size: calc(14px + 1vw);
       font-weight: 700;
       margin-top: 0;
       margin-bottom: 0;
@@ -464,7 +464,7 @@ body .nl-page {
       }
 
       .quote-text {
-        font-size: calc(18px + 1vw);
+        font-size: calc(16px + 1vw);
         margin-bottom: 2rem;
       }
 
@@ -527,7 +527,7 @@ body .nl-page {
 
       .MuiIconButton-root {
         color: white;
-        font-size: 40px;
+        font-size: calc(14px + 0.4vw);
         opacity: 0;
         transition: all 0.3s linear;
 
@@ -592,9 +592,10 @@ body .nl-page {
 
   .course-module {
     h3 {
-      font-size: 2.5rem;
+      font-size: calc(24px + 1.2vw);
       margin-top: 0;
       margin-bottom: 0.5rem;
+      color: $black;
     }
 
     p {

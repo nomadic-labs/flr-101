@@ -118,7 +118,7 @@ class Footer extends React.Component {
                 if (translations[key]) {
                   const language = LANGUAGE_OPTIONS.find(o => o.value === key) || {}
                   return(
-                    <BottomNavigationAction key={key} component={Link} linkButton={true} to={translations[key].slug} label={language.label} icon={<LanguageIcon />} />
+                    <BottomNavigationAction key={key} component={Link} to={translations[key].slug} label={language.label} icon={<LanguageIcon />} />
                   )
                 } else {
                   return null
