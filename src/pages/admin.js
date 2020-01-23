@@ -1,13 +1,15 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import { connect } from "react-redux";
-import { filter, find } from 'lodash'
+import { filter, find, map } from 'lodash'
 import Container from "@material-ui/core/Container"
+import Grid from "@material-ui/core/Grid"
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import ArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import DeleteForever from '@material-ui/icons/DeleteForever';
+import { EditableText } from "react-easy-editables";
 
 
 import Layout from '../layouts/default';
@@ -17,6 +19,8 @@ import { PERMANENT_PAGES, LANGUAGE_OPTIONS } from "../utils/constants"
 
 import {
   fetchPages,
+  fetchTranslations,
+  updateTranslation,
   updateFirebaseData,
   deploy,
 } from "../redux/actions";
@@ -30,6 +34,12 @@ const mapDispatchToProps = dispatch => {
     fetchPages: () => {
       dispatch(fetchPages())
     },
+    fetchTranslations: () => {
+      dispatch(fetchTranslations())
+    },
+    updateTranslation: (translation) => {
+      dispatch(updateTranslation(translation))
+    },
     deploy: () => {
       dispatch(deploy())
     },
@@ -40,12 +50,14 @@ const mapStateToProps = state => {
   return {
     isEditingPage: state.adminTools.isEditingPage,
     pages: state.pages.pages,
+    translations: state.translations,
   };
 };
 
 class AdminPage extends React.Component {
   componentDidMount() {
     this.props.fetchPages()
+    this.props.fetchTranslations()
   }
 
   filterPagesByLanguage = (pages, lang) => {
@@ -220,6 +232,26 @@ class AdminPage extends React.Component {
                       <IconButton size="small" color="primary" onClick={this.deletePage(page)} disabled={PERMANENT_PAGES.includes(page.id)}><DeleteForever /></IconButton>
                       <span className="ml-3"><Link to={page.slug}>{page.title}</Link></span>
                     </div>
+                  )
+                })
+              }
+            </div>
+          </Container>
+
+          <Container>
+            <h2>Translations</h2>
+            <div className="my-40">
+              <Grid container className="translation-item">
+                <Grid item xs={6}><h4>English</h4></Grid>
+                <Grid item xs={6}><h4>French</h4></Grid>
+              </Grid>
+              {
+                map(this.props.translations, translation => {
+                  return(
+                    <Grid container className="translation-item" key={translation.id}>
+                      <Grid item xs={6}><EditableText content={{ text: translation.en }} /></Grid>
+                      <Grid item xs={6}><EditableText content={{ text: translation.fr }} /></Grid>
+                    </Grid>
                   )
                 })
               }

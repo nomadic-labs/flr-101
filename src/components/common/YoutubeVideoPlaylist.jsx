@@ -50,7 +50,7 @@ const VideoThumbnail = ({ video, onClickVideo, nowPlaying }) => {
         <div className="play-button">
           <IconButton onClick={onClickVideo} aria-label="play video"><PlayIcon /></IconButton>
         </div>
-        <img className="img-fluid" src={video.snippet.thumbnails.medium.url} alt={`Video thumbnail for "${video.snippet.title}"`} />
+        {video.snippet.thumbnails && <img className="img-fluid" src={video.snippet.thumbnails.medium.url} alt={`Video thumbnail for "${video.snippet.title}"`} />}
       </div>
       <h5 className="">
         {nowPlaying && <span style={{ color: "#E57A68" }}>{`▶ `}</span>}
@@ -122,7 +122,6 @@ class YoutubeVideoPlaylistEditor extends React.Component {
 
   render() {
     const { content, videos, videoId, videoTitle } = this.state;
-    console.log("state", this.state)
 
     return(
       <Grid container spacing={2}>

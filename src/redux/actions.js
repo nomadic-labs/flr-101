@@ -688,26 +688,31 @@ export function setCategories(categories) {
   return { type: "SET_CATEGORIES", categories }
 }
 
-export function fetchCategories() {
+export function updateTranslationState(translation) {
+  return { type: "UPDATE_TRANSLATION_STATE", translation}
+}
+
+
+export function fetchTranslations() {
   return (dispatch, getState) => {
     const db = firebase.database();
 
-    db.ref(`categories`)
+    db.ref(`translations`)
       .once('value')
       .then(snap => {
-        dispatch(setCategories(snap.val()));
+        dispatch(setTranslations(snap.val()));
       })
       .catch(error => {
-        console.log("Error fetching categories", error)
+        console.log("Error fetching translations", error)
       })
   };
 }
 
-export function pushCategory(category) {
+export function updateTranslation(translation) {
   return (dispatch, getState) => {
     const db = firebase.database();
 
-    db.ref(`categories/${category.id}`).update(category, error => {
+    db.ref(`translations/${translation.id}`).update(translation, error => {
       if (error) {
         return dispatch(
           showNotification(
@@ -717,7 +722,7 @@ export function pushCategory(category) {
         );
       }
 
-      dispatch(addCategory(category));
+      dispatch(updateTranslationState(translation));
       dispatch(
         showNotification(
           "Your changes have been saved.",

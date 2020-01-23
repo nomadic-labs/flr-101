@@ -15,7 +15,6 @@ const mapStateToProps = state => {
 
 
 const PopupNavigation = props => {
-  console.log(props)
   const homePage = props.currentLang === "en" ? props.pages["nawl"] : props.pages["anfd"]
   return (
     <div className="">

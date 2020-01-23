@@ -582,6 +582,12 @@ body .nl-page {
     h3 {
       font-size: 2rem;
     }
+
+    .translation-item {
+      border-bottom: 1px solid $charcoal;
+      padding-bottom: 0.5rem;
+      padding-top: 0.5rem;
+    }
   }
 
   .course-module {
@@ -625,7 +631,7 @@ body .nl-page {
 
   .MuiMenu-list {
     background-color: $tertiary-color;
-    padding: 1rem;
+    padding: 1rem !important;
   }
 
   .navigation-module {

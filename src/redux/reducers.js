@@ -441,6 +441,11 @@ export const translations = (state={}, action) => {
       return {
         ...action.strings
       }
+    case "UPDATE_TRANSLATION_STATE":
+      return {
+        ...state,
+        [action.translation.id]: action.translation
+      }
     default:
       return state
   }
