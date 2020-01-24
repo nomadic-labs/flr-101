@@ -168,9 +168,12 @@ class AdminPage extends React.Component {
         }
       })
     }
-    console.log("dataToUpdate", dataToUpdate)
-
     this.props.updateFirebaseData(dataToUpdate, this.props.fetchPages)
+  }
+
+  onSaveTranslationChanges = (translation, translationId, lang) => newContent => {
+    const newTranslation = { ...translation, [lang]: newContent.text, id: translationId }
+    this.props.updateTranslation(newTranslation)
   }
 
   render() {
@@ -246,11 +249,11 @@ class AdminPage extends React.Component {
                 <Grid item xs={6}><h4>French</h4></Grid>
               </Grid>
               {
-                map(this.props.translations, translation => {
+                map(this.props.translations, (translation, translationId) => {
                   return(
-                    <Grid container className="translation-item" key={translation.id}>
-                      <Grid item xs={6}><EditableText content={{ text: translation.en }} /></Grid>
-                      <Grid item xs={6}><EditableText content={{ text: translation.fr }} /></Grid>
+                    <Grid container className="translation-item" key={translationId}>
+                      <Grid item xs={6}><EditableText content={{ text: translation.en }} onSave={this.onSaveTranslationChanges(translation, translationId, "en")} /></Grid>
+                      <Grid item xs={6}><EditableText content={{ text: translation.fr }} onSave={this.onSaveTranslationChanges(translation, translationId, "fr")} /></Grid>
                     </Grid>
                   )
                 })

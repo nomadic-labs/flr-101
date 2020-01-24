@@ -5,7 +5,7 @@ const NavigationModule = ({ page, order }) => {
   return (
     <div className="navigation-module">
       <div className="title">
-        <a href={page.slug}><span><T id="module" />{order && ` ${order}: `}</span><span>{page.title}</span></a>
+        <a tabIndex={0} href={page.slug}><T id="module" />{` ${order}: ${page.title}`}</a>
       </div>
     </div>
   );
