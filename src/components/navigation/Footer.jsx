@@ -3,8 +3,11 @@ import { Link } from "gatsby"
 import Hidden from '@material-ui/core/Hidden';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Menu from "@material-ui/core/Menu";
+import Popover from "@material-ui/core/Popover";
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp'
@@ -13,6 +16,18 @@ import LanguageIcon from '@material-ui/icons/Language';
 import ShareIcon from '@material-ui/icons/Share';
 import DownloadIcon from '@material-ui/icons/GetApp';
 
+import {
+  TwitterShareButton,
+  TwitterIcon,
+  FacebookShareButton,
+  FacebookIcon,
+  LinkedinShareButton,
+  LinkedinIcon,
+  EmailShareButton,
+  EmailIcon,
+} from 'react-share';
+
+
 import PopupNavigation from "./PopupNavigation"
 import T from "../common/Translation"
 
@@ -20,9 +35,12 @@ import logo from "../../assets/images/nawl-logo.svg"
 
 import { LANGUAGE_OPTIONS } from "../../utils/constants"
 
+const isClient = typeof window !== 'undefined';
+
 class Footer extends React.Component {
   state = {
     anchorEl: null,
+    shareAnchor: null,
   };
 
   openMenu = e => {
@@ -33,10 +51,20 @@ class Footer extends React.Component {
     this.setState({ anchorEl: null });
   };
 
+  openShareButtons = e => {
+    this.setState({ shareAnchor: e.currentTarget });
+  };
+
+  closeShareButtons = e => {
+    this.setState({ shareAnchor: null });
+  };
+
   render() {
-    const { props, openMenu, closeMenu } = this;
-    const { anchorEl } = this.state;
+    const { props, openMenu, closeMenu, openShareButtons, closeShareButtons } = this;
+    const { anchorEl, shareAnchor } = this.state;
     const translations = props.pageData ? props.pageData.translations || {} : {}
+    const shareUrl = props.location ? props.location.href : isClient ? window.location.origin : "";
+    const shareTitle = props.pageData ? props.pageData.title : "Feminist Law Reform 101"
 
     return (
       <footer>
@@ -59,6 +87,43 @@ class Footer extends React.Component {
         >
           <PopupNavigation />
         </Menu>
+        <Popover
+          id="share-buttons"
+          role="menu"
+          anchorEl={shareAnchor}
+          open={Boolean(shareAnchor)}
+          onClose={closeShareButtons}
+          className="share-buttons-menu"
+          elevation={0}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+          transformOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+        >
+          <Card variant="outlined" className="share-buttons-popover">
+            <CardContent style={{ padding: "0.5rem" }}>
+              <TwitterShareButton url={shareUrl} title={shareTitle}>
+                <TwitterIcon size={24} round />
+              </TwitterShareButton>
+
+              <FacebookShareButton url={shareUrl} quote={shareTitle}>
+                <FacebookIcon size={24} round />
+              </FacebookShareButton>
+
+              <LinkedinShareButton url={shareUrl} title={shareTitle}>
+                <LinkedinIcon size={24} round />
+              </LinkedinShareButton>
+
+              <EmailShareButton url={shareUrl} subject={shareTitle}>
+                <EmailIcon size={24} round />
+              </EmailShareButton>
+            </CardContent>
+          </Card>
+        </Popover>
         <Hidden smDown>
           <Container maxWidth="lg">
             <Grid container>
@@ -80,7 +145,13 @@ class Footer extends React.Component {
                 </Grid>
               </Grid>
               <Grid item xs={12} md={5} className="footer-section align-right footer-right">
-                <Button><T id="share" /></Button>
+                <Button
+                  onClick={openShareButtons}
+                  aria-owns={shareAnchor ? "share-buttons" : null}
+                  aria-haspopup="true"
+                >
+                  <T id="share" />
+                </Button>
                 <Button><T id="download_syllabus" /></Button>
                 {
                   Object.keys(translations).map(key => {

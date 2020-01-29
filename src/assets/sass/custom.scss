@@ -144,8 +144,8 @@ body .nl-page {
     .MuiBottomNavigationAction-label {
       font-size: 0.8rem;
     }
-  }
 
+  }
 
   .page-wrapper {
     padding-bottom: 60px; /*footer height*/
@@ -689,6 +689,13 @@ body .nl-page {
     left: 0;
     width: 100%;
     height: 100%;
+  }
+}
+
+.share-buttons-popover {
+  button {
+    display: inline-flex;
+    margin: 2px;
   }
 }
 
