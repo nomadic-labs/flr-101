@@ -9,6 +9,11 @@ export const LANGUAGE_OPTIONS = [
   { label: "Français", value: "fr" },
 ];
 
+export const CATEGORY_OPTIONS = [
+  { label: "Course module", value: "modules" },
+  { label: "Uncategorized", value: "uncategorized" },
+];
+
 export const DEFAULT_LANGUAGE = "en"
 
 export const PAGE_TYPES = [
@@ -31,6 +36,7 @@ export const CONTENT_MAP = {
   timeline: { type: "timeline", content: { alignment: "left" } },
   button: { type: "button", content: { anchor: "Button", link: "/" } },
   link: { type: "link", content: { anchor: "Link text", link: "/" } },
+  expandableText: { type: "expandableText", content: { header: "Name", description: "<p>Bio</p>" } },
   videos: { type: "videos", content: { playlistId: { text: ""} }},
   quote: {
     type: "quote",

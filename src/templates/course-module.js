@@ -84,7 +84,7 @@ class CourseModulePage extends React.Component {
 
         <Container maxWidth="md">
           <header className="module-header">
-            <p className="text-muted">{`Module ${moduleOrder}`}</p>
+            {Boolean(moduleOrder) && <p className="text-muted">{`Module ${moduleOrder}`}</p>}
             <h2 className="underline">{pageData.title}</h2>
           </header>
         </Container>

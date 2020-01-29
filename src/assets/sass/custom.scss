@@ -26,6 +26,12 @@ body .nl-page {
     font-size: calc(20px + 1vw);
   }
 
+  h4 {
+    font-size: calc(18px + 0.5vw);
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
 
   section {
     padding-top: 2rem;
@@ -82,14 +88,17 @@ body .nl-page {
   }
 
   .navbar {
-    border-bottom: 1px solid $black;
-    padding: 0.5em;
+    padding: 0.5rem 1rem;
     position: absolute;
     top: 0;
     width: 100%;
-    background: white;
+    background: transparent;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
+  }
+
+  main {
+    height: 100%;
   }
 
   footer {
@@ -140,7 +149,6 @@ body .nl-page {
 
   .page-wrapper {
     padding-bottom: 60px; /*footer height*/
-    padding-top: 55px; /*header height*/
   }
 
   .align-right {
@@ -200,7 +208,7 @@ body .nl-page {
   }
 
   .module-header {
-    margin-top: 3rem;
+    margin-top: 4rem;
 
     p {
       font-family: $header-font;
@@ -240,10 +248,10 @@ body .nl-page {
 
   #landing {
     text-align: center;
-    padding-top: 5%;
+    padding-top: 6%;
     padding-bottom: 16%;
     margin-bottom: 3rem;
-    height: calc(100vh - 60px - 55px);
+    height: calc(100vh - 60px);
 
     h1 {
       color: $tertiary-color;
@@ -662,6 +670,10 @@ body .nl-page {
   }
 }
 
+.expandable {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
 
 .embed-container {
   position: relative;

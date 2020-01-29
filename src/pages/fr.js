@@ -50,7 +50,7 @@ class HomePage extends React.Component {
     const content = this.props.pageData ? this.props.pageData.content : JSON.parse(this.props.data.pages.content);
 
     return (
-      <Layout t={this.props.data.translations}>
+      <Layout light={true}>
         <div className="bg-image">
           <section id="landing" className="wow fadeIn">
             <Container maxWidth="lg">

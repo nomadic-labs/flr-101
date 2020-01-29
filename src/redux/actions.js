@@ -549,6 +549,8 @@ export function fetchPages() {
           obj[id] = {...page, id}
           return obj
         }, {})
+
+        console.log("Fetched pages", pages)
         dispatch(setPages(pages));
       })
       .catch(error => {

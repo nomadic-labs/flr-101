@@ -61,7 +61,7 @@ class AdminPage extends React.Component {
   }
 
   filterPagesByLanguage = (pages, lang) => {
-    return filter(pages, page => (page.category && (page.lang === lang.value)));
+    return filter(pages, page => (page.category === "modules" && (page.lang === lang.value)));
   }
 
   nextPage = page => {
@@ -177,7 +177,7 @@ class AdminPage extends React.Component {
   }
 
   render() {
-    const unorderedPages = filter(this.props.pages, page => !page.category)
+    const unorderedPages = filter(this.props.pages, page => !page.category || page.category === "uncategorized")
     const pagesByLanguage = [];
 
     LANGUAGE_OPTIONS.forEach(lang => {

@@ -21,7 +21,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
-import { PAGE_TYPES, LANGUAGE_OPTIONS } from "../../utils/constants";
+import { PAGE_TYPES, LANGUAGE_OPTIONS, CATEGORY_OPTIONS } from "../../utils/constants";
 
 import defaultContentJSON from "../../fixtures/pageContent.json";
 
@@ -56,7 +56,7 @@ const mapDispatchToProps = dispatch => {
 const emptyPage = {
     title: "",
     description: "",
-    category: "modules",
+    category: CATEGORY_OPTIONS[0].value,
     lang: LANGUAGE_OPTIONS[0].value,
     type: PAGE_TYPES[0].value,
     content: defaultContentJSON,
@@ -67,7 +67,7 @@ class CreatePageModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: this.props.page
+      page: this.props.page,
     };
     this.updatePage = (field, value) => {
       this._updatePage(field, value);
@@ -119,6 +119,7 @@ class CreatePageModal extends React.Component {
       ...this.state.page,
       id: pageId,
       slug: `/${this.state.page.lang}/${pageId}`,
+      next: null,
     };
 
     if (!prevPage) {
@@ -150,6 +151,7 @@ class CreatePageModal extends React.Component {
       ...this.state.page,
       id: pageId,
       slug: `/${this.state.page.lang}/${pageId}`,
+      next: null,
       translations: {
         ...this.props.page.translations,
         [this.props.page.lang]: {
@@ -158,6 +160,10 @@ class CreatePageModal extends React.Component {
         }
       }
     };
+
+    if (!prevPage) {
+      pageData.head = true
+    }
 
     this.props.savePage(pageData, pageId);
 
@@ -237,6 +243,29 @@ class CreatePageModal extends React.Component {
                 }}
               >
                 {LANGUAGE_OPTIONS.map(option => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          }
+
+          {
+            this.props.options.new &&
+            <FormControl fullWidth margin="normal">
+              <InputLabel htmlFor="menu-group">Category</InputLabel>
+              <Select
+                value={this.state.page.category}
+                onChange={selected =>
+                  this.updatePage("category", selected.target.value)
+                }
+                inputProps={{
+                  name: "menu-group",
+                  id: "menu-group"
+                }}
+              >
+                {CATEGORY_OPTIONS.map(option => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.label}
                   </MenuItem>

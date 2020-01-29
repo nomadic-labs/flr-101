@@ -113,8 +113,12 @@ class SectionEditingActions extends React.Component {
                 Link
               </MenuItem>
 
-              <MenuItem onClick={() => this.props.onAddContentItem("image")} divider>
+              <MenuItem onClick={() => this.props.onAddContentItem("image")}>
                 Image
+              </MenuItem>
+
+              <MenuItem onClick={() => this.props.onAddContentItem("expandableText")} divider>
+                Expandable text
               </MenuItem>
 
               <MenuItem onClick={() => this.props.onAddSection("default")}>

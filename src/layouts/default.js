@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { StaticQuery, graphql } from "gatsby"
 import Helmet from "react-helmet";
 import { connect } from "react-redux";
@@ -168,7 +168,7 @@ class DefaultLayout extends React.Component {
         <EditablesContext.Provider value={ { theme: theme, showEditingControls: props.isEditingPage } }>
           <div className="page-wrapper">
             <Header { ...props } />
-            <Fragment>{props.children}</Fragment>
+            <main>{props.children}</main>
             <Footer { ...props } />
           </div>
           <CreatePageModal />

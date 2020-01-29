@@ -27,6 +27,7 @@ import Button from "../common/Button";
 import Link from "../common/Link";
 import Quote from "../common/Quote";
 import YoutubeVideoPlaylist from "../common/YoutubeVideoPlaylist";
+import ExpandableText from "../common/ExpandableText";
 import SectionEditingActions from "./SectionEditingActions";
 
 const componentMap = {
@@ -44,6 +45,7 @@ const componentMap = {
   podcasts: Podcasts,
   resources: Resources,
   videos: YoutubeVideoPlaylist,
+  expandableText: ExpandableText,
 }
 
 const mapDispatchToProps = dispatch => {
