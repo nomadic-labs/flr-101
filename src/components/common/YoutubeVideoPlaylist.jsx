@@ -4,11 +4,13 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import PlayIcon from "@material-ui/icons/PlayCircleFilled";
 import Slider from "react-slick"
+import Authors from "./Authors"
 import {
   PlainTextEditor,
   RichTextEditor,
   Editable
 } from 'react-easy-editables';
+
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -69,6 +71,7 @@ const VideoDescription = ({ video, videoTitle, transcript={} }) => {
   )
 }
 
+
 class YoutubeVideoPlaylistEditor extends React.Component {
   constructor(props) {
     super(props);
@@ -124,50 +127,61 @@ class YoutubeVideoPlaylistEditor extends React.Component {
     const { content, videos, videoId, videoTitle } = this.state;
 
     return(
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <div className={`playlist-editor ${this.props.classes}`}>
-            <label htmlFor="playlist-field">YouTube playlist URL:</label>
-            <PlainTextEditor
-              EditorProps={{id: "playlist-field"}}
-              content={content["playlist"]}
-              handleEditorChange={this.handleEditorChange("playlist")}
-            />
-          </div>
-        </Grid>
-        <Grid item xs={12}>
-          <Slider { ...settings }>
-            {
-              videos.map(video => {
-                return (
-                  <VideoThumbnail
-                    video={video}
-                    key={video.id}
-                    nowPlaying={video.snippet.resourceId.videoId === videoId}
-                    onClickVideo={() => this.setState({ videoId: video.snippet.resourceId.videoId, videoTitle: video.snippet.title }) }
-                  />
-                )
-              })
-            }
-          </Slider>
+      <div>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <div className={`playlist-editor ${this.props.classes}`}>
+              <label htmlFor="playlist-field">YouTube playlist URL:</label>
+              <PlainTextEditor
+                EditorProps={{id: "playlist-field"}}
+                content={content["playlist"]}
+                handleEditorChange={this.handleEditorChange("playlist")}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={12}>
+            <Slider { ...settings }>
+              {
+                videos.map(video => {
+                  return (
+                    <VideoThumbnail
+                      video={video}
+                      key={video.id}
+                      nowPlaying={video.snippet.resourceId.videoId === videoId}
+                      onClickVideo={() => this.setState({ videoId: video.snippet.resourceId.videoId, videoTitle: video.snippet.title }) }
+                    />
+                  )
+                })
+              }
+            </Slider>
+          </Grid>
         </Grid>
         {
           this.state.videoId &&
-          <Grid item xs={12}>
-            <div className="video-description">
-              <h4 className="video-title underline">{videoTitle}</h4>
-              <div className={`playlist-editor ${this.props.classes}`}>
-                <label htmlFor="transcript-field">Video transcript:</label>
-                <RichTextEditor
-                  EditorProps={{id: "transcript-field"}}
-                  content={content[`transcript-${this.state.videoId}`]}
-                  handleEditorChange={this.handleEditorChange(`transcript-${this.state.videoId}`)}
-                />
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={4}>
+              <Authors
+                content={content[`authors-${videoId}`]}
+                onSave={this.handleEditorChange(`authors-${this.state.videoId}`)}
+                isEditingPage={true}
+              />
+            </Grid>
+            <Grid item xs={12} md={8}>
+              <div className="video-description">
+                <h4 className="video-title underline">{videoTitle}</h4>
+                <div className={`playlist-editor ${this.props.classes}`}>
+                  <label htmlFor="transcript-field">Video transcript:</label>
+                  <RichTextEditor
+                    EditorProps={{id: "transcript-field"}}
+                    content={content[`transcript-${this.state.videoId}`]}
+                    handleEditorChange={this.handleEditorChange(`transcript-${this.state.videoId}`)}
+                  />
+                </div>
               </div>
-            </div>
+            </Grid>
           </Grid>
         }
-      </Grid>
+      </div>
     )
   }
 }
@@ -220,6 +234,8 @@ class YoutubeVideoPlaylist extends Component {
     const playlistUrl = content["playlist"] ? content["playlist"]["text"] : "https://www.youtube.com/playlist?list=";
     const playlistId = playlistUrl.split("https://www.youtube.com/playlist?list=")[1]
     const embedSrc = videoId ? `https://www.youtube.com/embed/${videoId}` : `https://www.youtube.com/embed/videoseries?list=${playlistId}`
+    const videoAuthors = content[`authors-${videoId}`]
+    const videoAuthorsKeys = videoAuthors ? Object.keys(content[`authors-${videoId}`]) : []
 
     return (
       <Editable
@@ -250,10 +266,47 @@ class YoutubeVideoPlaylist extends Component {
               }
             </Slider>
           </Grid>
-          <Grid item xs={12}>
-            <VideoDescription videoTitle={videoTitle} videoId={videoId} transcript={content[`transcript-${videoId}`]} />
-          </Grid>
         </Grid>
+        { videoId &&
+          <Grid container spacing={2}>
+            {
+              videoAuthors &&
+                <Grid item xs={12} md={4}>
+                {videoAuthorsKeys.map((key,index) => {
+                  if (videoAuthorsKeys.length > 1) {
+                    const authorContent = videoAuthors[key];
+                    return(
+                      <div className="video-author mini">
+                      <div className="image-rounded">
+                        <img src={authorContent[`author-item-image`]["imageSrc"]} alt={authorContent[`author-item-name`]["text"]} />
+                      </div>
+                      <h4>
+                        {authorContent[`author-item-name`]["text"]}
+                      </h4>
+                    </div>
+                    )
+                  }
+
+                  const authorContent = videoAuthors[key];
+                  return(
+                    <div className="video-author">
+                      <div className="image-rounded">
+                        <img src={authorContent[`author-item-image`]["imageSrc"]} alt={authorContent[`author-item-name`]["text"]} />
+                      </div>
+                      <h4>
+                        {authorContent[`author-item-name`]["text"]}
+                      </h4>
+                      <p>{authorContent[`author-item-bio`]["text"]}</p>
+                    </div>
+                  )
+                })}
+              </Grid>
+            }
+            <Grid item xs={12} md={8}>
+              <VideoDescription videoTitle={videoTitle} videoId={videoId} transcript={content[`transcript-${videoId}`]} />
+            </Grid>
+          </Grid>
+        }
       </Editable>
     );
   }
