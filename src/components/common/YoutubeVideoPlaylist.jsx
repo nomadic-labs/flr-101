@@ -276,20 +276,20 @@ class YoutubeVideoPlaylist extends Component {
                   if (videoAuthorsKeys.length > 1) {
                     const authorContent = videoAuthors[key];
                     return(
-                      <div className="video-author mini">
-                      <div className="image-rounded">
-                        <img src={authorContent[`author-item-image`]["imageSrc"]} alt={authorContent[`author-item-name`]["text"]} />
+                      <div className="video-author mini" key={key}>
+                        <div className="image-rounded">
+                          <img src={authorContent[`author-item-image`]["imageSrc"]} alt={authorContent[`author-item-name`]["text"]} />
+                        </div>
+                        <h4>
+                          {authorContent[`author-item-name`]["text"]}
+                        </h4>
                       </div>
-                      <h4>
-                        {authorContent[`author-item-name`]["text"]}
-                      </h4>
-                    </div>
                     )
                   }
 
                   const authorContent = videoAuthors[key];
                   return(
-                    <div className="video-author">
+                    <div className="video-author" key={key}>
                       <div className="image-rounded">
                         <img src={authorContent[`author-item-image`]["imageSrc"]} alt={authorContent[`author-item-name`]["text"]} />
                       </div>
