@@ -108,7 +108,7 @@ const Reading = props => {
           <div className="description" dangerouslySetInnerHTML={ {__html: content["reading-item-description"]["text"]} } />
 
           {
-            Boolean(content["reading-item-link"]) &&
+            Boolean(content["reading-item-link"]) && Boolean(content["reading-item-link"]["link"]) &&
             <div className="file-link">
               <a href={content["reading-item-link"]["link"]} target="_blank" rel="noopener noreferrer">
                 { content["reading-item-link"]["anchor"] ? content["reading-item-link"]["anchor"] : "Open link" }

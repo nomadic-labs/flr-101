@@ -14,7 +14,7 @@ import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp'
 import MenuIcon from '@material-ui/icons/Menu';
 import LanguageIcon from '@material-ui/icons/Language';
 import ShareIcon from '@material-ui/icons/Share';
-import DownloadIcon from '@material-ui/icons/GetApp';
+// import DownloadIcon from '@material-ui/icons/GetApp';
 
 import {
   TwitterShareButton,
@@ -152,7 +152,7 @@ class Footer extends React.Component {
                 >
                   <T id="share" />
                 </Button>
-                <Button><T id="download_syllabus" /></Button>
+                {/*<Button><T id="download_syllabus" /></Button>*/}
                 {
                   Object.keys(translations).map(key => {
                     if (translations[key]) {
@@ -183,7 +183,7 @@ class Footer extends React.Component {
               aria-haspopup="true"
             />
             <BottomNavigationAction label={<T id="share" />} icon={<ShareIcon />} />
-            <BottomNavigationAction label={<T id="download_syllabus" />} icon={<DownloadIcon />} />
+            {/*<BottomNavigationAction label={<T id="download_syllabus" />} icon={<DownloadIcon />} />*/}
             {
               Object.keys(translations).map(key => {
                 if (translations[key]) {
