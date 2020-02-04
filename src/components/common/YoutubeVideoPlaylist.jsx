@@ -18,33 +18,6 @@ import "slick-carousel/slick/slick-theme.css";
 const YOUTUBE_API_ENDPOINT = "https://www.googleapis.com/youtube/v3/playlistItems";
 
 
-const settings = {
-  infinite: true,
-  speed: 500,
-  draggable: true,
-  slidesToShow: 5,
-  slidesToScroll: 1,
-  responsive: [
-    {
-      breakpoint: 960,
-      settings: {
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        swipe: true,
-      }
-    },
-    {
-      breakpoint: 768,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        swipe: true,
-      }
-    },
-  ]
-};
-
-
 const VideoThumbnail = ({ video, onClickVideo, nowPlaying }) => {
   return (
     <div className="video-slide">
@@ -125,6 +98,31 @@ class YoutubeVideoPlaylistEditor extends React.Component {
 
   render() {
     const { content, videos, videoId, videoTitle } = this.state;
+    const settings = {
+      infinite: true,
+      speed: 500,
+      draggable: true,
+      slidesToShow: videos.length < 5 ? videos.length : 5,
+      slidesToScroll: 1,
+      responsive: [
+        {
+          breakpoint: 960,
+          settings: {
+            slidesToShow: videos.length < 4 ? videos.length : 4,
+            slidesToScroll: 1,
+            swipe: true,
+          }
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: videos.length < 3 ? videos.length : 3,
+            slidesToScroll: 1,
+            swipe: true,
+          }
+        },
+      ]
+    };
 
     return(
       <div>
@@ -236,6 +234,31 @@ class YoutubeVideoPlaylist extends Component {
     const embedSrc = videoId ? `https://www.youtube.com/embed/${videoId}` : `https://www.youtube.com/embed/videoseries?list=${playlistId}`
     const videoAuthors = content[`authors-${videoId}`]
     const videoAuthorsKeys = videoAuthors ? Object.keys(content[`authors-${videoId}`]) : []
+    const settings = {
+      infinite: true,
+      speed: 500,
+      draggable: true,
+      slidesToShow: videos.length < 5 ? videos.length : 5,
+      slidesToScroll: 1,
+      responsive: [
+        {
+          breakpoint: 960,
+          settings: {
+            slidesToShow: videos.length < 4 ? videos.length : 4,
+            slidesToScroll: 1,
+            swipe: true,
+          }
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: videos.length < 3 ? videos.length : 3,
+            slidesToScroll: 1,
+            swipe: true,
+          }
+        },
+      ]
+    };
 
     return (
       <Editable

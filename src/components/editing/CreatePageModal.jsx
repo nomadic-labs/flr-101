@@ -128,7 +128,7 @@ class CreatePageModal extends React.Component {
 
     this.props.savePage(pageData, pageId);
 
-    if (prevPage) {
+    if (this.state.page.category !== CATEGORY_OPTIONS[1].value && prevPage) { // don't add next page for uncategorized pages
       this.props.updateFirebaseData({
         [`pages/${prevPage.id}/next`]: pageId,
       })

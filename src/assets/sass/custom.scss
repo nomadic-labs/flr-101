@@ -67,13 +67,22 @@ body .nl-page {
     font-family: $header-font;
     font-weight: 700;
     font-size: calc(14px + 0.4vw);
+    text-decoration-color: $secondary-color;
+    text-decoration-skip-ink: auto;
   }
 
-  a {
+  a:not(.flr-btn) {
     color: $black;
+    transition: transform 0.2s ease-in-out;
+    position: relative;
+    display: inline-block;
+
+    &:hover {
+      color: $charcoal;
+    }
 
     &:active, &:focus {
-      color: $black;
+      color: $secondary-color;
     }
   }
 

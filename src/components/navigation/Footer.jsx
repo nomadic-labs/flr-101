@@ -107,19 +107,19 @@ class Footer extends React.Component {
           <Card variant="outlined" className="share-buttons-popover">
             <CardContent style={{ padding: "0.5rem" }}>
               <TwitterShareButton url={shareUrl} title={shareTitle}>
-                <TwitterIcon size={24} round />
+                <TwitterIcon size={36} round />
               </TwitterShareButton>
 
               <FacebookShareButton url={shareUrl} quote={shareTitle}>
-                <FacebookIcon size={24} round />
+                <FacebookIcon size={36} round />
               </FacebookShareButton>
 
               <LinkedinShareButton url={shareUrl} title={shareTitle}>
-                <LinkedinIcon size={24} round />
+                <LinkedinIcon size={36} round />
               </LinkedinShareButton>
 
               <EmailShareButton url={shareUrl} subject={shareTitle}>
-                <EmailIcon size={24} round />
+                <EmailIcon size={36} round />
               </EmailShareButton>
             </CardContent>
           </Card>
