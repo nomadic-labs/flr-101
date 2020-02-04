@@ -73,9 +73,6 @@ body .nl-page {
 
   a:not(.flr-btn) {
     color: $black;
-    transition: transform 0.2s ease-in-out;
-    position: relative;
-    display: inline-block;
 
     &:hover {
       color: $charcoal;
