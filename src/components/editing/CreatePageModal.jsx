@@ -115,16 +115,14 @@ class CreatePageModal extends React.Component {
 
     const prevPage = find(this.props.pages, (page => page.category === this.state.page.category && page.lang === this.state.page.lang && !page.next));
 
+    console.log("PREV PAGE", prevPage)
+
     let pageData = {
       ...this.state.page,
       id: pageId,
       slug: `/${this.state.page.lang}/${pageId}`,
       next: null,
     };
-
-    if (!prevPage) {
-      pageData.head = true
-    }
 
     this.props.savePage(pageData, pageId);
 
@@ -147,6 +145,8 @@ class CreatePageModal extends React.Component {
 
     const prevPage = find(this.props.pages, (page => page.category === this.state.page.category && page.lang === this.state.page.lang && !page.next));
 
+    console.log("PREV PAGE for translation", prevPage)
+
     let pageData = {
       ...this.state.page,
       id: pageId,
@@ -160,10 +160,6 @@ class CreatePageModal extends React.Component {
         }
       }
     };
-
-    if (!prevPage) {
-      pageData.head = true
-    }
 
     this.props.savePage(pageData, pageId);
 
