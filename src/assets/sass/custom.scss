@@ -722,6 +722,10 @@ body .nl-page {
 .expandable {
   margin-top: 1rem;
   margin-bottom: 1rem;
+
+  .MuiExpansionPanelSummary-root {
+    background-color: $light-green;
+  }
 }
 
 .embed-container {

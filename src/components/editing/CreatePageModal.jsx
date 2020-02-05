@@ -273,10 +273,10 @@ class CreatePageModal extends React.Component {
         </DialogContent>
 
         <DialogActions>
-          <Button color="default" onClick={this.props.onToggleNewPageModal}>
+          <Button color="secondary" onClick={this.props.onToggleNewPageModal}>
             Close
           </Button>
-          <Button color="secondary" onClick={this.onSubmit}>
+          <Button color="default" onClick={this.onSubmit}>
             { (this.props.options.new || this.props.options.duplicate) ? "Create page" : "Save" }
           </Button>
         </DialogActions>
