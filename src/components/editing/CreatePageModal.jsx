@@ -68,6 +68,7 @@ class CreatePageModal extends React.Component {
     super(props);
     this.state = {
       page: this.props.page,
+      errors: {},
     };
     this.updatePage = (field, value) => {
       this._updatePage(field, value);
@@ -93,18 +94,26 @@ class CreatePageModal extends React.Component {
           translations: null,
           next: null,
         }
-        this.setState({ page: newPage })
+        this.setState({ page: newPage, errors: {} })
       }
     }
   }
 
   _updatePage(field, value) {
     this.setState({
+      errors: {
+        ...this.state.errors,
+        [field]: null
+      },
       page: {
         ...this.state.page,
         [field]: value
       }
     });
+  }
+
+  isUniqueSlug = slug => {
+    return !Boolean(this.props.pages[slug])
   }
 
   newPage = () => {
@@ -113,9 +122,18 @@ class CreatePageModal extends React.Component {
       remove: /[$*_+~.,()'"!\-:@%^&?=]/g
     })
 
+    if (!this.isUniqueSlug(pageId)) {
+      return this.setState({
+        errors: {
+          ...this.state.errors,
+          title: "The page title must be unique."
+        }
+      })
+    }
+
     const prevPage = find(this.props.pages, (page => page.category === this.state.page.category && page.lang === this.state.page.lang && !page.next));
 
-    console.log("PREV PAGE", prevPage)
+    console.log("PREV PAGE for duplication or new page", prevPage)
 
     let pageData = {
       ...this.state.page,
@@ -142,6 +160,15 @@ class CreatePageModal extends React.Component {
       lower: true,
       remove: /[$*_+~.,()'"!\-:@%^&?=]/g
     })
+
+    if (!this.isUniqueSlug(pageId)) {
+      return this.setState({
+        errors: {
+          ...this.state.errors,
+          title: "The page title must be unique."
+        }
+      })
+    }
 
     const prevPage = find(this.props.pages, (page => page.category === this.state.page.category && page.lang === this.state.page.lang && !page.next));
 
@@ -180,7 +207,6 @@ class CreatePageModal extends React.Component {
     })
   }
 
-
   _onSubmit() {
     if (this.props.options.edit) {
       return this.editPage()
@@ -208,6 +234,8 @@ class CreatePageModal extends React.Component {
             <TextField
               className="form-control"
               type="text"
+              error={Boolean(this.state.errors.title)}
+              helperText={this.state.errors.title}
               label={"Page title"}
               value={this.state.page.title}
               onChange={e => this.updatePage("title", e.currentTarget.value)}

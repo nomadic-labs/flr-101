@@ -1,4 +1,5 @@
 import { CONTENT_MAP, SECTION_MAP } from "../utils/constants.js"
+import { cloneDeep } from 'lodash'
 
 
 export const adminTools = (state={}, action) => {
@@ -143,8 +144,10 @@ export const page = (state={}, action) => {
       }
     case 'DUPLICATE_SECTION':
       newSectionArr = [...state.data.content.sections];
+      const contentSection = state.data.content.sections[action.sectionIndex];
+      const duplicateSection = cloneDeep(contentSection)
       newSection = { ...newSectionArr[action.sectionIndex] }
-      newSectionArr.splice(action.sectionIndex, 0, newSection);
+      newSectionArr.splice(action.sectionIndex, 0, duplicateSection);
 
       return {
         ...state,
