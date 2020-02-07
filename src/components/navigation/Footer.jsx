@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "gatsby"
+// import { Link } from "gatsby"
 import Hidden from '@material-ui/core/Hidden';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -9,12 +9,7 @@ import Button from '@material-ui/core/Button';
 import Menu from "@material-ui/core/Menu";
 import Popover from "@material-ui/core/Popover";
 import BottomNavigation from '@material-ui/core/BottomNavigation';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp'
-import MenuIcon from '@material-ui/icons/Menu';
-import LanguageIcon from '@material-ui/icons/Language';
-import ShareIcon from '@material-ui/icons/Share';
-// import DownloadIcon from '@material-ui/icons/GetApp';
 
 import {
   TwitterShareButton,
@@ -173,29 +168,41 @@ class Footer extends React.Component {
         </Hidden>
         <Hidden mdUp>
           <BottomNavigation
-            showLabels
+            style={{ height: "auto", justifyContent: "space-between"}}
           >
-            <BottomNavigationAction
-              label={<T id="table_of_contents" />}
-              icon={<MenuIcon />}
-              onClick={openMenu}
-              aria-owns={anchorEl ? "toc" : null}
-              aria-haspopup="true"
-            />
-            <BottomNavigationAction label={<T id="share" />} icon={<ShareIcon />} />
-            {/*<BottomNavigationAction label={<T id="download_syllabus" />} icon={<DownloadIcon />} />*/}
-            {
-              Object.keys(translations).map(key => {
-                if (translations[key]) {
-                  const language = LANGUAGE_OPTIONS.find(o => o.value === key) || {}
-                  return(
-                    <BottomNavigationAction key={key} component={Link} to={translations[key].slug} label={language.label} icon={<LanguageIcon />} />
-                  )
-                } else {
-                  return null
-                }
-              })
-            }
+            <div>
+              <Button
+                onClick={openMenu}
+                aria-owns={anchorEl ? "toc" : null}
+                aria-haspopup="true"
+              >
+                <T id="table_of_contents" />
+              </Button>
+            </div>
+            <div>
+              <Button
+                onClick={openShareButtons}
+                aria-owns={shareAnchor ? "share-buttons" : null}
+                aria-haspopup="true"
+              >
+                <T id="share" />
+              </Button>
+              {/*<BottomNavigationAction label={<T id="download_syllabus" />} icon={<DownloadIcon />} />*/}
+              {
+                Object.keys(translations).map(key => {
+                  if (translations[key]) {
+                    const language = LANGUAGE_OPTIONS.find(o => o.value === key) || {}
+                    return(
+                      <Button key={key} component={"a"} href={translations[key].slug}>
+                        {language.label}
+                      </Button>
+                    )
+                  } else {
+                    return null
+                  }
+                })
+              }
+              </div>
           </BottomNavigation>
         </Hidden>
       </footer>
