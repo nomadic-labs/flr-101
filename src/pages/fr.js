@@ -98,6 +98,15 @@ class HomePage extends React.Component {
           </Container>
         </section>
 
+        <section id="nawl" className="wow fadeIn highlight">
+          <Container maxWidth="md">
+            <h2 className="">
+              <EditableText content={content["nawl-header"]} handleSave={this.onSave("nawl-header")} />
+            </h2>
+            <EditableParagraph content={content["nawl-description"]} handleSave={this.onSave("nawl-description")} />
+          </Container>
+        </section>
+
       </Layout>
     );
   }
