@@ -15,11 +15,20 @@
   }
 }
 
+@media (max-width: 960px) {
+  body .nl-page {
+    #landing {
+      height: calc(100vh - 42px);
+      padding-top: 20%;
+    }
+
+  }
+}
+
 /* RESPONSIVE FOR MOBILE */
 
 @media (max-width: 768px) {
   body .nl-page {
-
   }
 }
 
