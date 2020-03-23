@@ -1,13 +1,11 @@
 import React from "react";
-import { StaticQuery, graphql } from "gatsby"
+import { StaticQuery, graphql, Link } from "gatsby"
+import T from "../common/Translation"
+
+import { HOME_URLS } from '../../utils/constants'
 
 import darkLogo from "../../assets/images/nawl-logo.svg"
 import lightLogo from "../../assets/images/nawl-logo-white.svg"
-
-const homeUrls = {
-  en: "/",
-  fr: "/fr/"
-}
 
 const Header = props => (
   <StaticQuery
@@ -28,13 +26,18 @@ const Header = props => (
     `}
     render={data => {
       const currentLang = props.pageData ? props.pageData.lang : "en";
-      const home = homeUrls[currentLang];
-      const logo = props.light ? lightLogo : darkLogo;
-
+      const home = HOME_URLS[currentLang];
+      const moduleClass = props.pageData && props.pageData.template === "course-module.js" ? "module" : ""
       return (
-        <nav className="navbar">
+        <nav className={`navbar ${moduleClass}`}>
+          <div className="site-title d-none">
+            <Link to={home}>
+              <span className="title-script"><T id="title_part_1" /></span>
+              <span className="title-print"><T id="title_part_2" /></span>
+            </Link>
+          </div>
           <div className="logo">
-            <a href={home}><img src={logo} alt="NAWL | ANFD" /></a>
+            <a href={'https://nawl.ca/'}><img src={lightLogo} alt="NAWL | ANFD" /></a>
           </div>
         </nav>
       );

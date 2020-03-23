@@ -2,6 +2,8 @@ import React from "react";
 import { graphql } from "gatsby";
 import { connect } from "react-redux";
 import Container from '@material-ui/core/Container';
+import Hidden from '@material-ui/core/Hidden';
+import { EditableText, EditableParagraph } from "react-easy-editables";
 
 import {
   updatePage,
@@ -10,7 +12,8 @@ import {
 
 import Layout from "../layouts/default.js";
 import CourseModules from "../components/common/CourseModules"
-import { EditableText, EditableParagraph } from "react-easy-editables";
+import T from "../components/common/Translation"
+import verticalHeader from "../assets/images/header-vertical.jpg"
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -51,13 +54,22 @@ class HomePage extends React.Component {
 
     return (
       <Layout light={true} location={this.props.location}>
-        <div className="bg-image">
+        <div className="bg-image title-main">
           <section id="landing" className="wow fadeIn">
             <Container maxWidth="lg">
               <h1><EditableText content={content["landing-title"]} handleSave={this.onSave("landing-title")} /></h1>
               <div className="landing-subtitle"><EditableText content={content["landing-subtitle"]} handleSave={this.onSave("landing-subtitle")} /></div>
             </Container>
           </section>
+        </div>
+        <div className="title-mobile">
+          <img src={verticalHeader} alt="" />
+          <div className="bg-dark course-title">
+            <div className="text-light title">
+              <div className="title-script"><T id="title_part_1" /></div>
+              <div className="title-print"><T id="title_part_2" /></div>
+            </div>
+          </div>
         </div>
 
         <section id="about" className="wow fadeIn">

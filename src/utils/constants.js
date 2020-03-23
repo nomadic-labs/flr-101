@@ -96,3 +96,8 @@ export const SECTION_MAP = {
     ]
   },
 }
+
+export const HOME_URLS = {
+  en: "/",
+  fr: "/fr/"
+}

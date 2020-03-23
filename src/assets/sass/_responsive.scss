@@ -27,8 +27,32 @@
 
 /* RESPONSIVE FOR MOBILE */
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   body .nl-page {
+    .bg-image {
+      background-image: url("../images/header-vertical.jpg");
+    }
+
+    .navbar {
+      background-color: $black;
+      position: static;
+      justify-content: center;
+
+      &.module {
+        justify-content: center;
+        .site-title {
+          display: none;
+        }
+      }
+    }
+
+    .title-main {
+      display: none;
+    }
+
+    .title-mobile {
+      display: block;
+    }
   }
 }
 
@@ -37,6 +61,20 @@
   body .nl-page {
     .bg-image {
       background-image: url("../images/header-vertical.jpg");
+    }
+
+    .navbar {
+      background-color: $black;
+      position: static;
+      justify-content: center;
+    }
+
+    .title-main {
+      display: none;
+    }
+
+    .title-mobile {
+      display: block;
     }
   }
 }

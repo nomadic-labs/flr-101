@@ -1,5 +1,5 @@
 import React from "react";
-// import { Link } from "gatsby"
+import { Link } from "gatsby"
 import Hidden from '@material-ui/core/Hidden';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -26,9 +26,7 @@ import {
 import PopupNavigation from "./PopupNavigation"
 import T from "../common/Translation"
 
-import logo from "../../assets/images/nawl-logo.svg"
-
-import { LANGUAGE_OPTIONS } from "../../utils/constants"
+import { LANGUAGE_OPTIONS, HOME_URLS } from "../../utils/constants"
 
 const isClient = typeof window !== 'undefined';
 
@@ -60,6 +58,8 @@ class Footer extends React.Component {
     const translations = props.pageData ? props.pageData.translations || {} : {}
     const shareUrl = props.location ? props.location.href : isClient ? window.location.origin : "";
     const shareTitle = props.pageData ? props.pageData.title : "Feminist Law Reform 101"
+    const currentLang = props.pageData ? props.pageData.lang : "en";
+    const home = HOME_URLS[currentLang];
 
     return (
       <footer>
@@ -122,24 +122,13 @@ class Footer extends React.Component {
         <Hidden smDown>
           <Container maxWidth="lg">
             <Grid container>
-              <Grid item xs={6} md={5} className="footer-section footer-left">
-                <Button
-                  onClick={openMenu}
-                  aria-owns={anchorEl ? "toc" : null}
-                  aria-haspopup="true"
-                >
-                  <KeyboardArrowUp style={{ marginRight: '0.5rem'}}/>
-                  <T id="table_of_contents" />
-                </Button>
+              <Grid item xs={0} md={4} className="footer-section footer-left">
+                <Link to={home} className="site-title">
+                  <span className="title-script"><T id="title_part_1" /></span>
+                  <span className="title-print"><T id="title_part_2" /></span>
+                </Link>
               </Grid>
-              <Grid item xs={6} md={2} className="footer-section footer-center">
-                <Grid container justify="center" alignItems="center">
-                  <Button className="logo" component="a" href="https://nawl.ca/">
-                    <img src={logo} alt="NAWL | ANFD" />
-                  </Button>
-                </Grid>
-              </Grid>
-              <Grid item xs={12} md={5} className="footer-section align-right footer-right">
+              <Grid item xs={6} md={4} className="footer-section footer-center">
                 <Button
                   onClick={openShareButtons}
                   aria-owns={shareAnchor ? "share-buttons" : null}
@@ -162,6 +151,17 @@ class Footer extends React.Component {
                     }
                   })
                 }
+
+              </Grid>
+              <Grid item xs={6} md={4} className="footer-section align-right footer-right">
+                <Button
+                  onClick={openMenu}
+                  aria-owns={anchorEl ? "toc" : null}
+                  aria-haspopup="true"
+                >
+                  <KeyboardArrowUp style={{ marginRight: '0.5rem'}}/>
+                  <T id="table_of_contents" />
+                </Button>
               </Grid>
             </Grid>
           </Container>

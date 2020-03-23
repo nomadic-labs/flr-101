@@ -101,7 +101,41 @@ body .nl-page {
     background: transparent;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+
+    &.module {
+      position: static;
+      background: $black;
+      justify-content: space-between;
+
+      .site-title {
+        display: block;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .title-script {
+        font-size: 1.75rem;
+        margin-right: 8px;
+      }
+
+      .title-print {
+        font-size: 1.1rem;
+      }
+    }
   }
+
+  .title-mobile {
+    display: none;
+  }
+
+  .title-mobile img {
+    max-width: 100%;
+    display: flex;
+  }
+
 
   main {
     height: 100%;
@@ -133,8 +167,19 @@ body .nl-page {
       }
     }
 
-    .logo {
-      width: 130px;
+    .site-title {
+      text-decoration: none;
+    }
+
+    .title-script {
+      font-size: 1.5rem;
+      margin-right: 8px;
+      color: $secondary-color;
+    }
+
+    .title-print {
+      font-size: 1rem;
+      color: $secondary-color;
     }
 
     button, a {
@@ -177,6 +222,10 @@ body .nl-page {
 
   .d-flex {
     display: flex;
+  }
+
+  .d-none {
+    display: none;
   }
 
   .justify-center {
@@ -256,7 +305,6 @@ body .nl-page {
     text-align: center;
     padding-top: 6%;
     padding-bottom: 16%;
-    margin-bottom: 3rem;
     height: calc(100vh - 60px);
 
     h1 {
@@ -275,6 +323,29 @@ body .nl-page {
       font-family: $body-font;
       font-size: calc(20px + 1vw);
     }
+  }
+
+  .course-title {
+    padding: 2rem 1rem;
+
+    .title {
+      width: fit-content;
+      margin: 0 auto;
+    }
+
+  }
+
+  .title-script {
+    font-family: $title-font;
+    font-size: calc(28px + 4vw);
+    color: $tertiary-color;
+  }
+
+  .title-print {
+    font-family: $body-font;
+    text-align: right;
+    font-size: calc(20px + 1vw);
+    color: $tertiary-color;
   }
 
   .collection {
@@ -750,6 +821,14 @@ body .nl-page {
     display: inline-flex;
     margin: 2px;
   }
+}
+
+.bg-dark {
+  background: $black;
+}
+
+.text-light {
+  color: $tertiary-color;
 }
 
 
