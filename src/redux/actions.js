@@ -307,7 +307,7 @@ export function updateHeaderImage(content) {
     const db = firebase.database();
     const pageId = getState().page.data.id;
 
-    db.ref(`pages/${pageId}/`).update({ "header-image": content }, error => {
+    db.ref(`pages/${pageId}/content/`).update({ "headerImage": content }, error => {
       if (error) {
         return dispatch(
           showNotification(

@@ -5,6 +5,9 @@ import Container from "@material-ui/core/Container"
 import { findIndex } from "lodash"
 
 import { connect } from "react-redux";
+import { EditableImageUpload } from "react-easy-editables";
+import { uploadImage } from "../firebase/operations";
+
 import {
   updatePage,
   loadPageData,
@@ -88,6 +91,14 @@ class CourseModulePage extends React.Component {
             <p className="text-muted bold" style={{ marginTop: 0 }}>{Boolean(moduleOrder) && `Module ${moduleOrder}`}</p>
             <h2 className="underline">{pageData.title}</h2>
           </header>
+
+          <EditableImageUpload
+            styles={{ container: {display: 'flex'} }}
+            onSave={ this.onUpdateHeaderImage }
+            uploadImage={ uploadImage }
+            content={ content.headerImage || { imageSrc: null } }
+            maxSize={1024 * 1024 * 12}
+          />
         </Container>
 
         {

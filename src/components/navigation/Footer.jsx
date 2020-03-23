@@ -123,28 +123,28 @@ class Footer extends React.Component {
           <Container maxWidth="lg">
             <Grid container>
               <Grid item xs={0} md={4} className="footer-section footer-left">
-                <Link to={home} className="site-title">
+                <Link to={home} className="site-title no-text-decoration">
                   <span className="title-script"><T id="title_part_1" /></span>
                   <span className="title-print"><T id="title_part_2" /></span>
                 </Link>
               </Grid>
               <Grid item xs={6} md={4} className="footer-section footer-center">
-                <Button
+                <button
                   onClick={openShareButtons}
                   aria-owns={shareAnchor ? "share-buttons" : null}
                   aria-haspopup="true"
                 >
                   <T id="share" />
-                </Button>
+                </button>
                 {/*<Button><T id="download_syllabus" /></Button>*/}
                 {
                   Object.keys(translations).map(key => {
                     if (translations[key]) {
                       const language = LANGUAGE_OPTIONS.find(o => o.value === key) || {}
                       return(
-                        <Button key={key} component={"a"} href={translations[key].slug}>
+                        <Link key={key} to={translations[key].slug}>
                           {language.label}
-                        </Button>
+                        </Link>
                       )
                     } else {
                       return null
@@ -154,14 +154,14 @@ class Footer extends React.Component {
 
               </Grid>
               <Grid item xs={6} md={4} className="footer-section align-right footer-right">
-                <Button
+                <button
                   onClick={openMenu}
                   aria-owns={anchorEl ? "toc" : null}
                   aria-haspopup="true"
                 >
                   <KeyboardArrowUp style={{ marginRight: '0.5rem'}}/>
                   <T id="table_of_contents" />
-                </Button>
+                </button>
               </Grid>
             </Grid>
           </Container>
@@ -171,31 +171,31 @@ class Footer extends React.Component {
             style={{ height: "auto", justifyContent: "space-between"}}
           >
             <div>
-              <Button
+              <button
                 onClick={openMenu}
                 aria-owns={anchorEl ? "toc" : null}
                 aria-haspopup="true"
               >
                 <T id="table_of_contents" />
-              </Button>
+              </button>
             </div>
             <div>
-              <Button
+              <button
                 onClick={openShareButtons}
                 aria-owns={shareAnchor ? "share-buttons" : null}
                 aria-haspopup="true"
               >
                 <T id="share" />
-              </Button>
+              </button>
               {/*<BottomNavigationAction label={<T id="download_syllabus" />} icon={<DownloadIcon />} />*/}
               {
                 Object.keys(translations).map(key => {
                   if (translations[key]) {
                     const language = LANGUAGE_OPTIONS.find(o => o.value === key) || {}
                     return(
-                      <Button key={key} component={"a"} href={translations[key].slug}>
+                      <Link key={key} to={translations[key].slug}>
                         {language.label}
-                      </Button>
+                      </Link>
                     )
                   } else {
                     return null

@@ -185,6 +185,22 @@ body .nl-page {
     button, a {
       font-size: 1rem;
       color: $black;
+      text-decoration: none;
+      background: none;
+      border: none;
+      outline: none;
+      display: flex;
+      align-items: center;
+      line-height: 1;
+      padding-left: 5px;
+      padding-right: 5px;
+      cursor: pointer;
+
+      &:hover, &:focus {
+        text-decoration: underline;
+        text-decoration-color: $secondary-color;
+        color: $charcoal;
+      }
     }
 
     .MuiBottomNavigationAction-root {
@@ -829,6 +845,10 @@ body .nl-page {
 
 .text-light {
   color: $tertiary-color;
+}
+
+.no-text-decoration {
+  text-decoration: none !important;
 }
 
 

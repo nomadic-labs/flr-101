@@ -109,7 +109,10 @@ export const page = (state={}, action) => {
         ...state,
         data: {
           ...state.data,
-          header_image: action.content
+          content: {
+            ...state.data.content,
+            headerImage: action.content
+          }
         }
       }
 
