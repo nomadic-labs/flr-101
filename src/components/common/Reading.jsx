@@ -10,6 +10,7 @@ import {
   Editable
 } from 'react-easy-editables';
 
+import T from "./Translation";
 import { uploadFile } from "../../firebase/operations"
 
 class ReadingEditor extends React.Component {
@@ -120,7 +121,7 @@ const Reading = props => {
             Boolean(content["reading-item-file"]) &&
             <div className="file-link">
               <a href={content["reading-item-file"]["filepath"]} target="_blank" rel="noopener noreferrer">
-                {"Open PDF"}
+                <T id="open_pdf" />
               </a>
             </div>
           }

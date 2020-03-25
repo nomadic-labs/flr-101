@@ -2,7 +2,6 @@ import React from "react";
 import { graphql } from "gatsby";
 import { connect } from "react-redux";
 import Container from '@material-ui/core/Container';
-import Hidden from '@material-ui/core/Hidden';
 import { EditableText, EditableParagraph } from "react-easy-editables";
 
 import {

@@ -13,6 +13,7 @@ import {
   Editable
 } from 'react-easy-editables';
 
+import T from './Translation'
 import { uploadImage } from "../../firebase/operations"
 
 class ResourceEditor extends React.Component {
@@ -121,7 +122,9 @@ const Resource = props => {
           </div>
         </CardContent>
         <CardActions>
-          <Button component={"a"} href={content["resource-item-link"]["link"]}>Go to resource</Button>
+          <Button component={"a"} href={content["resource-item-link"]["link"]}>
+            <T id="open_resource" />
+          </Button>
         </CardActions>
       </Card>
     </Editable>

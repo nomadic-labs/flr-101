@@ -5,7 +5,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import Menu from "@material-ui/core/Menu";
 import Popover from "@material-ui/core/Popover";
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -168,9 +168,9 @@ class Footer extends React.Component {
         </Hidden>
         <Hidden mdUp>
           <BottomNavigation
-            style={{ height: "auto", justifyContent: "space-between"}}
+            style={{ height: "auto", justifyContent: "space-between", alignItems: "center"}}
           >
-            <div>
+            <div className="d-flex">
               <button
                 onClick={openMenu}
                 aria-owns={anchorEl ? "toc" : null}
@@ -179,7 +179,7 @@ class Footer extends React.Component {
                 <T id="table_of_contents" />
               </button>
             </div>
-            <div>
+            <div className="d-flex align-center">
               <button
                 onClick={openShareButtons}
                 aria-owns={shareAnchor ? "share-buttons" : null}

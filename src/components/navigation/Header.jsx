@@ -4,7 +4,6 @@ import T from "../common/Translation"
 
 import { HOME_URLS } from '../../utils/constants'
 
-import darkLogo from "../../assets/images/nawl-logo.svg"
 import lightLogo from "../../assets/images/nawl-logo-white.svg"
 
 const Header = props => (

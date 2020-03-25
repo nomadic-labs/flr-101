@@ -157,7 +157,7 @@ body .nl-page {
     .footer-center {
       border-left: 1px solid $black;
       border-right: 1px solid $black;
-      justify-content: center;
+      justify-content: space-around;
     }
 
     .footer-right {
@@ -192,9 +192,8 @@ body .nl-page {
       display: flex;
       align-items: center;
       line-height: 1;
-      padding-left: 5px;
-      padding-right: 5px;
       cursor: pointer;
+      padding: 0.5rem 1rem;
 
       &:hover, &:focus {
         text-decoration: underline;
@@ -242,6 +241,10 @@ body .nl-page {
 
   .d-none {
     display: none;
+  }
+
+  .align-center {
+    align-items: center;
   }
 
   .justify-center {
