@@ -1,6 +1,6 @@
 import React from "react";
 import { push, Link } from "gatsby";
-import firebase from "../../firebase/init";
+import firebase, { stagingFirebase } from "../../firebase/init";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button"
 
@@ -9,7 +9,8 @@ import {
   userLoggedOut,
   toggleNewPageModal,
   deploy,
-  toggleEditing
+  toggleEditing,
+  deployWithStagingContent
 } from "../../redux/actions";
 
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
@@ -181,13 +182,24 @@ class AccountButton extends React.Component {
 
             {props.allowEditing && (
               <MenuItem
-                divider
                 onClick={() => {
                   props.deploy();
                   closeMenu();
                 }}
               >
                 Publish changes
+              </MenuItem>
+            )}
+
+            {props.allowEditing && stagingFirebase && (
+              <MenuItem
+                divider
+                onClick={() => {
+                  props.deployWithStagingContent();
+                  closeMenu();
+                }}
+              >
+                Publish from staging
               </MenuItem>
             )}
 
@@ -239,7 +251,10 @@ const mapDispatchToProps = dispatch => {
     },
     deploy: () => {
       dispatch(deploy());
-    }
+    },
+    deployWithStagingContent: () => {
+      dispatch(deployWithStagingContent());
+    },
   };
 };
 

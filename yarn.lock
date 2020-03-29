@@ -6452,10 +6452,10 @@ gatsby-react-router-scroll@^2.1.19:
     scroll-behavior "^0.9.10"
     warning "^3.0.0"
 
-gatsby-source-firebase-nl@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/gatsby-source-firebase-nl/-/gatsby-source-firebase-nl-1.0.1.tgz#daf62fd1325b311d511905e17f9e2b2b0abd11d3"
-  integrity sha512-Tfdta27JerTyvFOFyg/XZ/MUYBNHWVbUJEMgQWEfyKxg+hTDx2gVp2VHqJMfw9SJTpVdHdibIWqEhpdt/YrTSA==
+gatsby-source-firebase-nl@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/gatsby-source-firebase-nl/-/gatsby-source-firebase-nl-1.0.2.tgz#89a21186c6d2133812d7b37e06a5659b6d46214b"
+  integrity sha512-SgT2QWwlAPd9SS7BLGRy3TduRDrs78vikWFXLlDLn0ePjYeMUdFVGc0tKTOJU3jpt7/2An/Hla34MfkkrHcaoA==
   dependencies:
     firebase-admin "^5.2.1"
 
