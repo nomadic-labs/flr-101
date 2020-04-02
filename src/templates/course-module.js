@@ -92,7 +92,7 @@ class CourseModulePage extends React.Component {
           </header>
 
           <EditableImageUpload
-            styles={{ container: {display: 'flex'} }}
+            styles={{ container: {display: 'flex', alignItems: 'flex-start'} }}
             onSave={ this.onUpdateHeaderImage }
             uploadImage={ uploadImage }
             content={ content.headerImage || { imageSrc: null } }
