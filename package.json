@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "author": "Sharon Kennedy <sharon@nomadiclabs.com>",
   "engines": {
-    "node": "^8.12.0"
+    "node": "12.16.1"
   },
   "dependencies": {
     "@material-ui/core": "^4.8.3",
@@ -60,6 +60,7 @@
     "deploy:production": "GATSBY_ACTIVE_ENV=production gatsby build && firebase use flr-101 && firebase deploy"
   },
   "devDependencies": {
+    "autoprefixer": "^9.7.5",
     "prettier": "^1.8.2"
   }
 }
