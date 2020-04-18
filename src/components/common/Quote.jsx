@@ -86,12 +86,15 @@ const Quote = props => {
     >
       <div className={`quote ${props.classes}`}>
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={4} className="d-flex justify-center">
-            <div className="headshot">
-              <img src={content["image"]["imageSrc"]} className="rounded" alt={content["image"]["caption"]} />
-            </div>
-          </Grid>
-          <Grid item xs={12} sm={8}>
+          {
+            content["image"]["imageSrc"] &&
+            <Grid item xs={12} sm={4} className="d-flex justify-center">
+              <div className="headshot">
+                <img src={content["image"]["imageSrc"]} className="rounded" alt={content["image"]["caption"]} />
+              </div>
+            </Grid>
+          }
+          <Grid item xs={12} sm={content["image"]["imageSrc"] ? 8 : 12}>
             <div className="box">
               <p className="quote-text">{content["quote-text"]["text"]}</p>
               <p className="author bold">{content["author"]["text"]}</p>

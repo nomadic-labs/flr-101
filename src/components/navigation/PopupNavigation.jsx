@@ -16,7 +16,7 @@ const mapStateToProps = state => {
 
 const NavigationModule = ({ page, order }) => {
   return (
-    <MenuItem className="navigation-module" component={Link} to={page.slug}>
+    <MenuItem className="navigation-module" component={Link} to={page.slug} style={{ backgroundColor: 'transparent' }}>
       <div className="title">
         <T id="module" />{` ${order}: ${page.title}`}
       </div>
@@ -45,7 +45,7 @@ const PopupNavigation = props => {
         horizontal: 'left',
       }}
     >
-      <MenuItem className="navigation-module" component={Link} to={homePage ? homePage.slug : '/'}>
+      <MenuItem className="navigation-module" component={Link} to={homePage ? homePage.slug : '/'} style={{ backgroundColor: 'transparent' }}>
         <div className="title">
           <T id="home" />
         </div>
