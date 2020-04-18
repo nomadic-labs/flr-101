@@ -25,7 +25,7 @@ import favicon from '../assets/images/icon.png'
 export const theme = {
   primaryColor: "#E57A68",
   fontFamily: "Montserrat, sans-serif",
-  fontSize: "14px",
+  fontSize: 14,
   editContainer: {
     backgroundColor: "rgba(255,255,255,0.3)",
     border: "1px solid black",

@@ -5,8 +5,6 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-// import Button from '@material-ui/core/Button';
-import Menu from "@material-ui/core/Menu";
 import Popover from "@material-ui/core/Popover";
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp'
@@ -63,25 +61,7 @@ class Footer extends React.Component {
 
     return (
       <footer>
-        <Menu
-          id="toc"
-          role="menu"
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={closeMenu}
-          className="table-of-contents"
-          elevation={0}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
-          }}
-          transformOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-        >
-          <PopupNavigation />
-        </Menu>
+        <PopupNavigation anchorEl={anchorEl} closeMenu={closeMenu} />
         <Popover
           id="share-buttons"
           role="menu"

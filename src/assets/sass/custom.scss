@@ -780,7 +780,8 @@ body .nl-page {
 
   .MuiMenu-list {
     background-color: $tertiary-color;
-    padding: 1rem !important;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   .navigation-module {
@@ -788,6 +789,9 @@ body .nl-page {
     border-bottom: 4px solid $secondary-color;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    white-space: unset;
+    color: $black;
+    text-decoration: none;
 
     &:last-of-type {
       border-bottom: none;
@@ -797,14 +801,9 @@ body .nl-page {
       font-weight: 700;
     }
 
-    a {
+    &:hover, &:active, &:focus {
+      text-decoration: underline;
       color: $black;
-      text-decoration: none;
-
-      &:hover, &:active, &:focus {
-        text-decoration: underline;
-        color: $black;
-      }
     }
   }
 }
