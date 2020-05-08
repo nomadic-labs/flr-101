@@ -192,6 +192,7 @@ const LayoutContainer = props => (
               category
               next
               head
+              content
             }
           }
         }

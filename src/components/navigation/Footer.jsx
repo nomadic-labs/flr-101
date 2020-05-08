@@ -102,7 +102,7 @@ class Footer extends React.Component {
         <Hidden smDown>
           <Container maxWidth="lg">
             <Grid container>
-              <Grid item xs={0} md={4} className="footer-section footer-left">
+              <Grid item xs={false} md={4} className="footer-section footer-left">
                 <Link to={home} className="site-title no-text-decoration">
                   <span className="title-script"><T id="title_part_1" /></span>
                   <span className="title-print"><T id="title_part_2" /></span>
