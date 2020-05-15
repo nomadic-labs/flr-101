@@ -760,9 +760,14 @@ body .nl-page {
       font-family: $header-font;
     }
 
+    .card-body {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
     .card-actions {
       position: relative;
-      padding-top: 57px;
+      padding-top: 55px;
     }
 
     .flr-btn {
@@ -771,7 +776,7 @@ body .nl-page {
       bottom: 0;
       background-color: $secondary-color;
       border-radius: 0;
-      padding: 1rem 2rem;
+      padding: 0.75rem 2rem;
     }
   }
 

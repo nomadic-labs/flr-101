@@ -29,7 +29,7 @@ const CourseModule = ({ page, order, translations, currentLang }) => {
           </Grid>
         }
         </Hidden>
-        <Grid item xs={12} md={headerImageSrc ? 9 : 12}>
+        <Grid item xs={12} md={headerImageSrc ? 9 : 12} style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
           <CardContent className="card-body">
             <p><T id="module" />{` ${order}`}</p>
             <h3>{page.title}</h3>
