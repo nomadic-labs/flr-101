@@ -24,7 +24,7 @@ const CourseModule = ({ page, order, translations, currentLang }) => {
             <CardMedia
               image={headerImageSrc}
               title={"Header image"}
-              style={{ height: '100%', backgroundPosition: 'left' }}
+              style={{ height: '200px', width: '200px', backgroundPosition: 'left' }}
             />
           </Grid>
         }
