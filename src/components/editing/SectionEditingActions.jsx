@@ -93,59 +93,130 @@ class SectionEditingActions extends React.Component {
               open={open}
               onClose={this.closeMenu}
             >
-              <MenuItem onClick={() => this.props.onAddContentItem("header")}>
+              <MenuItem
+                onClick={() => {
+                  this.props.onAddContentItem("header")
+                  this.closeMenu()
+                }}
+              >
                 Header
               </MenuItem>
 
-              <MenuItem onClick={() => this.props.onAddContentItem("paragraph")}>
+              <MenuItem
+                onClick={() => {
+                  this.props.onAddContentItem("paragraph")
+                  this.closeMenu()
+                }}
+              >
                 Paragraph
               </MenuItem>
 
-              <MenuItem onClick={() => this.props.onAddContentItem("quote")}>
+              <MenuItem
+                onClick={() => {
+                  this.props.onAddContentItem("quote")
+                  this.closeMenu()
+                }}
+              >
                 Quote
               </MenuItem>
 
-              <MenuItem onClick={() => this.props.onAddContentItem("button")}>
+              <MenuItem
+                onClick={() => {
+                  this.props.onAddContentItem("button")
+                  this.closeMenu()
+                }}
+              >
                 Button
               </MenuItem>
 
-              <MenuItem onClick={() => this.props.onAddContentItem("link")}>
+              <MenuItem
+                onClick={() => {
+                  this.props.onAddContentItem("link")
+                  this.closeMenu()
+                }}
+              >
                 Link
               </MenuItem>
 
-              <MenuItem onClick={() => this.props.onAddContentItem("image")}>
+              <MenuItem
+                onClick={() => {
+                  this.props.onAddContentItem("image")
+                  this.closeMenu()
+                }}
+              >
                 Image
               </MenuItem>
 
-              <MenuItem onClick={() => this.props.onAddContentItem("expandableText")} divider>
+              <MenuItem
+                onClick={() => {
+                  this.props.onAddContentItem("expandableText")
+                  this.closeMenu()
+                }}
+                divider
+              >
                 Expandable text
               </MenuItem>
 
-              <MenuItem onClick={() => this.props.onAddSection("default")}>
+              <MenuItem
+                onClick={() => {
+                  this.props.onAddSection("default")
+                  this.closeMenu()
+                }}
+              >
                 Empty Section
               </MenuItem>
 
-              <MenuItem onClick={() => this.props.onAddSection("highlight")}>
+              <MenuItem
+                onClick={() => {
+                  this.props.onAddSection("highlight")
+                  this.closeMenu()
+                }}
+              >
                 Highlight Section
               </MenuItem>
 
-              <MenuItem onClick={() => this.props.onAddSection("watch")}>
+              <MenuItem
+                onClick={() => {
+                  this.props.onAddSection("watch")
+                  this.closeMenu()
+                }}
+              >
                 Watch Section
               </MenuItem>
 
-              <MenuItem onClick={() => this.props.onAddSection("read")}>
+              <MenuItem
+                onClick={() => {
+                  this.props.onAddSection("read")
+                  this.closeMenu()
+                }}
+              >
                 Read Section
               </MenuItem>
 
-              <MenuItem onClick={() => this.props.onAddSection("engage")}>
+              <MenuItem
+                onClick={() => {
+                  this.props.onAddSection("engage")
+                  this.closeMenu()
+                }}
+              >
                 Engage Section
               </MenuItem>
 
-              <MenuItem onClick={() => this.props.onAddSection("listen")}>
+              <MenuItem
+                onClick={() => {
+                  this.props.onAddSection("listen")
+                  this.closeMenu()
+                }}
+              >
                 Listen Section
               </MenuItem>
 
-              <MenuItem onClick={() => this.props.onAddSection("resources")}>
+              <MenuItem
+                onClick={() => {
+                  this.props.onAddSection("resources")
+                  this.closeMenu()
+                }}
+              >
                 Additional Resources Section
               </MenuItem>
             </Menu>
