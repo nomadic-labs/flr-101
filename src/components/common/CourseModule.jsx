@@ -11,7 +11,7 @@ import T from "./Translation"
 
 
 const CourseModule = ({ page, order, translations, currentLang }) => {
-  const content = JSON.parse(page.content)
+  const content = typeof(page.content) === "string" ? JSON.parse(page.content) : page.content
   const headerImageSrc = content.headerImage ? content.headerImage.imageSrc : null
 
   return (
