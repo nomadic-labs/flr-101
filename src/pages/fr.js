@@ -3,6 +3,7 @@ import { graphql } from "gatsby";
 import { connect } from "react-redux";
 import Container from '@material-ui/core/Container';
 import { EditableText, EditableParagraph } from "react-easy-editables";
+import ExpandableText from "../components/common/ExpandableText"
 
 import {
   updatePage,
@@ -78,15 +79,8 @@ class HomePage extends React.Component {
             </h2>
             <EditableParagraph content={content["about-description"]} handleSave={this.onSave("about-description")} />
 
-            <h3 className="subheading">
-              <EditableText content={content["about-disclaimer-heading"]} handleSave={this.onSave("about-disclaimer-heading")} />
-            </h3>
-            <EditableParagraph content={content["about-disclaimer-text"]} handleSave={this.onSave("about-disclaimer-text")} />
-
-            <h3 className="subheading">
-              <EditableText content={content["about-accessibility-heading"]} handleSave={this.onSave("about-accessibility-heading")} />
-            </h3>
-            <EditableParagraph content={content["about-accessibility-text"]} handleSave={this.onSave("about-accessibility-text")} />
+            <ExpandableText content={content["disclaimer"]} onSave={this.onSave("disclaimer")} />
+            <ExpandableText content={content["accessiblity"]} onSave={this.onSave("accessiblity")} />
 
           </Container>
         </section>

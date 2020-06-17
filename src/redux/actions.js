@@ -328,6 +328,32 @@ export function updateHeaderImage(content) {
   };
 }
 
+export function deleteHeaderImage() {
+  return (dispatch, getState) => {
+    const db = firebase.database();
+    const pageId = getState().page.data.id;
+
+    db.ref(`pages/${pageId}/content/`).update({ "headerImage": null }, error => {
+      if (error) {
+        return dispatch(
+          showNotification(
+            `There was an error saving your changes: ${error}`,
+            "success"
+          )
+        );
+      }
+
+      dispatch(updatePageHeaderImage({ imageSrc: null }));
+      dispatch(
+        showNotification(
+          "Your changes have been saved. Publish your changes to make them public.",
+          "success"
+        )
+      );
+    });
+  };
+}
+
 export function updateFirebaseData(updates, callback=null) {
   return (dispatch, getState) => {
     const db = firebase.database();

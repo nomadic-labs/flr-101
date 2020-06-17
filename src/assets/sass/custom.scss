@@ -3,7 +3,7 @@
 
 body .nl-page {
   font-family: $body-font;
-  font-size: calc(16px + 0.3vw);
+  font-size: calc(16px + 0.2vw);
   color: $black;
 
   h1, h2, h3, h4, h5, h6 {
@@ -17,13 +17,16 @@ body .nl-page {
   }
 
   h2 {
-    font-size: calc(30px + 2vw);
+    font-size: calc(20px + 1.5vw);
     margin-top: 1rem;
     margin-bottom: 2rem;
   }
 
   h3 {
-    font-size: calc(20px + 1vw);
+    font-size: calc(18px + 0.25vw);
+    &.subheading {
+      font-size: calc(18px + 0.75vw);
+    }
   }
 
   h4 {
@@ -59,13 +62,17 @@ body .nl-page {
 
   .paragraph, p {
     font-family: $body-font;
-    font-size: calc(16px + 0.3vw);
+    font-size: calc(16px + 0.2vw);
 
     a {
       color: inherit;
       font-size: inherit;
       font-family: inherit;
       font-weight: inherit;
+    }
+
+    h1, h2, h3 {
+      color: $charcoal;
     }
   }
 
@@ -154,6 +161,7 @@ body .nl-page {
     bottom: 0;
     width: 100%;
     background: white;
+    z-index: 99;
 
     .footer-section {
       display: flex;
@@ -290,6 +298,10 @@ body .nl-page {
   .module-header {
     margin-top: 4rem;
 
+    h1 {
+      font-size: calc(30px + 2vw);
+    }
+
     p {
       font-family: $header-font;
       margin-bottom: 0;
@@ -411,7 +423,7 @@ body .nl-page {
 
     .question-body, p {
       font-family: $header-font;
-      font-size: calc(14px + 1vw);
+      font-size: calc(16px + 0.75vw);
       font-weight: 700;
       margin-top: 0;
       margin-bottom: 0;

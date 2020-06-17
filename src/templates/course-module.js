@@ -13,6 +13,7 @@ import {
   loadPageData,
   updateTitle,
   updateHeaderImage,
+  deleteHeaderImage
 } from "../redux/actions";
 
 import Layout from "../layouts/default.js";
@@ -34,6 +35,9 @@ const mapDispatchToProps = dispatch => {
     },
     onUpdateHeaderImage: image => {
       dispatch(updateHeaderImage(image));
+    },
+    onDeleteHeaderImage: () => {
+      dispatch(deleteHeaderImage());
     },
   };
 };
@@ -71,6 +75,10 @@ class CourseModulePage extends React.Component {
     this.props.onUpdateHeaderImage(content)
   }
 
+  onDeleteHeaderImage = () => {
+    this.props.onDeleteHeaderImage()
+  }
+
   render() {
     const pageData = this.props.pageData ? this.props.pageData : this.props.data.pages;
     const content = this.props.pageData ? this.props.pageData.content : JSON.parse(this.props.data.pages.content);
@@ -93,12 +101,13 @@ class CourseModulePage extends React.Component {
                 <span><T id="module" />{` ${moduleOrder}`}</span>
               }
             </p>
-            <h2 className="underline">{pageData.title}</h2>
+            <h1 className="underline">{pageData.title}</h1>
           </header>
 
           <EditableImageUpload
             styles={{ container: {display: 'flex', alignItems: 'flex-start'} }}
             onSave={ this.onUpdateHeaderImage }
+            onDelete={ this.onDeleteHeaderImage }
             uploadImage={ uploadImage }
             content={ content.headerImage || { imageSrc: null } }
             maxSize={1024 * 1024 * 12}
