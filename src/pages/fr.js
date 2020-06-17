@@ -54,9 +54,9 @@ class HomePage extends React.Component {
 
     return (
       <Layout light={true} location={this.props.location}>
-        <div className="bg-image title-main">
+        <div className="bg-image title-main" data-aos="fade-in">
           <section id="landing" className="wow fadeIn">
-            <Container maxWidth="lg" data-aos="fade-in">
+            <Container maxWidth="lg">
               <h1><EditableText content={content["landing-title"]} handleSave={this.onSave("landing-title")} /></h1>
               <div className="landing-subtitle"><EditableText content={content["landing-subtitle"]} handleSave={this.onSave("landing-subtitle")} /></div>
             </Container>
