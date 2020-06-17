@@ -138,6 +138,7 @@ class Footer extends React.Component {
                   onClick={openMenu}
                   aria-owns={anchorEl ? "toc" : null}
                   aria-haspopup="true"
+                  className="animated bounce"
                 >
                   <KeyboardArrowUp style={{ marginRight: '0.5rem'}}/>
                   <T id="table_of_contents" />

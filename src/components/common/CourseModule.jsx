@@ -2,7 +2,6 @@ import React from "react";
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
@@ -15,17 +14,15 @@ const CourseModule = ({ page, order, translations, currentLang }) => {
   const headerImageSrc = content.headerImage ? content.headerImage.imageSrc : null
 
   return (
-    <Card variant="outlined" square={true} key={page.slug} className="my-20 course-module">
+    <Card variant="outlined" square={true} key={page.slug} className="my-20 course-module" data-aos="fade-in">
       <Grid container>
         <Hidden smDown>
         {
           headerImageSrc &&
           <Grid item xs={3}>
-            <CardMedia
-              image={headerImageSrc}
-              title={"Header image"}
-              style={{ height: '200px', width: '200px', backgroundPosition: 'left' }}
-            />
+            <div className="thumbnail">
+              <img className="img-zoom" src={headerImageSrc} alt={page.title} />
+            </div>
           </Grid>
         }
         </Hidden>

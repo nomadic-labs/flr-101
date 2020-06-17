@@ -3,6 +3,7 @@ import { StaticQuery, graphql } from "gatsby"
 import Helmet from "react-helmet";
 import { connect } from "react-redux";
 import { filter } from 'lodash'
+import AOS from 'aos';
 import withRoot from '../utils/withRoot';
 
 import Notification from "../components/notifications/Notification";
@@ -19,6 +20,7 @@ import { setOrderedPages, setCurrentLang, setPages, setTranslations } from "../r
 
 import "../assets/sass/less-cms/base.scss";
 import "../assets/sass/custom.scss";
+import 'aos/dist/aos.css'
 
 import favicon from '../assets/images/icon.png'
 
@@ -122,6 +124,7 @@ class DefaultLayout extends React.Component {
     this.props.setCurrentLang(currentLang)
     this.props.setPages(this.props.allPages)
     this.props.setTranslations(this.props.allTranslations)
+    AOS.init({ delay: 50, duration: 400 })
   }
 
   nextPage = page => {

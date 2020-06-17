@@ -3,6 +3,7 @@ import { graphql } from "gatsby";
 import Helmet from "react-helmet";
 import Container from "@material-ui/core/Container"
 import { findIndex } from "lodash"
+import AOS from 'aos';
 
 import { connect } from "react-redux";
 import { EditableImageUpload } from "react-easy-editables";
@@ -63,6 +64,10 @@ class CourseModulePage extends React.Component {
     this.props.onLoadPageData(initialPageData);
   }
 
+  componentDidMount() {
+    AOS.init({ delay: 50, duration: 400 })
+  }
+
   onSave = id => content => {
     this.props.onUpdatePageData(this.props.data.pages.id, id, content);
   };
@@ -94,7 +99,7 @@ class CourseModulePage extends React.Component {
         </Helmet>
 
         <Container maxWidth="md">
-          <header className="module-header">
+          <header className="module-header" data-aos="fade-in">
             <p className="text-muted bold" style={{ marginTop: 0 }}>
               {
                 Boolean(moduleOrder) &&
@@ -134,12 +139,12 @@ class CourseModulePage extends React.Component {
         {
           nextModule &&
           <section>
-          <Container maxWidth="md">
-            <header className="module-header">
-              <h2 className="underline"><T id="next_module" /></h2>
-            </header>
-            <CourseModule page={nextModule} order={moduleOrder + 1} />
-          </Container>
+            <Container maxWidth="md" data-aos="fade-in">
+              <header className="module-header">
+                <h2 className="underline"><T id="next_module" /></h2>
+              </header>
+              <CourseModule page={nextModule} order={moduleOrder + 1} />
+            </Container>
           </section>
         }
       </Layout>

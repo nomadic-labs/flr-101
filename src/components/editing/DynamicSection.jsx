@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Container from "@material-ui/core/Container";
+import AOS from 'aos';
 
 import {
   updatePage,
@@ -86,6 +87,9 @@ const mapStateToProps = state => {
 
 
 const DynamicSection = ({ content, type, sectionIndex, pageData, isEditingPage, onUpdatePageData, savePageContent, addSection, deleteSection, duplicateSection, addContentItem, updateContentItem, deleteContentItem }) => {
+  useEffect(() => {
+    AOS.init({ delay: 50, duration: 400 })
+  });
 
   const onAddSection = (sectionType) => {
     savePageContent(() => addSection(sectionIndex, sectionType))
@@ -113,7 +117,7 @@ const DynamicSection = ({ content, type, sectionIndex, pageData, isEditingPage, 
 
   return(
     <section className={`dynamic-section pos-relative ${type}`}>
-      <Container maxWidth="md">
+      <Container maxWidth="md" data-aos="fade-in">
       {
         content.map((component, index ) => {
           const Component = componentMap[component.type];

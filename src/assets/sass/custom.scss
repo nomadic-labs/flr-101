@@ -82,10 +82,12 @@ body .nl-page {
     font-size: calc(14px + 0.4vw);
     text-decoration-color: $secondary-color;
     text-decoration-skip-ink: auto;
+    transition: all 0.2s ease;
   }
 
   a:not(.flr-btn) {
     color: $black;
+    transition: all 0.2s ease;
 
     &:hover {
       color: $charcoal;
@@ -181,19 +183,33 @@ body .nl-page {
       }
     }
 
-    .site-title {
-      text-decoration: none;
-    }
-
     .title-script {
       font-size: 1.5rem;
       margin-right: 8px;
       color: $secondary-color;
+      transition: all 0.2s ease;
     }
 
     .title-print {
       font-size: 1rem;
       color: $secondary-color;
+      transition: all 0.2s ease;
+    }
+
+    .site-title {
+      text-decoration: none;
+
+      &:hover {
+        .title-print, .title-script {
+          color: $charcoal;
+        }
+      }
+
+      &:focus {
+        .title-print, .title-script {
+          color: $black;
+        }
+      }
     }
 
     button, a {
@@ -336,6 +352,7 @@ body .nl-page {
     background-position: bottom;
     background-repeat: no-repeat;
     background-size: cover;
+    background-color: $black;
   }
 
   #landing {
@@ -392,6 +409,7 @@ body .nl-page {
 
   .reading-item {
     font-size: 1rem;
+    border: 1px solid $light-charcoal;
 
     .author {
       font-family: $header-font;
@@ -411,10 +429,6 @@ body .nl-page {
     p, a {
       font-size: 1rem;
     }
-
-    &.MuiPaper-outlined {
-      border: 1px solid $black;
-    }
   }
 
   .question-item {
@@ -431,12 +445,29 @@ body .nl-page {
   }
 
   .podcast-item {
+    border: 1px solid $light-charcoal;
 
-    .media {
-      background-color: $grey;
+    .thumbnail {
       height: 250px;
       width: 250px;
+      background-color: $grey;
+      overflow: hidden;
       flex: 1 0 auto;
+
+      img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+        transition: all 0.5s ease;
+      }
+    }
+
+    &:hover, &:focus {
+      .thumbnail {
+        img.img-zoom {
+          transform: scale(1.2) rotate(-3deg);
+        }
+      }
     }
 
     .play-button {
@@ -467,9 +498,9 @@ body .nl-page {
       }
 
       .limit-height {
-        max-height: 160px;
+        max-height: 164px;
         overflow: scroll;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.25rem;
       }
 
       h4 {
@@ -529,14 +560,36 @@ body .nl-page {
 
   .resource-item {
     font-size: 1rem;
+    border: 1px solid $light-charcoal;
 
-    .image {
+    .thumbnail {
       height: 220px;
       background-color: $grey;
+      overflow: hidden;
+      flex: 1 0 auto;
+
+      img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+        transition: all 0.5s ease;
+      }
+    }
+
+    &:hover, &:focus {
+      .thumbnail {
+        img.img-zoom {
+          transform: scale(1.2) rotate(-3deg);
+        }
+      }
     }
 
     .author {
       font-family: $header-font;
+      margin-bottom: 1rem;
+    }
+
+    .description {
       margin-bottom: 1rem;
     }
 
@@ -552,10 +605,6 @@ body .nl-page {
     p, a {
       font-size: 1rem;
     }
-
-    &.MuiPaper-outlined {
-      border: 1px solid $black;
-    }
   }
 
   .quote {
@@ -563,16 +612,23 @@ body .nl-page {
     margin-bottom: 1rem;
 
     .headshot {
+      .img-zoom {
+        height: 200px;
+        width: 200px;
+        border-radius: 200px;
+        background-color: $grey;
+        overflow: hidden;
+      }
 
       img {
         object-fit: cover;
         height: 100%;
         width: 100%;
-        height: 200px;
-        width: 200px;
-        border-radius: 200px;
-        background-color: $grey;
-        /*overflow: hidden;*/
+        transition: all 0.5s ease;
+
+        &:hover {
+          transform: scale(1.2) rotate(-3deg);
+        }
       }
     }
 
@@ -599,6 +655,12 @@ body .nl-page {
         text-transform: uppercase;
         font-size: 0.8rem;
       }
+    }
+  }
+
+  .video-playlist {
+    .slick-slide {
+      max-width: 180px;
     }
   }
 
@@ -633,7 +695,7 @@ body .nl-page {
     position: relative;
 
     img {
-      border: 1px solid $black;
+      border: 1px solid $light-charcoal;
       width: 100%;
       display: block;
     }
@@ -757,6 +819,8 @@ body .nl-page {
   }
 
   .course-module {
+    border: 1px solid $light-charcoal;
+
     h3 {
       font-size: calc(20px + 0.925vw);
       margin-top: 0;
@@ -770,6 +834,29 @@ body .nl-page {
       margin-bottom: 0.5rem;
       font-size: 1.2rem;
       font-family: $header-font;
+    }
+
+    .thumbnail {
+      height: 200px;
+      width: 200px;
+      background-color: $grey;
+      overflow: hidden;
+
+      img {
+        object-fit: cover;
+        object-position: left;
+        height: 100%;
+        width: 100%;
+        transition: all 0.5s ease;
+      }
+    }
+
+    &:hover, &:focus {
+      .thumbnail {
+        img.img-zoom {
+          transform: scale(1.2) rotate(-3deg);
+        }
+      }
     }
 
     .card-body {
@@ -790,6 +877,7 @@ body .nl-page {
       border-radius: 0;
       padding: 0.75rem 2rem;
     }
+
   }
 
 }
@@ -834,6 +922,10 @@ body .nl-page {
 .expandable {
   margin-top: 1rem;
   margin-bottom: 1rem;
+
+  &.MuiPaper-outlined {
+    border: 1px solid $light-charcoal;
+  }
 
   .MuiExpansionPanelSummary-root {
     background-color: $light-green;

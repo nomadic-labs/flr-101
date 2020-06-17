@@ -90,7 +90,9 @@ const Quote = props => {
             content["image"]["imageSrc"] &&
             <Grid item xs={12} sm={4} className="d-flex justify-center">
               <div className="headshot">
-                <img src={content["image"]["imageSrc"]} className="rounded" alt={content["image"]["caption"]} />
+                <div className="img-zoom">
+                  <img src={content["image"]["imageSrc"]} className="rounded" alt={content["image"]["caption"]} />
+                </div>
               </div>
             </Grid>
           }

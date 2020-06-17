@@ -56,13 +56,13 @@ class HomePage extends React.Component {
       <Layout light={true} location={this.props.location}>
         <div className="bg-image title-main">
           <section id="landing" className="wow fadeIn">
-            <Container maxWidth="lg">
+            <Container maxWidth="lg" data-aos="fade-in">
               <h1><EditableText content={content["landing-title"]} handleSave={this.onSave("landing-title")} /></h1>
               <div className="landing-subtitle"><EditableText content={content["landing-subtitle"]} handleSave={this.onSave("landing-subtitle")} /></div>
             </Container>
           </section>
         </div>
-        <div className="title-mobile">
+        <div className="title-mobile" data-aos="fade-in">
           <img src={verticalHeader} alt="" />
           <div className="bg-dark course-title">
             <div className="text-light title">
@@ -73,7 +73,7 @@ class HomePage extends React.Component {
         </div>
 
         <section id="about" className="wow fadeIn">
-          <Container maxWidth="md">
+          <Container maxWidth="md" data-aos="fade-in">
             <h2 className="underline">
               <EditableText content={content["about-title"]} handleSave={this.onSave("about-title")} />
             </h2>
@@ -86,7 +86,7 @@ class HomePage extends React.Component {
         </section>
 
         <section id="acknowledgements" className="wow fadeIn highlight">
-          <Container maxWidth="md">
+          <Container maxWidth="md" data-aos="fade-in">
             <h2 className="">
               <EditableText content={content["acknowledgements-header"]} handleSave={this.onSave("acknowledgements-header")} />
             </h2>
@@ -95,7 +95,7 @@ class HomePage extends React.Component {
         </section>
 
         <section id="course-modules" className="wow fadeIn">
-          <Container maxWidth="md">
+          <Container maxWidth="md" data-aos="fade-in">
             <h2 className="underline">
               <EditableText content={content["modules-title"]} handleSave={this.onSave("modules-title")} />
             </h2>
@@ -104,7 +104,7 @@ class HomePage extends React.Component {
         </section>
 
         <section id="nawl" className="wow fadeIn highlight">
-          <Container maxWidth="md">
+          <Container maxWidth="md" data-aos="fade-in">
             <h2 className="">
               <EditableText content={content["nawl-header"]} handleSave={this.onSave("nawl-header")} />
             </h2>

@@ -1,9 +1,6 @@
 import React from "react";
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 
 import {
   PlainTextEditor,
@@ -101,11 +98,9 @@ const Resource = props => {
       <Card className={`resource-item ${props.classes}`} variant="outlined" square={true}>
         {
           content["resource-item-image"] &&
-          <CardMedia
-            className="image"
-            image={content["resource-item-image"]["imageSrc"]}
-            title={content["resource-item-image"]["caption"]}
-          />
+          <div className="thumbnail">
+            <img className="img-zoom" src={content["resource-item-image"]["imageSrc"]} alt={content["resource-item-image"]["caption"]} />
+          </div>
         }
         <CardContent className="card-body">
           <div className="card-title">
@@ -120,12 +115,13 @@ const Resource = props => {
 
           <div className="description" dangerouslySetInnerHTML={ {__html: content["resource-item-description"]["text"]} }>
           </div>
+
+          <div className="link">
+            <a href={content["resource-item-link"]["link"]} target="_blank" rel="noopener noreferrer">
+              { content["resource-item-link"]["anchor"] ? content["resource-item-link"]["anchor"] : <T id="open_resource" /> }
+            </a>
+          </div>
         </CardContent>
-        <CardActions>
-          <Button component={"a"} href={content["resource-item-link"]["link"]}>
-            <T id="open_resource" />
-          </Button>
-        </CardActions>
       </Card>
     </Editable>
   );

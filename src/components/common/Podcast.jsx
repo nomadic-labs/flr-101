@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
 
@@ -123,15 +122,13 @@ const Podcast = props => {
         <div className="d-flex">
           <Hidden smDown>
             <div className="media play-button">
-              <CardMedia
-                style={{ height: "100%", width: "100%" }}
-                image={content["podcast-item-image"]["imageSrc"]}
-                title={content["podcast-item-image"]["caption"]}
-              />
+              <div className="thumbnail">
+                <img className="img-zoom" src={content["podcast-item-image"]["imageSrc"]} alt={content["podcast-item-image"]["caption"]} />
+              </div>
               <Button component={"a"} href={content["podcast-item-link"]["link"]} className="flr-btn"><T id="play" /></Button>
             </div>
           </Hidden>
-          <CardContent className="card-body">
+          <CardContent className="card-body" style={{ height: limitHeight ? '250px' : 'auto' }}>
             <div className={`podcast-info ${limitHeight ? "limit-height" : ""}`}>
               <div className="card-title">
                 <h4 className="underline">
