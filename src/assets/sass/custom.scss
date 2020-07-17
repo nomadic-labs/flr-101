@@ -353,6 +353,7 @@ body .nl-page {
     background-repeat: no-repeat;
     background-size: cover;
     background-color: $black;
+    max-height: 100vh;
   }
 
   #landing {
