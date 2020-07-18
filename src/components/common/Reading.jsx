@@ -11,7 +11,7 @@ import {
 } from 'react-easy-editables';
 
 import T from "./Translation";
-import { uploadFile } from "../../firebase/operations"
+import { uploadFile } from "../../aws/operations"
 
 class ReadingEditor extends React.Component {
   constructor(props) {
@@ -32,6 +32,7 @@ class ReadingEditor extends React.Component {
 
   render() {
     const { content } = this.state;
+    console.log(`content["reading-item-file"]`, content["reading-item-file"])
 
     return(
       <Card className={`reading-item ${this.props.classes}`} variant="outlined" square={true}>

@@ -7,7 +7,7 @@ import AOS from 'aos';
 
 import { connect } from "react-redux";
 import { EditableImageUpload } from "react-easy-editables";
-import { uploadImage } from "../firebase/operations";
+import { uploadFile } from "../aws/operations";
 
 import {
   updatePage,
@@ -115,7 +115,7 @@ class CourseModulePage extends React.Component {
               styles={{ container: {display: 'flex', alignItems: 'flex-start'} }}
               onSave={ this.onUpdateHeaderImage }
               onDelete={ this.onDeleteHeaderImage }
-              uploadImage={ uploadImage }
+              uploadImage={ uploadFile }
               content={ content.headerImage || { imageSrc: null } }
               maxSize={1024 * 1024 * 12}
             />

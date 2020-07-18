@@ -11,11 +11,13 @@ yarn-error.log
 # Config files
 .env.*
 config/firebase-config.*.json
+config/*.json
 app.yaml
 
 
 firebase-debug.log
 .firebase/
+
 
 # static files
 # image
