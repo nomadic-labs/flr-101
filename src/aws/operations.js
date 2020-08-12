@@ -1,6 +1,5 @@
 import aws from './init';
 
-
 export const uploadFile = file => {
   return new Promise((resolve, reject) => {
     const params = {
@@ -17,7 +16,14 @@ export const uploadFile = file => {
       }
 
       console.log("AWS data", data)
-      resolve(data["Location"])
+      if (process.env.GATSBY_AWS_DOMAIN && process.env.GATSBY_CLOUDFRONT_DOMAIN) {
+        const awsUrl = data["Location"]
+        const fileKey = awsUrl.split(process.env.GATSBY_AWS_DOMAIN)[1]
+        const cloudfrontUrl = `https://${process.env.GATSBY_CLOUDFRONT_DOMAIN}${fileKey}`
+        resolve(cloudfrontUrl)
+      } else {
+        resolve(data["Location"])
+      }
     })
   });
 }
