@@ -56,6 +56,14 @@ module.exports = {
       options: {
         precision: 8,
       },
-    }
+    },
+    {
+      resolve: `gatsby-plugin-s3`,
+      options: {
+        bucketName: "flr-101",
+        protocol: "https",
+        hostname: "flr101.nomadiclabs.ca",
+      },
+    },
   ]
 };
