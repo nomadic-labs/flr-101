@@ -61,7 +61,7 @@
     "predeploy": "rm -rf .cache",
     "deploy:staging": "GATSBY_ACTIVE_ENV=staging gatsby build && firebase use flr-101-staging && firebase deploy",
     "deploy:production": "GATSBY_ACTIVE_ENV=production gatsby build && firebase use flr-101 && firebase deploy",
-    "deploy:aws": "GATSBY_ACTIVE_ENV=production gatsby build && gatsby-plugin-s3 deploy -y",
+    "deploy:aws": "gatsby-plugin-s3 deploy -y",
     "deploy": "yarn deploy:aws"
   },
   "devDependencies": {
