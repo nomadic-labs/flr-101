@@ -62,7 +62,7 @@ module.exports = {
       options: {
         bucketName: "flr-101",
         protocol: "https",
-        hostname: "flr101.nomadiclabs.ca",
+        hostname: process.env.GATSBY_HOSTNAME,
       },
     },
   ]

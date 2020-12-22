@@ -3,8 +3,8 @@ import aws from './init';
 export const uploadFile = file => {
   return new Promise((resolve, reject) => {
     const params = {
-      Bucket: "flr-101-storage",
-      Key: file.name,
+      Bucket: process.env.GATSBY_AWS_BUCKET_NAME,
+      Key: `storage/${file.name}`,
       Body: file,
       ACL: "public-read"
     }
@@ -19,7 +19,7 @@ export const uploadFile = file => {
       if (process.env.GATSBY_AWS_DOMAIN && process.env.GATSBY_FILESTORAGE_DOMAIN) {
         const awsUrl = data["Location"]
         const fileKey = awsUrl.split(process.env.GATSBY_AWS_DOMAIN)[1]
-        const cloudfrontUrl = `https://${process.env.GATSBY_FILESTORAGE_DOMAIN}${fileKey}`
+        const cloudfrontUrl = `${process.env.GATSBY_FILESTORAGE_DOMAIN}${fileKey}`
         resolve(cloudfrontUrl)
       } else {
         resolve(data["Location"])
