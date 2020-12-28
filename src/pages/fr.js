@@ -128,16 +128,7 @@ export const query = graphql`
       description
       slug
       lang
-      translations {
-        en {
-          slug
-          id
-        }
-        fr {
-          slug
-          id
-        }
-      }
+      translation
     }
   }
 `;

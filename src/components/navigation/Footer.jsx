@@ -53,10 +53,11 @@ class Footer extends React.Component {
   render() {
     const { props, openMenu, closeMenu, openShareButtons, closeShareButtons } = this;
     const { anchorEl, shareAnchor } = this.state;
-    const translations = props.pageData ? props.pageData.translations || {} : {}
+    const translation = props.pageData ? props.pageData.translation : null
     const shareUrl = props.location ? props.location.href : isClient ? window.location.origin : "";
     const shareTitle = props.pageData ? props.pageData.title : "Feminist Law Reform 101"
     const currentLang = props.pageData ? props.pageData.lang : "en";
+    const translationLabel = currentLang === 'en' ? 'Français' : 'English'
     const home = HOME_URLS[currentLang];
 
     return (
@@ -118,18 +119,10 @@ class Footer extends React.Component {
                 </button>
                 {/*<Button><T id="download_syllabus" /></Button>*/}
                 {
-                  Object.keys(translations).map(key => {
-                    if (translations[key]) {
-                      const language = LANGUAGE_OPTIONS.find(o => o.value === key) || {}
-                      return(
-                        <Link key={key} to={translations[key].slug}>
-                          {language.label}
-                        </Link>
-                      )
-                    } else {
-                      return null
-                    }
-                  })
+                  translation &&
+                  <Link to={translation}>
+                    {translationLabel}
+                  </Link>
                 }
 
               </Grid>
@@ -170,18 +163,10 @@ class Footer extends React.Component {
               </button>
               {/*<BottomNavigationAction label={<T id="download_syllabus" />} icon={<DownloadIcon />} />*/}
               {
-                Object.keys(translations).map(key => {
-                  if (translations[key]) {
-                    const language = LANGUAGE_OPTIONS.find(o => o.value === key) || {}
-                    return(
-                      <Link key={key} to={translations[key].slug}>
-                        {language.label}
-                      </Link>
-                    )
-                  } else {
-                    return null
-                  }
-                })
+                translation &&
+                <Link to={translation}>
+                  {translationLabel}
+                </Link>
               }
               </div>
           </BottomNavigation>

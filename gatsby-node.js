@@ -19,16 +19,7 @@ exports.createPages = ({ graphql, actions }) => {
                 lang
                 next
                 head
-                translations {
-                  en {
-                    slug
-                    id
-                  }
-                  fr {
-                    slug
-                    id
-                  }
-                }
+                translation
               }
             }
           }

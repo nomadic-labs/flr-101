@@ -169,16 +169,7 @@ export const query = graphql`
       template
       next
       category
-      translations {
-        en {
-          slug
-          id
-        }
-        fr {
-          slug
-          id
-        }
-      }
+      translation
     }
   }
 `;

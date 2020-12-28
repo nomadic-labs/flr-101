@@ -111,124 +111,12 @@ export function setPageContentState(location, content) {
   return { type: "SET_PAGE_CONTENT", location, content };
 }
 
-export function saveFootnote(footnoteId, footnote) {
-  return (dispatch, getState) => {
-    const db = firebase.database();
-    const pageId = getState().page.data.id;
-
-    db.ref(`pages/${pageId}/footnotes/${footnoteId}`).update(footnote, error => {
-      if (error) {
-        return dispatch(
-          showNotification(
-            `There was an error saving your changes: ${error}`,
-            "error"
-          )
-        );
-      }
-
-      dispatch(updateFootnote(footnoteId, footnote));
-      dispatch(
-        showNotification(
-          "Your changes have been saved.",
-          "success"
-        )
-      );
-    })
-  };
-}
-
-export function removeFootnote(footnoteId) {
-  return (dispatch, getState) => {
-    const db = firebase.database();
-    const state = getState();
-    const pageId = state.page.data.id;
-
-    db.ref(`pages/${pageId}/footnotes/`).update({[footnoteId]: null}, error => {
-      if (error) {
-        return dispatch(
-          showNotification(
-            `There was an error saving your changes: ${error}`,
-            "success"
-          )
-        );
-      }
-
-      let allFootnotes = { ...state.page.data.footnotes };
-      delete allFootnotes[footnoteId];
-
-      dispatch(setFootnotes(allFootnotes));
-      dispatch(
-        showNotification(
-          "Your changes have been saved. Publish your changes to make them public.",
-          "success"
-        )
-      );
-    })
-  };
-}
-
 export function updateDefinition(id, definition) {
   return { type: "UPDATE_DEFINITION", id, definition }
 }
 
 export function setDefinitions(definitions) {
   return { type: "SET_DEFINITIONS", definitions }
-}
-
-export function saveDefinition(definitionId, definition) {
-  return (dispatch, getState) => {
-    const db = firebase.database();
-    const pageId = getState().page.data.id;
-
-    db.ref(`pages/${pageId}/definitions/${definitionId}`).update(definition, error => {
-      if (error) {
-        return dispatch(
-          showNotification(
-            `There was an error saving your changes: ${error}`,
-            "error"
-          )
-        );
-      }
-
-      dispatch(updateDefinition(definitionId, definition));
-      dispatch(
-        showNotification(
-          "Your changes have been saved.",
-          "success"
-        )
-      );
-    })
-  };
-}
-
-export function removeDefinition(definitionId) {
-  return (dispatch, getState) => {
-    const db = firebase.database();
-    const state = getState();
-    const pageId = state.page.data.id;
-
-    db.ref(`pages/${pageId}/definitions/`).update({[definitionId]: null}, error => {
-      if (error) {
-        return dispatch(
-          showNotification(
-            `There was an error saving your changes: ${error}`,
-            "success"
-          )
-        );
-      }
-
-      let allDefinitions = { ...state.page.data.definitions };
-      delete allDefinitions[definitionId];
-
-      dispatch(setDefinitions(allDefinitions));
-      dispatch(
-        showNotification(
-          "Your changes have been saved. Publish your changes to make them public.",
-          "success"
-        )
-      );
-    })
-  };
 }
 
 export function savePage(pageData, pageId) {
