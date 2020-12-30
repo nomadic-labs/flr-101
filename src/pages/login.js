@@ -38,10 +38,12 @@ class LoginPage extends React.Component {
         if (user) {
           const ref = firebase
             .app()
-            .database()
-            .ref(`users/${user.uid}`);
-          ref.once("value").then(snapshot => {
-            const userData = snapshot.val();
+            .firestore()
+            .collection('users')
+            .doc(user.uid);
+
+          ref.get().then(snapshot => {
+            const userData = snapshot.data();
             if (userData) {
               this.props.userLoggedIn(userData);
             } else {

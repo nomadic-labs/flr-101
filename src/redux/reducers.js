@@ -79,10 +79,7 @@ export const page = (state={}, action) => {
         ...state,
         data: {
           ...state.data,
-          content: {
-            ...state.data.content,
-            [action.contentId]: action.content
-          }
+          content: action.content
         }
       }
 

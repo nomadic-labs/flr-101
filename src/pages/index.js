@@ -6,7 +6,7 @@ import { EditableText, EditableParagraph,  } from "react-easy-editables";
 import ExpandableText from "../components/common/ExpandableText"
 
 import {
-  updatePage,
+  updatePageContent,
   loadPageData,
 } from "../redux/actions";
 
@@ -17,8 +17,8 @@ import verticalHeader from "../assets/images/header-vertical.jpg"
 
 const mapDispatchToProps = dispatch => {
   return {
-    onUpdatePageData: (page, id, data) => {
-      dispatch(updatePage(page, id, data));
+    onUpdatePageData: (id, data) => {
+      dispatch(updatePageContent(id, data));
     },
     onLoadPageData: data => {
       dispatch(loadPageData(data));
@@ -46,7 +46,7 @@ class HomePage extends React.Component {
   }
 
   onSave = id => content => {
-    this.props.onUpdatePageData("nawl", id, content);
+    this.props.onUpdatePageData(id, content);
   };
 
   render() {

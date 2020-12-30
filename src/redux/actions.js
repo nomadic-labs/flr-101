@@ -1,6 +1,6 @@
 import axios from "axios";
 import firebase from "../firebase/init";
-import { copyContentFromStaging } from "../firebase/operations"
+// import { copyContentFromStaging } from "../firebase/operations"
 import { NOTIFICATION_MESSAGES } from "../utils/constants";
 
 
@@ -67,18 +67,6 @@ export function deleteContentItem(sectionIndex, contentIndex) {
   return { type: "DELETE_CONTENT_ITEM", sectionIndex, contentIndex };
 }
 
-export function addSidebarContent(sectionIndex, contentType) {
-  return { type: "ADD_SIDEBAR_CONTENT", sectionIndex, contentType };
-}
-
-export function updateSidebarContent(sectionIndex, content) {
-  return { type: "UPDATE_SIDEBAR_CONTENT", sectionIndex, content};
-}
-
-export function deleteSidebarContent(sectionIndex) {
-  return { type: "DELETE_SIDEBAR_CONTENT", sectionIndex };
-}
-
 export function toggleEditing() {
   return { type: "TOGGLE_EDITING" };
 }
@@ -95,14 +83,6 @@ export function updatePageHeaderImage(content) {
   return { type: "UPDATE_PAGE_HEADER_IMAGE", content };
 }
 
-export function updateFootnote(id, footnote) {
-  return { type: "UPDATE_FOOTNOTE", id, footnote }
-}
-
-export function setFootnotes(footnotes) {
-  return { type: "SET_FOOTNOTES", footnotes }
-}
-
 export function updatePageContentState(location, content) {
   return { type: "UPDATE_PAGE_CONTENT", location, content };
 }
@@ -111,19 +91,12 @@ export function setPageContentState(location, content) {
   return { type: "SET_PAGE_CONTENT", location, content };
 }
 
-export function updateDefinition(id, definition) {
-  return { type: "UPDATE_DEFINITION", id, definition }
-}
-
-export function setDefinitions(definitions) {
-  return { type: "SET_DEFINITIONS", definitions }
-}
-
 export function savePage(pageData, pageId) {
   return dispatch => {
-    const db = firebase.database();
+    const db = firebase.firestore();
     db
-      .ref(`pages/${pageId}/`)
+      .collection('pages')
+      .doc(pageId)
       .update(pageData)
       .then(snap => {
         dispatch(toggleNewPageModal());
@@ -139,112 +112,135 @@ export function savePage(pageData, pageId) {
 
 
 // rename to updateContent
-export function updatePage(pageId, contentId, content) {
-  return dispatch => {
-    const db = firebase.database();
+export function updatePageContent(key, newContent) {
+  console.log({ [key]: newContent })
+  return (dispatch, getState) => {
+    const db = firebase.firestore();
+    const pageId = getState().page.data.id;
+    const content = { ...getState().page.data.content };
 
-    db.ref(`pages/${pageId}/content/${contentId}/`).update(content, error => {
-      if (error) {
-        return dispatch(
+    if (!newContent) {
+      delete content[key]
+    } else {
+      content[key] = newContent
+    }
+
+    db
+      .collection('pages')
+      .doc(pageId)
+      .update({ content: JSON.stringify(content) })
+      .then(res => {
+        console.log({ res })
+        dispatch(updatePageData(content));
+        dispatch(
+          showNotification(
+            "Your changes have been saved. Publish your changes to make them public.",
+            "success"
+          )
+        )
+      })
+      .catch(error => {
+        dispatch(
           showNotification(
             `There was an error saving your changes: ${error}`,
             "success"
           )
         );
-      }
-
-      dispatch(updatePageData(contentId, content));
-      dispatch(
-        showNotification(
-          "Your changes have been saved. Publish your changes to make them public.",
-          "success"
-        )
-      );
-    });
+      })
   };
 }
 
 export function updateTitle(title) {
   return (dispatch, getState) => {
-    const db = firebase.database();
+    const db = firebase.firestore();
     const pageId = getState().page.data.id;
 
-    db.ref(`pages/${pageId}/`).update({ title }, error => {
-      if (error) {
-        return dispatch(
+    db
+      .collection('pages')
+      .doc(pageId)
+      .update({ title })
+      .then(() => {
+        dispatch(updatePageTitle(title));
+        dispatch(
+          showNotification(
+            "Your changes have been saved. Publish your changes to make them public.",
+            "success"
+          )
+        )
+      })
+      .catch(error => {
+        dispatch(
           showNotification(
             `There was an error saving your changes: ${error}`,
             "success"
           )
         );
-      }
-
-      dispatch(updatePageTitle(title));
-      dispatch(
-        showNotification(
-          "Your changes have been saved. Publish your changes to make them public.",
-          "success"
-        )
-      );
-    });
+      })
   };
 }
 
 export function updateHeaderImage(content) {
   return (dispatch, getState) => {
-    const db = firebase.database();
+    const db = firebase.firestore();
     const pageId = getState().page.data.id;
 
-    db.ref(`pages/${pageId}/content/`).update({ "headerImage": content }, error => {
-      if (error) {
-        return dispatch(
+    db
+      .collection('pages')
+      .doc(pageId)
+      .update({ headerImage: content })
+      .then(() => {
+        dispatch(updatePageHeaderImage(content));
+        dispatch(
+          showNotification(
+            "Your changes have been saved. Publish your changes to make them public.",
+            "success"
+          )
+        )
+      })
+      .catch(error => {
+        dispatch(
           showNotification(
             `There was an error saving your changes: ${error}`,
             "success"
           )
         );
-      }
-
-      dispatch(updatePageHeaderImage(content));
-      dispatch(
-        showNotification(
-          "Your changes have been saved. Publish your changes to make them public.",
-          "success"
-        )
-      );
-    });
+      })
   };
 }
 
 export function deleteHeaderImage() {
   return (dispatch, getState) => {
-    const db = firebase.database();
+    const db = firebase.firestore();
+    const FieldValue = firebase.firestore.FieldValue;
     const pageId = getState().page.data.id;
 
-    db.ref(`pages/${pageId}/content/`).update({ "headerImage": null }, error => {
-      if (error) {
-        return dispatch(
+    db
+      .collection('pages')
+      .doc(pageId)
+      .update({ 'content.headerImage': FieldValue.delete() })
+      .then(() => {
+        dispatch(updatePageHeaderImage({ imageSrc: null, title: null }));
+        dispatch(
+          showNotification(
+            "Your changes have been saved. Publish your changes to make them public.",
+            "success"
+          )
+        )
+      })
+      .catch(error => {
+        dispatch(
           showNotification(
             `There was an error saving your changes: ${error}`,
             "success"
           )
         );
-      }
-
-      dispatch(updatePageHeaderImage({ imageSrc: null }));
-      dispatch(
-        showNotification(
-          "Your changes have been saved. Publish your changes to make them public.",
-          "success"
-        )
-      );
-    });
+      })
   };
 }
 
 export function updateFirebaseData(updates, callback=null) {
   return (dispatch, getState) => {
-    const db = firebase.database();
+    const db = firebase.firestore();
     console.log(updates)
 
     db.ref().update(updates, error => {
@@ -272,64 +268,6 @@ export function updateFirebaseData(updates, callback=null) {
   };
 }
 
-export function pushContentItem(location, content) {
-  return (dispatch, getState) => {
-    const db = firebase.database();
-    const pageId = getState().page.data.id;
-    const newKey = db.ref(`pages/${pageId}/content/${location}/`).push().key;
-    const newItem = { [newKey]: content }
-
-    db.ref(`pages/${pageId}/content/${location}/`).update(newItem, error => {
-      if (error) {
-        return dispatch(
-          showNotification(
-            `There was an error saving your changes: ${error}`,
-            "success"
-          )
-        );
-      }
-
-      dispatch(updatePageContentState(location, newItem));
-      dispatch(
-        showNotification(
-          "Your changes have been saved. Publish your changes to make them public.",
-          "success"
-        )
-      );
-    })
-  };
-}
-
-export function removeContentItem(location, itemId) {
-  return (dispatch, getState) => {
-    const db = firebase.database();
-    const state = getState();
-    const pageId = state.page.data.id;
-
-    db.ref(`pages/${pageId}/content/${location}/`).update({[itemId]: null}, error => {
-      if (error) {
-        return dispatch(
-          showNotification(
-            `There was an error saving your changes: ${error}`,
-            "success"
-          )
-        );
-      }
-
-      const newContent = { ...state.page.data.content[location] }
-      delete newContent[itemId]
-
-      dispatch(setPageContentState(location, newContent));
-      dispatch(
-        showNotification(
-          "Your changes have been saved. Publish your changes to make them public.",
-          "success"
-        )
-      );
-    })
-  };
-}
-
 export function savePageContent(innerFunction) {
   return (dispatch, getState) => {
     Promise.resolve(dispatch(innerFunction)).then(() => {
@@ -339,12 +277,12 @@ export function savePageContent(innerFunction) {
       console.log("content", content)
       console.log("pageId", pageId)
 
-      const db = firebase.database();
+      const db = firebase.firestore();
 
-      db.ref(`pages/${pageId}/content/`)
-        .update(content)
+      db.collection('pages')
+        .doc(pageId)
+        .update({ content })
         .then(res => {
-          console.log('res', res)
           dispatch(
             showNotification(
               "Your changes have been saved. Publish your changes to make them public.",
@@ -409,35 +347,35 @@ export function deploy() {
   };
 }
 
-export function deployWithStagingContent() {
-  return dispatch => {
-    copyContentFromStaging()
-      .then(() => {
-        dispatch(
-          showNotification(
-            "Your content has been copied from the staging site.",
-            "success"
-          )
-        );
-        dispatch(deploy())
-      })
-      .catch(err => {
-        dispatch(
-          showNotification(
-            `There was an error copying the content from the staging site: ${err}`,
-            "danger"
-          )
-        );
-      })
-  }
-}
+// export function deployWithStagingContent() {
+//   return dispatch => {
+//     copyContentFromStaging()
+//       .then(() => {
+//         dispatch(
+//           showNotification(
+//             "Your content has been copied from the staging site.",
+//             "success"
+//           )
+//         );
+//         dispatch(deploy())
+//       })
+//       .catch(err => {
+//         dispatch(
+//           showNotification(
+//             `There was an error copying the content from the staging site: ${err}`,
+//             "danger"
+//           )
+//         );
+//       })
+//   }
+// }
 
 export function loadPageData(data) {
   return { type: "LOAD_PAGE_DATA", data };
 }
 
-export function updatePageData(contentId, content) {
-  return { type: "UPDATE_PAGE_DATA", contentId, content };
+export function updatePageData(content) {
+  return { type: "UPDATE_PAGE_DATA", content };
 }
 
 export function updatePageField(field, value) {
@@ -454,13 +392,15 @@ export function setOrderedPages(orderedPages) {
 
 export function fetchPages() {
   return (dispatch, getState) => {
-    const db = firebase.database();
+    const db = firebase.firestore();
 
-    db.ref(`pages`)
-      .once('value')
-      .then(snap => {
-        const pages = Object.entries(snap.val()).reduce((obj, [id, page]) => {
-          obj[id] = {...page, id}
+    db.collection('pages')
+      .get()
+      .then(snapshot => {
+        console.log(snapshot)
+        const pages = snapshot.reduce((obj, doc) => {
+          const pageData = doc.data()
+          obj[doc.id] = { ...pageData, id: doc.id }
           return obj
         }, {})
 
@@ -494,98 +434,6 @@ export function setCurrentLang(currentLang) {
 }
 
 
-// TOPICS ------------------------
-
-export function selectTopic(selected) {
-  return { type: "SELECT_TOPIC", selected };
-}
-
-export function unselectTopic(selected) {
-  return { type: "UNSELECT_TOPIC", selected };
-}
-
-export function addTopic(topic) {
-  return { type: "ADD_TOPIC", topic }
-}
-
-export function deleteTopic(topic) {
-  return { type: "DELETE_TOPIC", topic }
-}
-
-export function setTopics(topics) {
-  return { type: "SET_TOPICS", topics }
-}
-
-export function fetchTopics() {
-  return (dispatch, getState) => {
-    const db = firebase.database();
-
-    db.ref(`topics`)
-      .once('value')
-      .then(snap => {
-        dispatch(setTopics(snap.val()));
-      })
-      .catch(error => {
-        console.log("Error fetching topics", error)
-      })
-  };
-}
-
-export function pushTopic(topic) {
-  return (dispatch, getState) => {
-    const db = firebase.database();
-
-    db.ref(`topics/${topic.id}`).update(topic, error => {
-      if (error) {
-        return dispatch(
-          showNotification(
-            `There was an error saving your changes: ${error}`,
-            "error"
-          )
-        );
-      }
-
-      dispatch(addTopic(topic));
-      dispatch(
-        showNotification(
-          "Your changes have been saved.",
-          "success"
-        )
-      );
-    })
-  };
-}
-
-export function removeTopic(topicId) {
-  return (dispatch, getState) => {
-    const db = firebase.database();
-    const state = getState();
-
-    db.ref(`topics/`).update({[topicId]: null}, error => {
-      if (error) {
-        return dispatch(
-          showNotification(
-            `There was an error saving your changes: ${error}`,
-            "success"
-          )
-        );
-      }
-
-      let allTopics = { ...state.topics.topics };
-      delete allTopics[topicId]
-
-      dispatch(setTopics(allTopics));
-      dispatch(
-        showNotification(
-          "Your changes have been saved. Publish your changes to make them public.",
-          "success"
-        )
-      );
-    })
-  };
-}
-
-
 // CATEGORIES ------------------------
 
 export function selectCategory(selected) {
@@ -604,6 +452,8 @@ export function setCategories(categories) {
   return { type: "SET_CATEGORIES", categories }
 }
 
+// TRANSLATIONS ------------------------
+
 export function updateTranslationState(translation) {
   return { type: "UPDATE_TRANSLATION_STATE", translation}
 }
@@ -611,12 +461,13 @@ export function updateTranslationState(translation) {
 
 export function fetchTranslations() {
   return (dispatch, getState) => {
-    const db = firebase.database();
+    const db = firebase.firestore();
 
-    db.ref(`translations`)
-      .once('value')
+    db
+      .collection('translations')
+      .get()
       .then(snap => {
-        dispatch(setTranslations(snap.val()));
+        dispatch(setTranslations(snap))
       })
       .catch(error => {
         console.log("Error fetching translations", error)
@@ -626,55 +477,29 @@ export function fetchTranslations() {
 
 export function updateTranslation(translation) {
   return (dispatch, getState) => {
-    const db = firebase.database();
+    const db = firebase.firestore();
 
-    db.ref(`translations/${translation.id}`).update(translation, error => {
-      if (error) {
-        return dispatch(
+    db
+      .collection('translations')
+      .doc(translation.id)
+      .update(translation)
+      .then(res => {
+        dispatch(updateTranslationState(translation));
+        dispatch(
+          showNotification(
+            "Your changes have been saved.",
+            "success"
+          )
+        );
+      })
+      .catch(error => {
+        dispatch(
           showNotification(
             `There was an error saving your changes: ${error}`,
             "error"
           )
         );
-      }
-
-      dispatch(updateTranslationState(translation));
-      dispatch(
-        showNotification(
-          "Your changes have been saved.",
-          "success"
-        )
-      );
-    })
-  };
-}
-
-export function removeCategory(categoryId) {
-  return (dispatch, getState) => {
-    const db = firebase.database();
-    const state = getState();
-
-    db.ref(`categories/`).update({[categoryId]: null}, error => {
-      if (error) {
-        return dispatch(
-          showNotification(
-            `There was an error saving your changes: ${error}`,
-            "success"
-          )
-        );
-      }
-
-      let allCategories = { ...state.categories.categories };
-      delete allCategories[categoryId]
-
-      dispatch(setCategories(allCategories));
-      dispatch(
-        showNotification(
-          "Your changes have been saved. Publish your changes to make them public.",
-          "success"
-        )
-      );
-    })
+      })
   };
 }
 

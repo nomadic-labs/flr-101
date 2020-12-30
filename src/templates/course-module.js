@@ -10,11 +10,9 @@ import { EditableImageUpload } from "react-easy-editables";
 import { uploadFile } from "../aws/operations";
 
 import {
-  updatePage,
+  updatePageContent,
   loadPageData,
   updateTitle,
-  updateHeaderImage,
-  deleteHeaderImage
 } from "../redux/actions";
 
 import Layout from "../layouts/default.js";
@@ -25,21 +23,15 @@ import T from "../components/common/Translation"
 
 const mapDispatchToProps = dispatch => {
   return {
-    onUpdatePageData: (page, id, data) => {
-      dispatch(updatePage(page, id, data));
+    onUpdatePageContent: (id, data) => {
+      dispatch(updatePageContent(id, data));
     },
     onLoadPageData: data => {
       dispatch(loadPageData(data));
     },
     onUpdateTitle: title => {
       dispatch(updateTitle(title));
-    },
-    onUpdateHeaderImage: image => {
-      dispatch(updateHeaderImage(image));
-    },
-    onDeleteHeaderImage: () => {
-      dispatch(deleteHeaderImage());
-    },
+    }
   };
 };
 
@@ -70,7 +62,7 @@ class CourseModulePage extends React.Component {
   }
 
   onSave = id => content => {
-    this.props.onUpdatePageData(this.props.data.pages.id, id, content);
+    this.props.onUpdatePageContent(id, content);
   };
 
   onUpdateTitle = content => {
@@ -78,11 +70,12 @@ class CourseModulePage extends React.Component {
   }
 
   onUpdateHeaderImage = content => {
-    this.props.onUpdateHeaderImage(content)
+    const headerObj = { imageSrc: content.imageSrc, title: content.title }
+    this.props.onUpdatePageContent('headerImage', headerObj);
   }
 
   onDeleteHeaderImage = () => {
-    this.props.onDeleteHeaderImage()
+    this.props.onUpdatePageContent('headerImage', null);
   }
 
   render() {
