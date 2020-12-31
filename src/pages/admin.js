@@ -22,6 +22,9 @@ import {
   fetchTranslations,
   updateTranslation,
   updateFirebaseData,
+  incrementPageOrder,
+  decrementPageOrder,
+  deletePage,
   deploy,
 } from "../redux/actions";
 
@@ -43,6 +46,15 @@ const mapDispatchToProps = dispatch => {
     deploy: () => {
       dispatch(deploy())
     },
+    incrementPageOrder: (current, next, prev) => {
+      dispatch(incrementPageOrder(current, next, prev))
+    },
+    decrementPageOrder: (current, prev, prevPrev) => {
+      dispatch(decrementPageOrder(current, prev, prevPrev))
+    },
+    deletePage: (page, next, prev, all) => {
+      dispatch(deletePage(page,next,prev,all))
+    }
   };
 };
 
@@ -96,21 +108,7 @@ class AdminPage extends React.Component {
     const nextPage = this.nextPage(currentPage)
     const prevPage = this.prevPage(currentPage)
 
-    let dataToUpdate = {
-      [`pages/${currentPage.id}/next`]: nextPage.next || null,
-      [`pages/${nextPage.id}/next`]: currentPage.id,
-    }
-
-    if (currentPage.head) {
-      dataToUpdate[`pages/${nextPage.id}/head`] = true
-      dataToUpdate[`pages/${currentPage.id}/head`] = null
-    }
-
-    if (prevPage) {
-      dataToUpdate[`pages/${prevPage.id}/next`] = nextPage.id
-    }
-
-    this.props.updateFirebaseData(dataToUpdate, this.props.fetchPages)
+    this.props.incrementPageOrder(currentPage, nextPage, prevPage)
   }
 
   movePageBack = currentPage => () => {
@@ -119,21 +117,7 @@ class AdminPage extends React.Component {
 
     const prevPrevPage = this.prevPage(prevPage)
 
-    let dataToUpdate = {
-      [`pages/${currentPage.id}/next`]: prevPage.id,
-      [`pages/${prevPage.id}/next`]: currentPage.next || null,
-    }
-
-    if (prevPage.head) {
-      dataToUpdate[`pages/${currentPage.id}/head`] = true
-      dataToUpdate[`pages/${prevPage.id}/head`] = null
-    }
-
-    if (prevPrevPage) {
-      dataToUpdate[`pages/${prevPrevPage.id}/next`] = currentPage.id
-    }
-
-    this.props.updateFirebaseData(dataToUpdate, this.props.fetchPages)
+    this.props.decrementPageOrder(currentPage, prevPage, prevPrevPage)
   }
 
   deletePage = page => () => {
@@ -146,29 +130,7 @@ class AdminPage extends React.Component {
     const prevPage = this.prevPage(page)
     const nextPage = this.nextPage(page)
 
-    let dataToUpdate = {
-      [`pages/${page.id}`]: null,
-    }
-
-    if (prevPage) {
-      dataToUpdate[`pages/${prevPage.id}/next`] = page.next || null
-    }
-
-    if (page.head && nextPage) {
-      dataToUpdate[`pages/${nextPage.id}/head`] = true
-    }
-
-    if (page.translations) {
-      Object.keys(page.translations).forEach(lang => {
-        if (page.translations[lang]) {
-          const translatedPageId = page.translations[lang].id
-          console.log("translatedPageId", translatedPageId)
-          console.log("page.lang", page.lang)
-          dataToUpdate[`pages/${translatedPageId}/translations/${page.lang}`] = null
-        }
-      })
-    }
-    this.props.updateFirebaseData(dataToUpdate, this.props.fetchPages)
+    this.props.deletePage(page, nextPage, prevPage, this.props.pages)
   }
 
   onSaveTranslationChanges = (translation, translationId, lang) => newContent => {
@@ -249,11 +211,11 @@ class AdminPage extends React.Component {
                 <Grid item xs={6}><h4>French</h4></Grid>
               </Grid>
               {
-                map(this.props.translations, (translation, translationId) => {
+                map(this.props.translations, (translation) => {
                   return(
-                    <Grid container className="translation-item" key={translationId}>
-                      <Grid item xs={6}><EditableText content={{ text: translation.en }} onSave={this.onSaveTranslationChanges(translation, translationId, "en")} /></Grid>
-                      <Grid item xs={6}><EditableText content={{ text: translation.fr }} onSave={this.onSaveTranslationChanges(translation, translationId, "fr")} /></Grid>
+                    <Grid container className="translation-item" key={translation.id}>
+                      <Grid item xs={6}><EditableText content={{ text: translation.en }} onSave={this.onSaveTranslationChanges(translation, translation.id, "en")} /></Grid>
+                      <Grid item xs={6}><EditableText content={{ text: translation.fr }} onSave={this.onSaveTranslationChanges(translation, translation.id, "fr")} /></Grid>
                     </Grid>
                   )
                 })

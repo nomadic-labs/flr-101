@@ -115,6 +115,12 @@ const mapDispatchToProps = dispatch => {
 
 
 class DefaultLayout extends React.Component {
+  constructor(props) {
+    super(props)
+    this.props.setPages(this.props.allPages)
+    this.props.setTranslations(this.props.allTranslations)
+  }
+
   componentDidMount() {
     const currentLang = this.props.pageData ? this.props.pageData.lang : "en";
     const modulePages = filter(this.props.allPages, page => (page.category === "modules" && page.lang === currentLang))
@@ -122,8 +128,6 @@ class DefaultLayout extends React.Component {
 
     this.props.setOrderedPages(orderedPages)
     this.props.setCurrentLang(currentLang)
-    this.props.setPages(this.props.allPages)
-    this.props.setTranslations(this.props.allTranslations)
     AOS.init({ delay: 50, duration: 400 })
   }
 

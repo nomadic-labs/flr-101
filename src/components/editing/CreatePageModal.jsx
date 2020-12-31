@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import {
   toggleNewPageModal,
   savePage,
-  updateFirebaseData,
+  updateFirestoreDoc,
   fetchPages,
 } from "../../redux/actions";
 
@@ -41,8 +41,8 @@ const mapDispatchToProps = dispatch => {
     onToggleNewPageModal: () => {
       dispatch(toggleNewPageModal());
     },
-    updateFirebaseData: (data, callback) => {
-      dispatch(updateFirebaseData(data, callback))
+    updateFirestoreDoc: (pageId, data) => {
+      dispatch(updateFirestoreDoc(pageId, data))
     },
     savePage: (pageData, pageId) => {
       dispatch(savePage(pageData, pageId));
@@ -58,8 +58,7 @@ const emptyPage = {
     description: "",
     category: CATEGORY_OPTIONS[0].value,
     lang: LANGUAGE_OPTIONS[0].value,
-    type: PAGE_TYPES[0].value,
-    content: defaultContentJSON,
+    content: JSON.stringify(defaultContentJSON),
     template: PAGE_TYPES[0].value.template,
   }
 
@@ -91,7 +90,7 @@ class CreatePageModal extends React.Component {
         const newPage = {
           ...this.props.page,
           title: `${this.props.page.title} (copy)`,
-          translations: null,
+          translation: null,
           next: null,
         }
         this.setState({ page: newPage, errors: {} })
@@ -131,10 +130,6 @@ class CreatePageModal extends React.Component {
       })
     }
 
-    const prevPage = find(this.props.pages, (page => page.category === this.state.page.category && page.lang === this.state.page.lang && !page.next));
-
-    console.log("PREV PAGE for duplication or new page", prevPage)
-
     let pageData = {
       ...this.state.page,
       id: pageId,
@@ -144,10 +139,10 @@ class CreatePageModal extends React.Component {
 
     this.props.savePage(pageData, pageId);
 
-    if (this.state.page.category !== CATEGORY_OPTIONS[1].value && prevPage) { // don't add next page for uncategorized pages
-      this.props.updateFirebaseData({
-        [`pages/${prevPage.id}/next`]: pageId,
-      })
+    const prevPage = find(this.props.pages, (page => page.category === this.state.page.category && page.lang === this.state.page.lang && !page.next));
+
+    if (prevPage && this.state.page.category !== 'uncategorized') { // don't add next page for uncategorized pages
+      this.props.updateFirestoreDoc(prevPage.id, { next: pageId })
     }
   }
 
@@ -172,39 +167,22 @@ class CreatePageModal extends React.Component {
 
     const prevPage = find(this.props.pages, (page => page.category === this.state.page.category && page.lang === this.state.page.lang && !page.next));
 
-    console.log("PREV PAGE for translation", prevPage)
-
     let pageData = {
       ...this.state.page,
+      content: JSON.stringify(this.state.page.content),
       id: pageId,
       slug: `/${this.state.page.lang}/${pageId}`,
       next: null,
-      translations: {
-        ...this.props.page.translations,
-        [this.props.page.lang]: {
-          id: this.props.page.id,
-          slug: this.props.page.slug
-        }
-      }
+      translation: this.props.page.slug
     };
 
     this.props.savePage(pageData, pageId);
 
-    if (this.state.page.category !== CATEGORY_OPTIONS[1].value && prevPage) { // don't add next page for uncategorized pages
-      this.props.updateFirebaseData({
-        [`pages/${prevPage.id}/next`]: pageId,
-      })
+    if (prevPage && this.state.page.category !== 'uncategorized') { // don't add next page for uncategorized pages
+      this.props.updateFirestoreDoc(prevPage.id, { next: pageId })
     }
 
-    this.props.updateFirebaseData({
-      [`pages/${this.props.page.id}/translations`]: {
-        ...this.props.page.translations,
-        [this.state.page.lang]: {
-          id: pageId,
-          slug: pageData.slug,
-        }
-      },
-    })
+    this.props.updateFirestoreDoc(this.props.page.id, { translation: pageData.slug })
   }
 
   _onSubmit() {

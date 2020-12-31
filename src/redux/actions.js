@@ -97,7 +97,7 @@ export function savePage(pageData, pageId) {
     db
       .collection('pages')
       .doc(pageId)
-      .update(pageData)
+      .set(pageData)
       .then(snap => {
         dispatch(toggleNewPageModal());
         dispatch(
@@ -303,6 +303,33 @@ export function savePageContent(innerFunction) {
   };
 }
 
+export function updateFirestoreDoc(pageId, data) {
+  return (dispatch, getState) => {
+    const db = firebase.firestore();
+
+    db.collection('pages')
+      .doc(pageId)
+      .update(data)
+      .then(res => {
+        dispatch(
+          showNotification(
+            "Your changes have been saved. Publish your changes to make them public.",
+            "success"
+          )
+        );
+      })
+      .catch(error => {
+        console.log('error', error)
+        return dispatch(
+          showNotification(
+            `There was an error saving your changes: ${error}`,
+            "success"
+          )
+        );
+      })
+  };
+}
+
 export function deploy() {
   return dispatch => {
     const url = `${process.env.GATSBY_DEPLOY_ENDPOINT}`;
@@ -396,19 +423,136 @@ export function fetchPages() {
 
     db.collection('pages')
       .get()
-      .then(snapshot => {
-        console.log(snapshot)
-        const pages = snapshot.reduce((obj, doc) => {
-          const pageData = doc.data()
-          obj[doc.id] = { ...pageData, id: doc.id }
+      .then(snap => {
+        const pagesArr = snap.docs.map(d => ({ ...d.data(), id: d.id }))
+        const pages = pagesArr.reduce((obj, page) => {
+          obj[page.id] = page
           return obj
         }, {})
 
-        console.log("Fetched pages", pages)
         dispatch(setPages(pages));
       })
       .catch(error => {
         console.log("Error fetching pages", error)
+      })
+  };
+}
+
+export function incrementPageOrder(currentPage, nextPage, prevPage) {
+  return (dispatch, getState) => {
+    const db = firebase.firestore();
+    const batch = db.batch();
+    const FieldValue = firebase.firestore.FieldValue;
+
+    const currentPageRef = db.collection('pages').doc(currentPage.id)
+    const nextPageRef = db.collection('pages').doc(nextPage.id)
+    const prevPageRef = prevPage ? db.collection('pages').doc(prevPage.id) : null
+
+    batch.update(currentPageRef, { next: nextPage.next || FieldValue.delete() })
+    batch.update(nextPageRef, { next: currentPage.id })
+
+    if (currentPage.head) {
+      batch.update(nextPageRef, { head: true })
+      batch.update(currentPageRef, { head: FieldValue.delete() })
+    }
+
+    if (prevPageRef) {
+      batch.update(prevPageRef, { next: nextPage.id })
+    }
+
+    batch
+      .commit()
+      .then(() => {
+        dispatch(fetchPages());
+        dispatch(showNotification("Your changes have been saved."));
+      })
+      .catch(error => {
+        dispatch(
+          showNotification(
+            `There was an error saving your changes: ${error}`,
+            "error"
+          )
+        );
+      })
+  };
+}
+
+export function decrementPageOrder(currentPage, prevPage, prevPrevPage) {
+  return (dispatch, getState) => {
+    const db = firebase.firestore();
+    const batch = db.batch();
+    const FieldValue = firebase.firestore.FieldValue;
+
+    const currentPageRef = db.collection('pages').doc(currentPage.id)
+    const prevPageRef = db.collection('pages').doc(prevPage.id)
+    const prevPrevPageRef = prevPrevPage ? db.collection('pages').doc(prevPrevPage.id) : null
+
+    batch.update(currentPageRef, { next: prevPage.id })
+    batch.update(prevPageRef, { next: currentPage.next || FieldValue.delete() })
+
+    if (prevPage.head) {
+      batch.update(currentPageRef, { head: true })
+      batch.update(prevPageRef, { head: FieldValue.delete() })
+    }
+
+    if (prevPrevPageRef) {
+      batch.update(prevPrevPageRef, { next: currentPage.id })
+    }
+
+    batch
+      .commit()
+      .then(() => {
+        dispatch(fetchPages());
+        dispatch(showNotification("Your changes have been saved."));
+      })
+      .catch(error => {
+        dispatch(
+          showNotification(
+            `There was an error saving your changes: ${error}`,
+            "error"
+          )
+        );
+      })
+  };
+}
+
+export function deletePage(page, nextPage, prevPage, allPages) {
+  return (dispatch, getState) => {
+    const db = firebase.firestore();
+    const batch = db.batch();
+    const FieldValue = firebase.firestore.FieldValue;
+
+    batch.delete(db.collection('pages').doc(page.id))
+
+    if (prevPage) {
+      const prevPageRef = db.collection('pages').doc(prevPage.id)
+      batch.update(prevPageRef, { next: page.next || FieldValue.delete() })
+    }
+
+    if (page.head && nextPage) {
+      const nextPageRef = db.collection('pages').doc(nextPage.id)
+      batch.update(nextPageRef, { head: true })
+    }
+
+    const transPageIds = Object.keys(allPages).filter(key => allPages[key].translation === page.slug)
+    console.log({transPageIds})
+    transPageIds.forEach(id => {
+      batch.update(db.collection('pages').doc(id), { translation: FieldValue.delete() })
+    })
+
+    batch
+      .commit()
+      .then(() => {
+        dispatch(fetchPages());
+        dispatch(showNotification("Your changes have been saved."));
+      })
+      .catch(error => {
+        dispatch(
+          showNotification(
+            `There was an error saving your changes: ${error}`,
+            "error"
+          )
+        );
       })
   };
 }
@@ -467,7 +611,12 @@ export function fetchTranslations() {
       .collection('translations')
       .get()
       .then(snap => {
-        dispatch(setTranslations(snap))
+        const transArr = snap.docs.map(d => ({ ...d.data(), id: d.id }))
+        const transObj = transArr.reduce((obj, t) => {
+          obj[t.id] = t
+          return obj
+        }, {})
+        dispatch(setTranslations(transObj))
       })
       .catch(error => {
         console.log("Error fetching translations", error)
@@ -484,7 +633,7 @@ export function updateTranslation(translation) {
       .doc(translation.id)
       .update(translation)
       .then(res => {
-        dispatch(updateTranslationState(translation));
+        dispatch(fetchTranslations());
         dispatch(
           showNotification(
             "Your changes have been saved.",
