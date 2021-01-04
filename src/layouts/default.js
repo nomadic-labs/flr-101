@@ -155,7 +155,6 @@ class DefaultLayout extends React.Component {
 
   render() {
     const { props } = this;
-    console.log({ props })
     return(
       <div style={styles.container} className={`nl-page ${props.className || ""}`}>
         <Helmet>
