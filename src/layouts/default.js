@@ -155,15 +155,16 @@ class DefaultLayout extends React.Component {
 
   render() {
     const { props } = this;
+    console.log({ props })
     return(
       <div style={styles.container} className={`nl-page ${props.className || ""}`}>
         <Helmet>
           <title>
-            {props.pageData.title || "Feminist Law Reform 101 | Réforme Féministe du Droit"}
+            {props.pageData ? props.pageData.title : "Feminist Law Reform 101 | Réforme Féministe du Droit"}
           </title>
           <meta
             charSet="utf-8"
-            description={props.pageData.description || "Feminist Law Reform 101 | Réforme Féministe du Droit" }
+            description={props.pageData ? props.pageData.description : "Feminist Law Reform 101 | Réforme Féministe du Droit" }
             keywords="feminist law reform, réforme féministe du droit, law reform, NAWL, National Association of Women and the Law, FLR 101"
             viewport="width=device-width,initial-scale=1.0,maximum-scale=1"
           />
