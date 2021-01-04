@@ -58,7 +58,7 @@ const emptyPage = {
     description: "",
     category: CATEGORY_OPTIONS[0].value,
     lang: LANGUAGE_OPTIONS[0].value,
-    content: JSON.stringify(defaultContentJSON),
+    content: defaultContentJSON,
     template: PAGE_TYPES[0].value.template,
   }
 
@@ -130,11 +130,12 @@ class CreatePageModal extends React.Component {
       })
     }
 
-    let pageData = {
+    const pageData = {
       ...this.state.page,
       id: pageId,
       slug: `/${this.state.page.lang}/${pageId}`,
       next: null,
+      content: JSON.stringify(this.state.page.content),
     };
 
     this.props.savePage(pageData, pageId);
@@ -147,7 +148,11 @@ class CreatePageModal extends React.Component {
   }
 
   editPage = () => {
-    this.props.savePage(this.state.page, this.props.page.id);
+    const pageData = {
+      ...this.state.page,
+      content: JSON.stringify(this.state.page.content)
+    }
+    this.props.savePage(pageData, this.props.page.id);
   }
 
   translatePage = () => {

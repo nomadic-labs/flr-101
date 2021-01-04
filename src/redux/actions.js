@@ -1,5 +1,5 @@
 import axios from "axios";
-import firebase from "../firebase/init";
+import firebase, { firestore } from "../firebase/init";
 // import { copyContentFromStaging } from "../firebase/operations"
 import { NOTIFICATION_MESSAGES } from "../utils/constants";
 
@@ -93,7 +93,7 @@ export function setPageContentState(location, content) {
 
 export function savePage(pageData, pageId) {
   return dispatch => {
-    const db = firebase.firestore();
+    const db = firestore;
     db
       .collection('pages')
       .doc(pageId)
@@ -115,7 +115,7 @@ export function savePage(pageData, pageId) {
 export function updatePageContent(key, newContent) {
   console.log({ [key]: newContent })
   return (dispatch, getState) => {
-    const db = firebase.firestore();
+    const db = firestore;
     const pageId = getState().page.data.id;
     const content = { ...getState().page.data.content };
 
@@ -152,7 +152,7 @@ export function updatePageContent(key, newContent) {
 
 export function updateTitle(title) {
   return (dispatch, getState) => {
-    const db = firebase.firestore();
+    const db = firestore;
     const pageId = getState().page.data.id;
 
     db
@@ -181,7 +181,7 @@ export function updateTitle(title) {
 
 export function updateHeaderImage(content) {
   return (dispatch, getState) => {
-    const db = firebase.firestore();
+    const db = firestore;
     const pageId = getState().page.data.id;
 
     db
@@ -210,7 +210,7 @@ export function updateHeaderImage(content) {
 
 export function deleteHeaderImage() {
   return (dispatch, getState) => {
-    const db = firebase.firestore();
+    const db = firestore;
     const FieldValue = firebase.firestore.FieldValue;
     const pageId = getState().page.data.id;
 
@@ -240,7 +240,7 @@ export function deleteHeaderImage() {
 
 export function updateFirebaseData(updates, callback=null) {
   return (dispatch, getState) => {
-    const db = firebase.firestore();
+    const db = firestore;
     console.log(updates)
 
     db.ref().update(updates, error => {
@@ -277,11 +277,11 @@ export function savePageContent(innerFunction) {
       console.log("content", content)
       console.log("pageId", pageId)
 
-      const db = firebase.firestore();
+      const db = firestore;
 
       db.collection('pages')
         .doc(pageId)
-        .update({ content })
+        .update({ content: JSON.stringify(content) })
         .then(res => {
           dispatch(
             showNotification(
@@ -305,7 +305,7 @@ export function savePageContent(innerFunction) {
 
 export function updateFirestoreDoc(pageId, data) {
   return (dispatch, getState) => {
-    const db = firebase.firestore();
+    const db = firestore;
 
     db.collection('pages')
       .doc(pageId)
@@ -419,7 +419,7 @@ export function setOrderedPages(orderedPages) {
 
 export function fetchPages() {
   return (dispatch, getState) => {
-    const db = firebase.firestore();
+    const db = firestore;
 
     db.collection('pages')
       .get()
@@ -440,7 +440,7 @@ export function fetchPages() {
 
 export function incrementPageOrder(currentPage, nextPage, prevPage) {
   return (dispatch, getState) => {
-    const db = firebase.firestore();
+    const db = firestore;
     const batch = db.batch();
     const FieldValue = firebase.firestore.FieldValue;
 
@@ -479,7 +479,7 @@ export function incrementPageOrder(currentPage, nextPage, prevPage) {
 
 export function decrementPageOrder(currentPage, prevPage, prevPrevPage) {
   return (dispatch, getState) => {
-    const db = firebase.firestore();
+    const db = firestore;
     const batch = db.batch();
     const FieldValue = firebase.firestore.FieldValue;
 
@@ -518,7 +518,7 @@ export function decrementPageOrder(currentPage, prevPage, prevPrevPage) {
 
 export function deletePage(page, nextPage, prevPage, allPages) {
   return (dispatch, getState) => {
-    const db = firebase.firestore();
+    const db = firestore;
     const batch = db.batch();
     const FieldValue = firebase.firestore.FieldValue;
 
@@ -605,7 +605,7 @@ export function updateTranslationState(translation) {
 
 export function fetchTranslations() {
   return (dispatch, getState) => {
-    const db = firebase.firestore();
+    const db = firestore;
 
     db
       .collection('translations')
@@ -626,7 +626,7 @@ export function fetchTranslations() {
 
 export function updateTranslation(translation) {
   return (dispatch, getState) => {
-    const db = firebase.firestore();
+    const db = firestore;
 
     db
       .collection('translations')

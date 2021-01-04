@@ -24,7 +24,7 @@ import {
 import PopupNavigation from "./PopupNavigation"
 import T from "../common/Translation"
 
-import { LANGUAGE_OPTIONS, HOME_URLS } from "../../utils/constants"
+import { HOME_URLS } from "../../utils/constants"
 
 const isClient = typeof window !== 'undefined';
 
